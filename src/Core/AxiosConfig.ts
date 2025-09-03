@@ -1,11 +1,24 @@
-import axios from 'axios'
-import { envs } from '../config/env'
+import axios from "axios";
+import { envs } from "../config/env";
 
-const api = axios.create({
+const axiosInstance = axios.create({
   baseURL: envs.APIURL,
-    headers: {
-    'Content-Type': 'application/json',
-  }
-})
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export default api
+const getAccessToken = (): string | null => {
+  return localStorage.getItem("accessToken");
+};
+
+axiosInstance.interceptors.request.use((config) => {
+  const token = getAccessToken();
+  if (token) {
+    config.headers = config.headers || {};
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default axiosInstance
