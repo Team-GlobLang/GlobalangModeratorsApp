@@ -1,0 +1,31 @@
+{
+  "name": "globalang",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "@tailwindcss/vite": "^4.1.12",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.2",
+    "joi": "^18.0.1",
+    "tailwindcss": "^4.1.12",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1",
+    "vue3-hot-toast": "^0.0.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.2",
+    "vue-tsc": "^3.0.5"
+  }
+}
