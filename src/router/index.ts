@@ -1,13 +1,17 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HelloWorld from '../components/HelloWorld.vue';
-
+import { createRouter, createWebHistory } from "vue-router";
+import HelloWorld from "../components/HelloWorld.vue";
+import Home_Moderators from "../moderators/pages/Home_Moderators.vue";
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: HelloWorld
-  }
-  
+    path: "/",
+    name: "Home",
+    component: HelloWorld,
+  },
+  {
+    path: "/Home/moderator",
+    name: "Home_Moderator",
+    component: Home_Moderators,
+  },
 ];
 
 const router = createRouter({
