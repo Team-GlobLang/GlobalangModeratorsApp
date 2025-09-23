@@ -1,14 +1,15 @@
 import { useMutation } from "@tanstack/vue-query";
+import type { ColaboratorRequestForm } from "../interfaces/ColaboratorRequestInterface";
 import toast from "vue3-hot-toast";
+import { CreateColabortorRequest } from "../services/ColaboratorServices";
 import { h } from "vue";
-import type { ColaboratorReponse } from "../Interfaces/ColaboratorReponse";
+import type { ColaboratorReponse } from "../interfaces/ColaboratorReponse";
 import type { ApiError } from "../../../Core/types/ApiError";
-import { GetColaboratorRequestById } from "../Services/ColaboratorServices";
 
-export const UseGetColabById = () => {
+export const UseCreateColabRequest = () => {
   const mutation = useMutation({
-    mutationFn: (id: string) =>
-      toast.promise(GetColaboratorRequestById(id), {
+    mutationFn: (Data: ColaboratorRequestForm) =>
+      toast.promise(CreateColabortorRequest(Data), {
         loading: "Please wait ...",
         success: (response: ColaboratorReponse) =>
           h("span", `${response.message}`),

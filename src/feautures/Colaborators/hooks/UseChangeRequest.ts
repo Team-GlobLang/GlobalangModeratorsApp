@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
-import { ChangeStatusColaboratorRequest } from "../Services/ColaboratorServices";
+import { ChangeStatusColaboratorRequest } from "../services/ColaboratorServices";
 import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
-import type { ColaboratorRequestChangeStatus } from "../Interfaces/ColaboratorRequestChangeStatusInterface";
+import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 
 export const UseChangeRequestStatus = () => {
   const mutation = useMutation({

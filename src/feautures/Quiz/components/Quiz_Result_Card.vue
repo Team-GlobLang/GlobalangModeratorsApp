@@ -1,0 +1,20 @@
+<template>
+  <fwb-card class="w-full p-4">
+    <div class="grid grid-cols-2 gap-4 text-xl">
+      <span class="text-left">Preguntas:</span>
+      <span class="text-right">18</span>
+
+      <span class="text-left">Correctas:</span>
+      <span class="text-right">9</span>
+
+      <span class="text-left">Puntuación:</span>
+      <span class="text-right">50%</span>
+    </div>
+  </fwb-card>
+</template>
+
+<script setup lang="ts">
+import { FwbCard } from "flowbite-vue";
+</script>
+
+<style scoped></style>
