@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import Btn_Group from "./Btn_Group.vue";
+import Btn_Group from "../../Home/components/Btn_Group.vue";
 
 const props = defineProps({
   name: {

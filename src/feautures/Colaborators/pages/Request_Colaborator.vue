@@ -58,11 +58,12 @@ import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequest
 import { useField } from "vee-validate";
 import { countries } from "../../../Core/CountriesArray";
 import { useRouter } from "vue-router";
-import UseChangeRequestStatus from "/../hooks/UseChangeRequest";
+
 import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
+import { UseChangeRequestStatus } from "../hooks/UseChangeRequestStatus";
 
 const breadCrumbItems = [
   {

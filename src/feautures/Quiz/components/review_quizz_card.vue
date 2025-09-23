@@ -45,7 +45,7 @@
 import { FwbCard } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
 import { FwbRadio } from "flowbite-vue";
-import Btn_Group from "./Btn_Group.vue";
+import Btn_Group from "../../Home/components/Btn_Group.vue";
 import { ref } from "vue";
 
 const props = defineProps({

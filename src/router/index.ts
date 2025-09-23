@@ -3,18 +3,17 @@ import Login from "../feautures/Auth/Page/Login.vue";
 import Register from "../feautures/Auth/Page/Register.vue";
 import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
 import StartPage from "../feautures/Auth/Page/StartPage.vue";
-import Home_Moderators from "../feautures/moderators/pages/Home_Moderators.vue";
-import Quizz_request from "../feautures/moderators/pages/Quizz_request.vue";
-import Request_Colaborator from "../feautures/moderators/pages/Request_Colaborator.vue";
-import Colaborator_Request_View from "../feautures/moderators/pages/Colaborator_Request_View.vue";
-import Audio_Request_Moderator from "../feautures/moderators/pages/Audio_Request_Moderator.vue";
-import Phrase_Registered from "../feautures/moderators/pages/Phrase_Registered.vue";
-import Users_Registered from "../feautures/moderators/pages/Users_Registered.vue";
-import List_Quiz_Registered from "../feautures/moderators/pages/List_Quiz_Registered.vue";
-import Teacher_Colaborator_Registered from "../feautures/moderators/pages/Teacher_Colaborator_Registered.vue";
-import Review_Quiz from "../feautures/moderators/pages/Review_Quiz.vue";
-import Quizz_Result from "../feautures/moderators/pages/Quizz_Result.vue";
-import Quiz_Registered from "../feautures/moderators/pages/Quiz_Registered.vue";
+import Home_Moderators from "../feautures/Home/Pages/Home_Moderators.vue";
+import Quizz_request from "../feautures/Quiz/pages/Quizz_request.vue";
+import Request_Colaborator from "../feautures/Colaborators/pages/Request_Colaborator.vue";
+import Audio_Request_Moderator from "../feautures/Audio/pages/Audio_Request_Moderator.vue";
+import Phrase_Registered from "../feautures/Phrase/pages/Phrase_Registered.vue";
+import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
+import List_Quiz_Registered from "../feautures/Quiz/pages/List_Quiz_Registered.vue";
+import Teacher_Colaborator_Registered from "../feautures/Colaborators/pages/Teacher_Colaborator_Registered.vue";
+import Review_Quiz from "../feautures/Quiz/pages/Review_Quiz.vue";
+import Quiz_Registered from "../feautures/Quiz/pages/Quiz_Registered.vue";
+
 const routes = [
   {
     path: "/",
@@ -100,7 +99,7 @@ const routes = [
   {
     path: "/quizz-result",
     name: "quizz-result",
-    component: Quizz_Result,
+    component: Quizz_request,
   },
 
   {

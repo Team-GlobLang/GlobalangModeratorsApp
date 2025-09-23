@@ -5,7 +5,7 @@ import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
 import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 
-export const UseChangeRequestStatus = () => {
+const UseChangeRequestStatus = () => {
   const mutation = useMutation({
     mutationFn: (data: ColaboratorRequestChangeStatus) =>
       toast.promise(
@@ -22,3 +22,5 @@ export const UseChangeRequestStatus = () => {
 
   return mutation;
 };
+
+export { UseChangeRequestStatus };

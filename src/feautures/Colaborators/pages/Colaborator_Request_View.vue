@@ -27,7 +27,8 @@ import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRe
 import { useRouter } from "vue-router";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestById } from "../services/ColaboratorServices";
-import { UseChangeRequestStatus } from "../hooks/UseChangeRequest";
+import { UseChangeRequestStatus } from "../hooks/UseChangeRequestStatus";
+
 const props = defineProps({
   id: {
     type: String,
