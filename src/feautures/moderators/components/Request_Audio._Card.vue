@@ -3,7 +3,7 @@
     <div class="bg-white rounded-lg p-4 flex justify-center gap-12">
       <i class="pi pi-headphones" style="font-size: 3rem"></i>
       <div class="flex flex-col gap-4">
-        <h2 class="text-xl font-bold">Creado por: {{ props.name }}</h2>
+        <h3 class="text-xl font-bold">Creado por: {{ props.name }}</h3>
         <span class="flex flex-col font-light text-lg gap-2">
           <small>Frase: {{ props.phrase }} </small>
           <small>Significado: {{ props.meaning }} </small>

@@ -1,7 +1,7 @@
 <template>
   <fwb-card class="w-full p-2 items-center">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
-      <h2 class="text-lg font-bold">Creado por: {{ props.user }}</h2>
+      <h3 class="text-lg font-bold">Creado por: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
         <small>Titulo: {{ props.title }}</small>
         <small>Cantidad de preguntas: {{ props.questionsNUmber }}</small>

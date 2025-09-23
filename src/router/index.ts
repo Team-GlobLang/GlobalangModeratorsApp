@@ -12,6 +12,9 @@ import Phrase_Registered from "../feautures/moderators/pages/Phrase_Registered.v
 import Users_Registered from "../feautures/moderators/pages/Users_Registered.vue";
 import List_Quiz_Registered from "../feautures/moderators/pages/List_Quiz_Registered.vue";
 import Teacher_Colaborator_Registered from "../feautures/moderators/pages/Teacher_Colaborator_Registered.vue";
+import Review_Quiz from "../feautures/moderators/pages/Review_Quiz.vue";
+import Quizz_Result from "../feautures/moderators/pages/Quizz_Result.vue";
+import Quiz_Registered from "../feautures/moderators/pages/Quiz_Registered.vue";
 const routes = [
   {
     path: "/",
@@ -34,50 +37,76 @@ const routes = [
     component: ForgetPassword,
   },
   {
-    path: "/home/moderator",
+    path: "/home",
     name: "Home_Moderator",
     component: Home_Moderators,
   },
   {
-    path: "/request/quiz/moderator",
-    name: "Request_Quizz_Moderator",
-    component: Quizz_request,
+    path: "/request",
+    name: "Request",
+    component: Home_Moderators, //CAMBIAR POR UN URL Y COMPONENTE INTERMEDIO DE REQUES
+    children: [
+      {
+        path: "quizz",
+        name: "Request_Quizz",
+        component: Quizz_request,
+      },
+      {
+        path: "colaborator",
+        name: "Request_colaborator",
+        component: Request_Colaborator,
+      },
+      {
+        path: "audio",
+        name: "Request_audio",
+        component: Audio_Request_Moderator,
+      },
+    ],
+  },
+
+  {
+    path: "/registered",
+    name: "NAME_DE_INTERMEDIA_PAGE",
+    component: Audio_Request_Moderator, ///CAMBIAR POR URL Y COMPONENTE INTERMEDIO DE REGISTRADOS
+    children: [
+      {
+        path: "phrases",
+        name: "Phrases_Registered",
+        component: Phrase_Registered,
+      },
+      {
+        path: "users",
+        name: "Users_Registered",
+        component: Users_Registered,
+      },
+      {
+        path: "quizzes",
+        name: "quizzes_Registered",
+        component: List_Quiz_Registered,
+      },
+      {
+        path: "teacher-colaborator",
+        name: "teacher-colaborator_Registered",
+        component: Teacher_Colaborator_Registered,
+      },
+    ],
   },
   {
-    path: "/request/colaborator/moderator",
-    name: "Request_colaborator_Moderator",
-    component: Request_Colaborator,
+    path: "/review-quiz",
+    name: "review-quiz",
+    component: Review_Quiz,
   },
+
   {
-    path: "/request/colaborator/view/moderator/:id",
-    name: "Request_colaborator_View_Moderator",
-    component: Colaborator_Request_View,
-    props: true,
+    path: "/quizz-result",
+    name: "quizz-result",
+    component: Quizz_Result,
   },
+
   {
-    path: "/request/audio/moderator",
-    name: "Request_colaborator_audio_Moderator",
-    component: Audio_Request_Moderator,
-  },
-  {
-    path: "/phrases/registered",
-    name: "Phrases_Registered",
-    component: Phrase_Registered,
-  },
-  {
-    path: "/users/registered",
-    name: "Users_Registered",
-    component: Users_Registered,
-  },
-  {
-    path: "/quizzes/registered",
-    name: "quizzes_Registered",
-    component: List_Quiz_Registered,
-  },
-  {
-    path: "/teacher-colaborator/registered",
-    name: "teacher-colaborator_Registered",
-    component: Teacher_Colaborator_Registered,
+    path: "/quiz-registered",
+    name: "quizz-registered",
+    component: Quiz_Registered,
   },
 ];
 

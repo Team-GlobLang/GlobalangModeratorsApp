@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import Btn_Group from "./Btn_Group.vue";
-
+import { FwbCard } from "flowbite-vue";
 const props = defineProps({
   name: {
     type: String,

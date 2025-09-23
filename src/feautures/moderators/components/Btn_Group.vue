@@ -33,10 +33,6 @@ const props = defineProps({
   rejectIcon: {
     type: String,
   },
-  acceptPath: {
-    type: String,
-  },
-
   id_item: {
     type: String,
     required: true,

@@ -4,4 +4,6 @@ export interface ColaboratorRequestFilters {
   Status?: Status;
   Languages?: string;
   Category?: Categories;
+  page?: number;
+  limit?: number;
 }
