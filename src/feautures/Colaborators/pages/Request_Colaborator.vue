@@ -1,51 +1,49 @@
 <template>
-  <Lyout>
-    <BreadCrumb :items="breadCrumbItems" />
-    <section class="justify-center bg-[#F6F6F6] p-2 rounded-lg">
-      <FwbInput
-        list="languages"
-        v-model="language"
-        type="text"
-        :validation-status="languageError ? 'error' : undefined"
-        @blur="languageBlur"
-        label="Language"
-        placeholder="Ej: Spanish, English"
-      >
-        <template #suffix>
-          <span class="pi pi-language"></span>
-        </template>
-        <template #validationMessage>
-          <span class="font-medium">{{ languageError }} </span>
-        </template>
-      </FwbInput>
+  <BreadCrumb :items="breadCrumbItems" />
+  <section class="justify-center bg-[#F6F6F6] p-2 rounded-lg">
+    <FwbInput
+      list="languages"
+      v-model="language"
+      type="text"
+      :validation-status="languageError ? 'error' : undefined"
+      @blur="languageBlur"
+      label="Language"
+      placeholder="Ej: Spanish, English"
+    >
+      <template #suffix>
+        <span class="pi pi-language"></span>
+      </template>
+      <template #validationMessage>
+        <span class="font-medium">{{ languageError }} </span>
+      </template>
+    </FwbInput>
 
-      <datalist id="languages">
-        <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-          {{ lang }}
-        </option>
-      </datalist>
+    <datalist id="languages">
+      <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
+        {{ lang }}
+      </option>
+    </datalist>
 
-      <Request_Colaborator_Card
-        v-if="colaboratorsRequest.length > 0"
-        v-for="item in colaboratorsRequest"
-        :key="item.Colaborator_Id"
-        :id_item="item.Colaborator_Id"
-        :user="item.userinfo.fullName"
-        :language="item.Languages"
-        :title="item.Academic_Title"
-        :category="item.Category"
-        @accept="HandleViewRequest"
-        @reject="HandleRejected"
-      />
+    <Request_Colaborator_Card
+      v-if="colaboratorsRequest.length > 0"
+      v-for="item in colaboratorsRequest"
+      :key="item.Colaborator_Id"
+      :id_item="item.Colaborator_Id"
+      :user="item.userinfo.fullName"
+      :language="item.Languages"
+      :title="item.Academic_Title"
+      :category="item.Category"
+      @accept="HandleViewRequest"
+      @reject="HandleRejected"
+    />
 
-      <div
-        v-if="!isLoading && colaboratorsRequest.length === 0"
-        class="text-center mt-10 p-10 bg-white"
-      >
-        No se encontraron colaboradores con los filtros seleccionados
-      </div>
-    </section>
-  </Lyout>
+    <div
+      v-if="!isLoading && colaboratorsRequest.length === 0"
+      class="text-center mt-10 p-10 bg-white"
+    >
+      No se encontraron colaboradores con los filtros seleccionados
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">

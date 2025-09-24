@@ -2,18 +2,18 @@
   <fwb-button-group>
     <div class="w-full flex justify-between gap-4">
       <fwb-button
-        class="w-full flex items-center gap-4 justify-center border border-[#FF0000] rounded-md p-0.5"
+        class="w-full flex flex-row items-center justify-center gap-2 p border border-[#FF0000] rounded-md p-2 text-lg"
         @Click="handleReject"
       >
         <i :class="`pi ${props.rejectIcon} text-[#FF0000]`"></i>
-        <span>{{ props.rejectText }}</span>
+        <small>{{ props.rejectText }}</small>
       </fwb-button>
       <fwb-button
-        class="w-full flex items-center gap-4 justify-center bg-[#009951] rounded-md text-white p-0.5"
+        class="w-full flex flex-row items-center justify-center gap-2 bg-[#009951] rounded-md text-white p-2 text-lg"
         @click="handleAccept"
       >
         <i :class="`pi ${props.acceptIcon}`"></i>
-        <span>{{ props.acceptText }}</span>
+        <small>{{ props.acceptText }}</small>
       </fwb-button>
     </div>
   </fwb-button-group>

@@ -1,32 +1,15 @@
 <template>
-  <Lyout>
-    <section class="justify-center bg-[#F6F6F6] p-2 rounded-lg">
-      <fwb-select
-        v-model="selected"
-        :options="countries"
-        label="Selecciona un idioma"
-      />
-      <Request_Audio_Card
-        name="Akion Cheng Jimenez"
-        meaning="Que tal todo?"
-        phrase="Todo Nais Firulais"
-      />
-    </section>
-  </Lyout>
+  <section
+    class="w-full p-4 flex flex-col gap-4 justify-center bg-[#F6F6F6] rounded-lg"
+  >
+    <Request_Audio_Filters />
+    <Request_Audio_Card_Container />
+  </section>
 </template>
 
 <script setup lang="ts">
-import Lyout from "../../../lyouts/Lyout.vue";
-import Request_Audio_Card from "../components/Request_Audio._Card.vue";
-import { ref } from "vue";
-import { FwbSelect } from "flowbite-vue";
-
-const selected = ref("");
-const countries = [
-  { value: "us", name: "United States" },
-  { value: "ca", name: "Canada" },
-  { value: "fr", name: "France" },
-];
+import Request_Audio_Filters from "../components/Request_Audio_Filters.vue";
+import Request_Audio_Card_Container from "../components/Request_Audio_Card_Container.vue";
 </script>
 
 <style scoped></style>

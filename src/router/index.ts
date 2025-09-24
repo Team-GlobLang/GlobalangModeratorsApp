@@ -3,6 +3,7 @@ import Login from "../feautures/Auth/Page/Login.vue";
 import Register from "../feautures/Auth/Page/Register.vue";
 import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
 import StartPage from "../feautures/Auth/Page/StartPage.vue";
+import Lyout from "../lyouts/Lyout.vue";
 import Home_Moderators from "../feautures/Home/Pages/Home_Moderators.vue";
 import Quizz_request from "../feautures/Quiz/pages/Quizz_request.vue";
 import Request_Colaborator from "../feautures/Colaborators/pages/Request_Colaborator.vue";
@@ -12,8 +13,8 @@ import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
 import List_Quiz_Registered from "../feautures/Quiz/pages/List_Quiz_Registered.vue";
 import Teacher_Colaborator_Registered from "../feautures/Colaborators/pages/Teacher_Colaborator_Registered.vue";
 import Review_Quiz from "../feautures/Quiz/pages/Review_Quiz.vue";
-import Quiz_Registered from "../feautures/Quiz/pages/Quiz_Registered.vue";
-
+import Quizz_Result from "../feautures/Quiz/pages/Quizz_Result.vue";
+import Info_User from "../feautures/Home/Pages/Info_User.vue";
 const routes = [
   {
     path: "/",
@@ -37,17 +38,30 @@ const routes = [
   },
   {
     path: "/home",
-    name: "Home_Moderator",
-    component: Home_Moderators,
+    name: "Home",
+    component: Lyout,
+    children: [
+      {
+        path: "",
+        name: "Home_Moderator",
+        component: Home_Moderators,
+      },
+      {
+        path: "user-info",
+        name: "User_Info",
+        component: Info_User,
+      },
+    ],
   },
+
   {
     path: "/request",
     name: "Request",
-    component: Home_Moderators, //CAMBIAR POR UN URL Y COMPONENTE INTERMEDIO DE REQUES
+    component: Lyout, //CAMBIAR POR UN URL Y COMPONENTE INTERMEDIO DE REQUES
     children: [
       {
-        path: "quizz",
-        name: "Request_Quizz",
+        path: "quiz",
+        name: "Request_Quiz",
         component: Quizz_request,
       },
       {
@@ -65,8 +79,8 @@ const routes = [
 
   {
     path: "/registered",
-    name: "NAME_DE_INTERMEDIA_PAGE",
-    component: Audio_Request_Moderator, ///CAMBIAR POR URL Y COMPONENTE INTERMEDIO DE REGISTRADOS
+    name: "registered",
+    component: Lyout, ///CAMBIAR POR URL Y COMPONENTE INTERMEDIO DE REGISTRADOS
     children: [
       {
         path: "phrases",
@@ -90,22 +104,23 @@ const routes = [
       },
     ],
   },
-  {
-    path: "/review-quiz",
-    name: "review-quiz",
-    component: Review_Quiz,
-  },
 
   {
-    path: "/quizz-result",
-    name: "quizz-result",
-    component: Quizz_request,
-  },
-
-  {
-    path: "/quiz-registered",
-    name: "quizz-registered",
-    component: Quiz_Registered,
+    path: "/review",
+    name: "review",
+    component: Lyout,
+    children: [
+      {
+        path: "quiz",
+        name: "review_quiz",
+        component: Review_Quiz,
+      },
+      {
+        path: "quiz-result",
+        name: "review_quiz_result",
+        component: Quizz_Result,
+      },
+    ],
   },
 ];
 

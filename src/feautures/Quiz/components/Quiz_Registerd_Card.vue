@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full p-2 items-center">
+  <fwb-card class="w-full">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h2 class="text-lg font-bold">Creado por: {{ props.user }}</h2>
       <span class="flex flex-col font-light">
@@ -13,6 +13,9 @@
         accept-text="Ver preguntas"
         reject-icon="pi-trash"
         reject-text="Eliminar"
+        :id_item="props.id || ''"
+        @accept="handleAccept"
+        @reject="handleReject"
       />
     </div>
   </fwb-card>
@@ -20,6 +23,7 @@
 
 <script setup lang="ts">
 import Btn_Group from "../../Home/components/Btn_Group.vue";
+import { FwbCard } from "flowbite-vue";
 const props = defineProps({
   user: {
     type: String,
@@ -36,7 +40,18 @@ const props = defineProps({
   aprobeBy: {
     type: String,
   },
+  id: {
+    type: String,
+  },
 });
+
+const handleAccept = () => {
+  console.log("Implementar logica");
+};
+
+const handleReject = () => {
+  console.log("Implementar logica");
+};
 </script>
 
 <style scoped></style>

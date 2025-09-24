@@ -1,7 +1,7 @@
 <template>
   <header class="bg-[#00A1FF] p-6 top-0 fixed w-full"></header>
   <main class="py-20 px-4">
-    <slot></slot>
+    <router-view></router-view>
   </main>
   <footer class="bg-[#00A1FF] p-4 bottom-0 fixed w-full flex justify-between">
     <i class="pi pi-user" style="font-size: 3rem"> </i>

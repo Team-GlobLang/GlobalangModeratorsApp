@@ -6,7 +6,7 @@
         <small>Titulos: {{ props.title }}</small>
         <small>idioma: {{ props.language }}</small>
         <small>categoría: {{ props.category }}</small>
-        <small>Aporbado por: {{ props.aprobeBy }}</small>
+        <small>Aprobado por: {{ props.aprobeBy }}</small>
       </span>
       <fwb-button color="light" class="border-[#FF0000] text-lg">
         <i class="pi pi-trash text-[#FF0000]"></i>
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { FwbButton } from "flowbite-vue";
+import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   user: {
@@ -33,6 +34,9 @@ const props = defineProps({
     type: String,
   },
   aprobeBy: {
+    type: String,
+  },
+  id: {
     type: String,
   },
 });

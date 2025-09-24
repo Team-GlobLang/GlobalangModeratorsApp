@@ -1,42 +1,15 @@
 <template>
-  <Lyout>
-    <section
-      class="justify-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
-    >
-      <fwb-select
-        v-model="selected"
-        :options="language"
-        label="Selecciona un idioma"
-      />
-      <fwb-select v-model="selected" :options="status" label="Estado" />
-      <Quiz_Registerd_Card
-        user="Keirin Obando Duarte"
-        language="Tico"
-        aprobe-by="Adrian Aguilar Diaz"
-        title="Español intermedio"
-        :questions-n-umber="12"
-      />
-    </section>
-  </Lyout>
+  <section
+    class="justify-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
+  >
+    <List_Quiz_Registered_Filters />
+    <Quiz_Registered_Card_Container />
+  </section>
 </template>
 
 <script setup lang="ts">
-import Lyout from "../../../lyouts/Lyout.vue";
-import Quiz_Registerd_Card from "../components/Quiz_Registerd_Card.vue";
-import { FwbSelect } from "flowbite-vue";
-import { ref } from "vue";
-
-const selected = ref("");
-const language = [
-  { value: "pp", name: "Prueba premium" },
-  { value: "pm", name: "Pro max" },
-  { value: "es", name: "estandar" },
-];
-
-const status = [
-  { value: "act", name: "Activa" },
-  { value: "ina", name: "Inactivo" },
-];
+import List_Quiz_Registered_Filters from "../components/List_Quiz_Registered_Filters.vue";
+import Quiz_Registered_Card_Container from "../components/Quiz_Registered_Card_Container.vue";
 </script>
 
 <style scoped></style>
