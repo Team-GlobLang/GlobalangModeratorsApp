@@ -36,6 +36,7 @@
         acceptText="Finalizar"
         reject-text="Anterior"
         id_item=""
+        @accept="handleAccept"
       />
     </div>
   </section>
@@ -47,6 +48,7 @@ import { FwbButton } from "flowbite-vue";
 import { FwbRadio } from "flowbite-vue";
 import Btn_Group from "../../Home/components/Btn_Group.vue";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   question: {
@@ -58,6 +60,12 @@ const props = defineProps({
 });
 
 const picked = ref("one");
+
+const router = useRouter();
+
+const handleAccept = () => {
+  router.push({ name: "review_quiz_result" });
+};
 </script>
 
 <style scoped></style>

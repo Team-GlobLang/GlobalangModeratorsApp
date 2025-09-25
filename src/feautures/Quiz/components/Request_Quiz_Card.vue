@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { FwbCard } from "flowbite-vue";
 import Btn_Group from "../../Home/components/Btn_Group.vue";
+import { useRouter } from "vue-router";
 const props = defineProps({
   user: {
     type: String,
@@ -41,8 +42,10 @@ const props = defineProps({
   },
 });
 
+const router = useRouter();
+
 const handleAccept = () => {
-  console.log("implementar logica");
+  router.push({ name: "review_quiz" });
 };
 
 const handleReject = () => {

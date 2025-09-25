@@ -32,7 +32,7 @@ const breadcrumbItems = computed(() => props.items);
 
 const handleBreadcrumbClick = (item: BreadcrumbItem) => {
   if (item.route) {
-    router.push(item.route);
+    router.push({ name: item.route });
   }
 };
 </script>

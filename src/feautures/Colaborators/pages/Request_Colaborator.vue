@@ -1,157 +1,36 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
   <section class="justify-center bg-[#F6F6F6] p-2 rounded-lg">
-    <FwbInput
-      list="languages"
-      v-model="language"
-      type="text"
-      :validation-status="languageError ? 'error' : undefined"
-      @blur="languageBlur"
-      label="Language"
-      placeholder="Ej: Spanish, English"
-    >
-      <template #suffix>
-        <span class="pi pi-language"></span>
-      </template>
-      <template #validationMessage>
-        <span class="font-medium">{{ languageError }} </span>
-      </template>
-    </FwbInput>
-
-    <datalist id="languages">
-      <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-        {{ lang }}
-      </option>
-    </datalist>
-
-    <Request_Colaborator_Card
-      v-if="colaboratorsRequest.length > 0"
-      v-for="item in colaboratorsRequest"
-      :key="item.Colaborator_Id"
-      :id_item="item.Colaborator_Id"
-      :user="item.userinfo.fullName"
-      :language="item.Languages"
-      :title="item.Academic_Title"
-      :category="item.Category"
-      @accept="HandleViewRequest"
-      @reject="HandleRejected"
-    />
-
-    <div
-      v-if="!isLoading && colaboratorsRequest.length === 0"
-      class="text-center mt-10 p-10 bg-white"
-    >
-      No se encontraron colaboradores con los filtros seleccionados
-    </div>
+    <Request_colab_Filters @filterchange="handleFilterChange" />
+    <Request_Colab_Card_Container :language="languageFilter" />
   </section>
 </template>
 
 <script setup lang="ts">
-import Lyout from "../../../lyouts/Lyout.vue";
-import Request_Colaborator_Card from "../components/Request_Colaborator_Card.vue";
-import { computed, onMounted, watch, ref } from "vue";
-import { FwbInput } from "flowbite-vue";
-import { Status } from "../interfaces/ColaboratorRequestInterface";
-import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
-import { useField } from "vee-validate";
-import { countries } from "../../../Core/CountriesArray";
-import { useRouter } from "vue-router";
-
-import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
-import { useQuery } from "@tanstack/vue-query";
-import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
-import { UseChangeRequestStatus } from "../hooks/UseChangeRequestStatus";
+import Request_colab_Filters from "../components/Request_colab_Filters.vue";
+import Request_Colab_Card_Container from "../components/Request_Colab_Card_Container.vue";
+import { ref } from "vue";
 
 const breadCrumbItems = [
   {
     label: "Home",
-    route: "/home/moderator",
+    route: "Home_Moderator",
     isHome: true,
   },
   {
-    label: "Solicitudes colaboradores",
+    label: "Solicitudes",
+  },
+  {
+    label: "Colaboradores",
   },
 ];
 
-const filters = ref<ColaboratorRequestFilters>({
-  Status: Status.PENDING,
-  Languages: "",
-});
+const languageFilter = ref<string>("");
 
-//const limit = ref(10);
-const showLoadMore = ref(true);
-
-const { data, isLoading, refetch } = useQuery({
-  queryKey: ["colaborators", filters],
-  queryFn: () => GetColaboratorRequestsFilters(filters.value),
-});
-
-const colaboratorsRequest = computed(() => data.value ?? []);
-
-const MAX_INITIAL = 10;
-
-const allLanguages = computed(() => {
-  const languagesSet = new Set<string>();
-  countries.forEach((country) => {
-    country.languages.forEach((lang) => {
-      languagesSet.add(lang);
-    });
-  });
-  return Array.from(languagesSet).sort();
-});
-
-const filteredLanguages = computed(() => {
-  if (!language.value) {
-    return allLanguages.value.slice(0, MAX_INITIAL);
-  }
-  return allLanguages.value.filter((lang) =>
-    lang.toLowerCase().includes(language.value.toLowerCase())
-  );
-});
-
-const {
-  value: language,
-  errorMessage: languageError,
-  handleBlur: languageBlur,
-} = useField<string>("language");
-
-watch(language, (newValue) => {
-  filters.value.Languages = newValue || "";
-  showLoadMore.value = true;
-  refetch();
-});
-
-const router = useRouter();
-
-const HandleViewRequest = (colaboratorId: string) => {
-  router.push({
-    name: "Request_colaborator_View_Moderator",
-    params: { id: colaboratorId },
-  });
+const handleFilterChange = (language: string) => {
+  languageFilter.value = language;
 };
-
-const mutationChangeRequest = UseChangeRequestStatus();
-
-const HandleRejected = async (colaboratorId: string) => {
-  const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    Id: colaboratorId,
-    Status: Status.REJECTED,
-  };
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    refetch();
-    console.log("paso de fetch");
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
-};
-
-onMounted(() => {
-  //fetchRequest();
-  refetch();
-});
 </script>
 
 <style scoped></style>

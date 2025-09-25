@@ -15,6 +15,7 @@ import Teacher_Colaborator_Registered from "../feautures/Colaborators/pages/Teac
 import Review_Quiz from "../feautures/Quiz/pages/Review_Quiz.vue";
 import Quizz_Result from "../feautures/Quiz/pages/Quizz_Result.vue";
 import Info_User from "../feautures/Home/Pages/Info_User.vue";
+import Colaborator_Request_View from "../feautures/Colaborators/pages/Colaborator_Request_View.vue";
 const routes = [
   {
     path: "/",
@@ -119,6 +120,12 @@ const routes = [
         path: "quiz-result",
         name: "review_quiz_result",
         component: Quizz_Result,
+      },
+      {
+        path: "colaborator-request/:id",
+        name: "colaborator_request_view",
+        component: Colaborator_Request_View,
+        props: true,
       },
     ],
   },

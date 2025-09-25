@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="w-full flex flex-col items-center">
     <Info_User_Cards_Container />
   </section>
 </template>

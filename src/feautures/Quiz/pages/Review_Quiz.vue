@@ -1,4 +1,5 @@
 <template>
+  <BreadCrumb :items="breadCrumbItems" />
   <section
     class="justify-center items-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
   >
@@ -12,6 +13,22 @@
 
 <script setup lang="ts">
 import review_quizz_card from "../components/review_quizz_card.vue";
+import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+
+const breadCrumbItems = [
+  {
+    label: "Home",
+    route: "Home_Moderator",
+    isHome: true,
+  },
+  {
+    label: "Solicitudes",
+  },
+  {
+    label: "Quiz",
+    route: "Request_Quiz",
+  },
+];
 </script>
 
 <style scoped></style>

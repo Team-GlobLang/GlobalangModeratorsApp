@@ -1,10 +1,12 @@
 <template>
   <div class="flex flex-col items-center w-full gap-8">
-    <home_-user_-card
-      name="Adrian Aguilar"
-      role="Moderador de sistema"
-      notifyNumber="2"
-    />
+    <router-link :to="{ name: 'User_Info' }">
+      <home_-user_-card
+        name="Adrian Aguilar"
+        role="Moderador de sistema"
+        notifyNumber="2"
+      />
+    </router-link>
     <router-link :to="{ name: 'Request_Quiz' }">
       <home_-options_-request
         title="solicitudes de quiz"

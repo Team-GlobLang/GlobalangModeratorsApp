@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import Btn_Group_Without_Icon from "../components/Btn_Group_Without_Icon.vue";
+import Btn_Group_Without_Icon from "../../Home/components/Btn_Group_Without_Icon.vue";
 const props = defineProps({
   id_item: {
     type: String,
