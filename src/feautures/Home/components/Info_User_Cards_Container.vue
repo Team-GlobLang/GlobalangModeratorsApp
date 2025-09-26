@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col gap-8">
+  <div class="w-full flex flex-col items-center gap-8">
     <Info_User_Card
       icon="pi-user"
       color="bg-[#C9F2FF]"

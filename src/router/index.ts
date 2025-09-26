@@ -19,7 +19,7 @@ import Colaborator_Request_View from "../feautures/Colaborators/pages/Colaborato
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "StartPage",
     component: StartPage,
   },
   {

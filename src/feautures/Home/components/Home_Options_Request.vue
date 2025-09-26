@@ -1,6 +1,6 @@
 <template>
   <fwb-card class="w-full p-2 flex items-center">
-    <div class="flex gap-2">
+    <div class="flex w-full gap-2">
       <i
         :class="`pi ${props.icon} ${bgColor} p-7 rounded-full`"
         style="font-size: 2rem"

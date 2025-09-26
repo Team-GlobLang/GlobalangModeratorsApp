@@ -1,13 +1,16 @@
-export enum Categories {
-  MASTER = "MASTER",
-  COLABORATOR = "COLABORATOR",
-}
+export const Categories = {
+  MASTER: "MASTER",
+  COLABORATOR: "COLABORATOR",
+};
 
 export const Status = {
   ACCEPTED: "ACCEPTED",
   REJECTED: "REJECTED",
   PENDING: "PENDING",
 };
+
+export type Categories = (typeof Categories)[keyof typeof Categories];
+export type Status = (typeof Status)[keyof typeof Status];
 
 export interface ColaboratorRequestForm {
   User_Id: string;

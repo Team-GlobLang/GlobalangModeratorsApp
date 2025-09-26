@@ -13,6 +13,7 @@
         accept-text="Ver preguntas"
         reject-icon="pi-trash"
         reject-text="Rechazar"
+        :id_item="props.id || ''"
       />
     </div>
   </fwb-card>
@@ -34,6 +35,9 @@ const props = defineProps({
     type: String,
   },
   approbeBy: {
+    type: String,
+  },
+  id: {
     type: String,
   },
 });
