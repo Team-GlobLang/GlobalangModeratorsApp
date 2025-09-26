@@ -41,13 +41,13 @@ const props = defineProps({
   },
 });
 
-const handleAccept = () => {
-  console.log("Implementar logica");
-};
+// const handleAccept = () => {
+//   console.log("Implementar logica");
+// };
 
-const handleReject = () => {
-  console.log("Implementar logica");
-};
+// const handleReject = () => {
+//   console.log("Implementar logica");
+// };
 </script>
 
 <style scoped></style>
