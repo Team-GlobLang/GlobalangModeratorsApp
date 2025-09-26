@@ -3,11 +3,11 @@ export enum Categories {
   COLABORATOR = "COLABORATOR",
 }
 
-export enum Status {
-  ACCEPTED = "ACCEPTED",
-  REJECTED = "REJECTED",
-  PENDING = "PENDING",
-}
+export const Status = {
+  ACCEPTED: "ACCEPTED",
+  REJECTED: "REJECTED",
+  PENDING: "PENDING",
+};
 
 export interface ColaboratorRequestForm {
   User_Id: string;
