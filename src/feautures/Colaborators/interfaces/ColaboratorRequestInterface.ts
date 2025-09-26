@@ -9,8 +9,8 @@ export const Status = {
   PENDING: "PENDING",
 };
 
-export type Categories = (typeof Categories)[keyof typeof Categories]; // "MASTER" | "COLABORATOR"
-export type Status = (typeof Status)[keyof typeof Status]; // "ACCEPTED" | "REJECTED" | "PENDING"
+export type Categories = (typeof Categories)[keyof typeof Categories];
+export type Status = (typeof Status)[keyof typeof Status];
 
 export interface ColaboratorRequestForm {
   User_Id: string;
