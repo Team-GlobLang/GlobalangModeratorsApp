@@ -139,4 +139,23 @@ const router = createRouter({
   },
 });
 
+
+/* 
+const publicPages = [
+  "/",
+  "/login",
+  "/register",
+  "/forgetPassword",
+  "/changePassword",
+];
+router.beforeEach(async (to) => {
+  if (publicPages.includes(to.path)) return true;
+
+  const canAccess = await canUserAcces(to.path);
+  if (!canAccess) return "/login";
+
+  return true;
+});
+*/
+
 export default router;
