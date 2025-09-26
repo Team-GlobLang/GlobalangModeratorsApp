@@ -10,22 +10,18 @@
           <small>Aporbado por: {{ props.name }} </small>
         </span>
 
-        <btn_-group
-          accept-icon="pi-cloud-upload"
-          accept-text="Aprobar"
-          reject-icon="pi-trash"
-          reject-text="Rechazar"
-          :id_item="props.id || ''"
-          @accept="handleAccept"
-          @reject="handleReject"
-        />
+        <fwb-button
+          class="w-full flex flex-row items-center justify-center gap-2 p border border-[#FF0000] rounded-md p-2 text-lg"
+        >
+          <i class="pi pi-trash text-[#FF0000]"></i>
+          <small>Eliminar</small>
+        </fwb-button>
       </div>
     </div>
   </fwb-card>
 </template>
 
 <script setup lang="ts">
-import Btn_Group from "../../Home/components/Btn_Group.vue";
 import { FwbCard } from "flowbite-vue";
 const props = defineProps({
   name: {
