@@ -1,6 +1,8 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section class="justify-center bg-[#F6F6F6] p-2 rounded-lg">
+  <section
+    class="w-full flex flex-col justify-center bg-[#F6F6F6] p-2 rounded-lg"
+  >
     <Request_colab_Filters @filterchange="handleFilterChange" />
     <Request_Colab_Card_Container :language="languageFilter" />
   </section>

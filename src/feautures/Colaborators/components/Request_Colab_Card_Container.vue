@@ -1,22 +1,25 @@
 <template>
-  <Request_Colaborator_Card
-    v-if="colaboratorsRequest.length > 0"
-    v-for="item in colaboratorsRequest"
-    :key="item.Colaborator_Id"
-    :id_item="item.Colaborator_Id"
-    :user="item.userinfo.fullName"
-    :language="item.Languages"
-    :title="item.Academic_Title"
-    :category="item.Category"
-    @accept="HandleViewRequest"
-    @reject="HandleRejected"
-  />
+  <div class="w-full flex flex-col items-center gap-6">
+    <Request_Colaborator_Card
+      v-if="colaboratorsRequest.length > 0"
+      v-for="item in colaboratorsRequest"
+      :key="item.Colaborator_Id"
+      :id_item="item.Colaborator_Id"
+      :user="item.userinfo.fullName"
+      :language="item.Languages"
+      :title="item.Academic_Title"
+      :category="item.Category"
+      @accept="HandleViewRequest"
+      @reject="HandleRejected"
+    />
 
-  <div
-    v-if="!isLoading && colaboratorsRequest.length === 0"
-    class="text-center mt-10 p-10 bg-white"
-  >
-    No se encontraron colaboradores con los filtros seleccionados
+    <div
+      v-if="!isLoading && colaboratorsRequest.length === 0"
+      class="text-center mt-10 p-10 bg-white"
+    >
+      No se encontraron colaboradores con los filtros seleccionados
+    </div>
+    <fwb-button class="w-full bg-[#2C2C2C]">Ver más</fwb-button>
   </div>
 </template>
 
@@ -30,6 +33,7 @@ import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
 import { useRouter } from "vue-router";
 import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
+import { FwbButton } from "flowbite-vue";
 
 const props = defineProps({
   language: {

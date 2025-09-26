@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <fwb-card>
-      <div class="w-full flex items-center justify-between p-4 bg-[#F7F7F7]">
-        <i
-          :class="`pi ${props.icon} ${props.color} p-7 rounded-full`"
-          style="font-size: 2rem"
-        ></i>
-        <div class="flex flex-col">
-          <h3 class="text-2xl">{{ props.name }}</h3>
-          <small>{{ props.role }}</small>
-          <small>{{ props.email }}</small>
-        </div>
+  <fwb-card class="w-full">
+    <div class="w-full flex gap-8 items-center p-4 bg-[#F7F7F7]">
+      <i
+        :class="`pi ${props.icon} ${props.color} p-4 rounded-full`"
+        style="font-size: 2rem"
+      ></i>
+      <div class="flex flex-col">
+        <h3 class="text-2xl">{{ props.name }}</h3>
+        <small>{{ props.role }}</small>
+        <small>{{ props.email }}</small>
       </div>
-    </fwb-card>
-  </div>
+    </div>
+  </fwb-card>
 </template>
 
 <script setup lang="ts">

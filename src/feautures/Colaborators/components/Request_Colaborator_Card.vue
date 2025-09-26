@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full p-2 items-center">
+  <fwb-card class="w-full">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h2 class="text-lg font-bold">{{ props.user }}</h2>
       <span class="flex flex-col font-light">
@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import Btn_Group from "../../Home/components/Btn_Group.vue";
+import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
 const props = defineProps({
   id_item: {
     type: String,
