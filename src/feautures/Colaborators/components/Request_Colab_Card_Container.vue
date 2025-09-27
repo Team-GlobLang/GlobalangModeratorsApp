@@ -17,9 +17,9 @@
       v-if="!isLoading && colaboratorsRequest.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      No se encontraron colaboradores con los filtros seleccionados
+      We dont havent colaboratos request now
     </div>
-    <fwb-button class="w-full bg-[#2C2C2C]">Ver más</fwb-button>
+    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
   </div>
 </template>
 

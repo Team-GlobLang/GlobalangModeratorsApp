@@ -3,7 +3,7 @@
     <Info_User_Card
       icon="pi-user"
       color="bg-[#C9F2FF]"
-      role="Moderador del sistema"
+      role="System moderator"
       email="adrianaguilar@gmail.com"
       name="Adrian Aguilar Diaz"
     />
@@ -11,25 +11,25 @@
     <Info_User_Options_Card
       icon="pi-key"
       color="bg-[#CFFFC9]"
-      text="Editar Contraseña"
+      text="Change password"
     />
 
     <Info_User_Options_Card
       icon="pi-file-check"
       color="bg-[#D5C9FF]"
-      text="Historial de quizzes"
+      text="Quizzes history"
     />
 
     <Info_User_Options_Card
       icon="pi-heart"
       color="bg-[#FFC9D8]"
-      text="Mis favoritos"
+      text="My favorites"
     />
 
     <Info_User_Options_Card
       icon="pi-chart-line"
       color="bg-[#C9F2FF]"
-      text="Estadísticas"
+      text="Statistics"
     />
   </div>
 </template>

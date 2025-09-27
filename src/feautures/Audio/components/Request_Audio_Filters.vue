@@ -2,7 +2,7 @@
   <fwb-select
     v-model="selected"
     :options="countries"
-    label="Selecciona un idioma"
+    label="Choose a language"
   />
 </template>
 

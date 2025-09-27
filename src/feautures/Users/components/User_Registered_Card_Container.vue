@@ -4,7 +4,7 @@
       user="Akion Cheng Jimenez"
       :age="22"
       email="achengjimenez@gmail.com"
-      suscripcion="Prueba gratuita"
+      suscripcion="Free trial"
       end_date="20/9/2026"
     />
 
@@ -12,10 +12,10 @@
       user="Akion Cheng Jimenez"
       :age="22"
       email="achengjimenez@gmail.com"
-      suscripcion="Prueba gratuita"
+      suscripcion="Free trial"
       end_date="20/9/2026"
     />
-    <fwb-button class="w-full bg-[#2C2C2C]">Ver más</fwb-button>
+    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
   </div>
 </template>
 

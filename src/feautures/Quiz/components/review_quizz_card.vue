@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-col gap-2">
-    <span>Pregunta {{ props.numberQuestion }}</span>
+    <span>Question {{ props.numberQuestion }}</span>
     <fwb-card class="w-full p-2">
       <div class="flex flex-col text-black p-8 items-center gap-4">
         <p class="text-2xl text-center">
@@ -10,7 +10,7 @@
         <fwb-button class="m-2 border rounded-xl">
           <div class="flex gap-2 items-center">
             <i class="pi pi-play"></i>
-            <span>Reproducir audio</span>
+            <span>Play audio</span>
           </div>
         </fwb-button>
       </div>
@@ -33,8 +33,8 @@
       <btn_-group
         accept-icon="pi"
         reject-icon="pi-arrow-left"
-        acceptText="Finalizar"
-        reject-text="Anterior"
+        acceptText="Finish"
+        reject-text="Previous"
         id_item=""
         @accept="handleAccept"
       />

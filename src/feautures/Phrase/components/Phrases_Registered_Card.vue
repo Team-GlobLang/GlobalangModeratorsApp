@@ -5,16 +5,16 @@
       <div class="flex flex-col gap-4">
         <h2 class="text-2xl font-bold">{{ props.phrase }}</h2>
         <span class="flex flex-col font-light text-lg">
-          <small>Significado: {{ props.meaning }} </small>
-          <small>Creado por: {{ props.name }} </small>
-          <small>Aporbado por: {{ props.name }} </small>
+          <small>Meaning: {{ props.meaning }} </small>
+          <small>Created by: {{ props.name }} </small>
+          <small>Approve by: {{ props.name }} </small>
         </span>
 
         <fwb-button
           class="w-full flex flex-row items-center justify-center gap-2 p border border-[#FF0000] rounded-md p-2 text-lg"
         >
           <i class="pi pi-trash text-[#FF0000]"></i>
-          <small>Eliminar</small>
+          <small>Delete</small>
         </fwb-button>
       </div>
     </div>

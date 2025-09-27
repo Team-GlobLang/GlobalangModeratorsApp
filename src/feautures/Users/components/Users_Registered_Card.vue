@@ -4,11 +4,11 @@
       <h2 class="text-2xl font-bold">{{ props.user }}</h2>
       <span class="flex flex-col font-light text-lg gap-0.5">
         <small>Email: {{ props.email }}</small>
-        <small>Edad: {{ props.age }} años</small>
-        <small>Suscripción: {{ props.suscripcion }}</small>
-        <small>Fin de suscripción: {{ props.end_date }}</small>
-      </span>
-      <fwb-button color="green">Editar datos de suscripción</fwb-button>
+        <small>Age: {{ props.age }} años</small>
+        <small>Suscription: {{ props.suscripcion }}</small>
+        <small>End date of suscription: {{ props.end_date }}</small> </span
+      ><var></var>
+      <fwb-button color="green">Change suscription data</fwb-button>
     </div>
   </fwb-card>
 </template>

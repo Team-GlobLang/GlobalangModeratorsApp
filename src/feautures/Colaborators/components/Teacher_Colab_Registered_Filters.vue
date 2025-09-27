@@ -2,9 +2,9 @@
   <fwb-select
     v-model="selected"
     :options="language"
-    label="Selecciona un idioma"
+    label="Choose a language"
   />
-  <fwb-select v-model="selected" :options="status" label="Estado" />
+  <fwb-select v-model="selected" :options="status" label="Chaoose a status" />
 </template>
 
 <script setup lang="ts">

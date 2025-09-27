@@ -1,14 +1,10 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-4">
     <div class="flex justify-end">
-      <fwb-button color="green">Crear moderador</fwb-button>
+      <fwb-button color="green">Register a moderator</fwb-button>
     </div>
-    <fwb-select
-      v-model="selected"
-      :options="plan"
-      label="Selecciona un idioma"
-    />
-    <fwb-select v-model="selected" :options="email" label="Correo" />
+    <fwb-select v-model="selected" :options="plan" label="Choose a language" />
+    <fwb-select v-model="selected" :options="email" label="email" />
   </div>
 </template>
 

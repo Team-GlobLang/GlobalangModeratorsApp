@@ -3,13 +3,13 @@
   <section
     class="justify-center items-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
   >
-    <h3>¡Revision completada!</h3>
+    <h3>¡Review completed!</h3>
     <span class="text-gray-500">"Español Basico"</span>
     <Quiz_Result_Card />
 
     <Btn_Group_Without_Icon
-      accept-text="Aprobar"
-      reject-text="Rechazar"
+      accept-text="Approve"
+      reject-text="Reject"
       id_item=""
       color-accept="bg-[#00A1FF]"
       color-reject="bg-[#900B09]"
@@ -29,10 +29,10 @@ const breadCrumbItems = [
     isHome: true,
   },
   {
-    label: "Solicitudes",
+    label: "Requets",
   },
   {
-    label: "Quiz",
+    label: "Quizzes",
     route: "Request_Quiz",
   },
 ];
