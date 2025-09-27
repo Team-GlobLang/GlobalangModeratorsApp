@@ -20,10 +20,10 @@ const breadCrumbItems = [
     isHome: true,
   },
   {
-    label: "Registros",
+    label: "Registers",
   },
   {
-    label: "Frases",
+    label: "Phrases",
   },
 ];
 </script>

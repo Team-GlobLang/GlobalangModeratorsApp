@@ -24,14 +24,11 @@ const breadCrumbItems = [
     isHome: true,
   },
   {
-    label: "Solicitudes",
+    label: "Requests",
   },
   {
-    label: "Colaboradores",
+    label: "Colaborators",
     route: "Request_colaborator",
-  },
-  {
-    label: "Info",
   },
 ];
 </script>

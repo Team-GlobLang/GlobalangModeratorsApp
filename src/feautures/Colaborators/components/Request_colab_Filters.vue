@@ -5,7 +5,7 @@
     type="text"
     :validation-status="languageError ? 'error' : undefined"
     @blur="languageBlur"
-    label="Language"
+    label="Choose a language"
     placeholder="Ej: Spanish, English"
   >
     <template #suffix>

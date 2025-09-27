@@ -17,7 +17,7 @@
       :questionsNUmber="10"
     />
 
-    <fwb-button class="w-full bg-[#2C2C2C]">Ver más</fwb-button>
+    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
   </div>
 </template>
 

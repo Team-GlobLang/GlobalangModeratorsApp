@@ -4,12 +4,12 @@
   <div class="flex flex-col gap-8 w-full items-center">
     <Teacher_Colaborator_Card
       user="Keirin Obando Duarte"
-      category="Profesor"
+      category="Teacher"
       aprobe-by="Adrian Aguilar Diaz"
-      title="Interprete, Comercio"
+      title="Comerce"
       language="Mandarin"
     />
-    <fwb-button class="w-full bg-[#2C2C2C]">Ver más</fwb-button>
+    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
   </div>
 </template>
 

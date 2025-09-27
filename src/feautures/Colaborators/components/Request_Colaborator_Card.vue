@@ -3,15 +3,15 @@
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h2 class="text-lg font-bold">{{ props.user }}</h2>
       <span class="flex flex-col font-light">
-        <small>Titulos: {{ props.title }}</small>
-        <small>Idioma: {{ props.language }}</small>
-        <small>Categoría: {{ props.category }}</small>
+        <small>Academic title: {{ props.title }}</small>
+        <small>Language: {{ props.language }}</small>
+        <small>Category: {{ props.category }}</small>
       </span>
       <btn_-group
         accept-icon="pi-cloud-upload"
-        accept-text="Revisar solicitud"
+        accept-text="Review request"
         reject-icon="pi-trash"
-        reject-text="Rechazar"
+        reject-text="Reject"
         accept-path="/request/colaborator/view/moderator"
         :id_item="props.id_item || ''"
         @accept="onAccept"

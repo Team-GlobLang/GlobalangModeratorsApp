@@ -1,17 +1,17 @@
 <template>
   <fwb-card class="w-full">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
-      <h3 class="text-lg font-bold">Creado por: {{ props.user }}</h3>
+      <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
-        <small>Titulo: {{ props.title }}</small>
-        <small>Cantidad de preguntas: {{ props.questionsNUmber }}</small>
-        <small>Idioma: {{ props.language }}</small>
+        <small>Title: {{ props.title }}</small>
+        <small>Number of questions: {{ props.questionsNUmber }}</small>
+        <small>Language: {{ props.language }}</small>
       </span>
       <btn_-group
         accept-icon="pi-cloud-upload"
-        accept-text="Empezar revision"
+        accept-text="Begin review"
         reject-icon="pi-trash"
-        reject-text="Rechazar"
+        reject-text="Reject"
         :id_item="props.id || ''"
         @accept="handleAccept"
         @reject="handleReject"

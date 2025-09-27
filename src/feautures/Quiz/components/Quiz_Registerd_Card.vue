@@ -3,16 +3,16 @@
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h2 class="text-lg font-bold">Creado por: {{ props.user }}</h2>
       <span class="flex flex-col font-light">
-        <small>Titulo: {{ props.title }}</small>
-        <small>Cantidad de preguntas: {{ props.questionsNUmber }}</small>
-        <small>Idioma: {{ props.language }}</small>
-        <small>Aprobado por: {{ props.aprobeBy }}</small>
+        <small>Title: {{ props.title }}</small>
+        <small>Number of questions: {{ props.questionsNUmber }}</small>
+        <small>Language: {{ props.language }}</small>
+        <small>Approve by: {{ props.aprobeBy }}</small>
       </span>
       <btn_-group
         accept-icon="pi-cloud-upload"
-        accept-text="Ver preguntas"
+        accept-text="See questions"
         reject-icon="pi-trash"
-        reject-text="Eliminar"
+        reject-text="Delete"
         :id_item="props.id || ''"
         @accept="handleAccept"
         @reject="handleReject"

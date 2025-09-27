@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">Nombre completo:</span>
+    <span class="text-left">Full name:</span>
     <span class="text-left">{{ props.name }}</span>
   </div>
   <div class="grid grid-cols-2 w-full">
@@ -8,23 +8,23 @@
     <span class="text-left">{{ props.email }}</span>
   </div>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">idiomas que domina:</span>
+    <span class="text-left">Languages spoken:</span>
     <span class="text-left">{{ props.Languages }}</span>
   </div>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">Mensaje Extra:</span>
+    <span class="text-left">Details:</span>
     <p class="text-left">
       {{ props.message }}
     </p>
   </div>
   <div class="grid grid-cols-2 w-full">
-    <span>Títulos acdémicos:</span>
+    <span>Academic title:</span>
     <span>{{ props.title }}</span>
   </div>
-  <p>imagen</p>
+  <p>FILE PLACE</p>
   <Btn_Group_Without_Icon
-    accept-text="Aprobar"
-    reject-text="Rechazar"
+    accept-text="Approve"
+    reject-text="Reject"
     color-accept="bg-[#00A1FF]"
     color-reject="bg-[#900B09]"
     :id_item="props.id_item || ''"
