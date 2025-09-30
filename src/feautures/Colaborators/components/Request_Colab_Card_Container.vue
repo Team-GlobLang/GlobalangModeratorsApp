@@ -13,13 +13,19 @@
       @reject="HandleRejected"
     />
 
+    <fwb-button
+      v-if="showingAll != true"
+      @click="toggleShowAll"
+      class="w-full bg-[#2C2C2C]"
+      >See more</fwb-button
+    >
+
     <div
       v-if="!isLoading && colaboratorsRequest.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
       We dont havent colaboratos request now
     </div>
-    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
   </div>
 </template>
 
@@ -41,27 +47,55 @@ const props = defineProps({
   },
 });
 
+const showingAll = ref(false);
+
+const allColaborators = ref<any[]>([]);
+
 const filters = ref<ColaboratorRequestFilters>({
   Status: Status.PENDING,
   Languages: "",
+  page: 1,
+  limit: 2,
+});
+
+watch(showingAll, (newShowingAll) => {
+  if (newShowingAll) {
+    filters.value.page = 1;
+    filters.value.limit = 999999;
+  } else {
+    filters.value.page = 1;
+    filters.value.limit = 2;
+  }
+  allColaborators.value = [];
+  refetch();
 });
 
 watch(
   () => props.language,
   (newLanguage) => {
     filters.value.Languages = newLanguage;
+    filters.value.page = 1;
+    allColaborators.value = [];
+    refetch();
   }
 );
-
-//const limit = ref(10);
-// const showLoadMore = ref(true);
 
 const { data, isLoading, refetch } = useQuery({
   queryKey: ["colaborators", filters],
   queryFn: () => GetColaboratorRequestsFilters(filters.value),
 });
 
-const colaboratorsRequest = computed(() => data.value ?? []);
+const colaboratorsRequest = computed(() => data.value?.data ?? []);
+
+watch(data, (newData) => {
+  if (newData?.data) {
+    if (filters.value.page === 1) {
+      allColaborators.value = newData.data;
+    } else {
+      allColaborators.value = [...allColaborators.value, ...newData.data];
+    }
+  }
+});
 
 const router = useRouter();
 
@@ -87,6 +121,10 @@ const HandleRejected = async (colaboratorId: string) => {
   } catch (err) {
     console.log("Error al rechazar solicitud");
   }
+};
+
+const toggleShowAll = () => {
+  showingAll.value = !showingAll.value;
 };
 
 onMounted(() => {

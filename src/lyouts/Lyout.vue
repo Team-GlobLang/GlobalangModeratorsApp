@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main class="py-10 px-4">
+    <main class="pb-20 pt-6 px-4">
       <router-view></router-view>
     </main>
     <footer class="bg-[#00A1FF] p-4 bottom-0 fixed w-full flex justify-between">
