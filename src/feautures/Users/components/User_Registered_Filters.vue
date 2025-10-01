@@ -1,88 +1,93 @@
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col">
     <div class="flex justify-end">
       <fwb-button color="green">Register a moderator</fwb-button>
     </div>
     <FwbInput
-      list="languages"
-      v-model="language"
+      list="countries"
+      v-model="country"
       type="text"
-      :validation-status="languageError ? 'error' : undefined"
-      @blur="languageBlur"
-      label="Choose a language"
-      placeholder="Ej: Spanish, English"
+      :validation-status="countryError ? 'error' : undefined"
+      label="Contry"
+      placeholder="Ej: Costa Rica"
     >
       <template #suffix>
-        <span class="pi pi-language"></span>
+        <span class="pi pi-home"></span>
       </template>
       <template #validationMessage>
-        <span class="font-medium">{{ languageError }} </span>
+        <span class="font-medium">{{ countryError }} </span>
       </template>
     </FwbInput>
 
-    <datalist id="languages">
-      <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-        {{ lang }}
+    <datalist id="countries">
+      <option
+        v-for="countryItem in filteredCountries"
+        :key="countryItem.code"
+        :value="countryItem.name"
+      >
+        {{ countryItem.name }}
       </option>
     </datalist>
-    <fwb-select v-model="selected" :options="email" label="email" />
+
+    <FwbInput
+      v-model="email"
+      type="email"
+      :validation-status="emailError ? 'error' : undefined"
+      @blur="emailBlur"
+      label="Email"
+      placeholder="example@email.com"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { FwbInput } from "flowbite-vue";
-import { FwbSelect } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
 import { useField } from "vee-validate";
 import { countries } from "../../../Core/CountriesArray";
 import { computed, watch } from "vue";
+import type { RegisterForm } from "../../Auth/Interfaces";
 
 const MAX_INITIAL = 10;
 
-const allLanguages = computed(() => {
-  const languagesSet = new Set<string>();
-  countries.forEach((country) => {
-    country.languages.forEach((lang) => {
-      languagesSet.add(lang);
-    });
-  });
-  return Array.from(languagesSet).sort();
-});
+const emit = defineEmits<{
+  filterchangeCountry: [country: string];
+  filterchangeEmail: [email: string];
+}>();
 
-const filteredLanguages = computed(() => {
-  if (!language.value) {
-    return allLanguages.value.slice(0, MAX_INITIAL);
+const filteredCountries = computed(() => {
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
   }
-  return allLanguages.value.filter((lang) =>
-    lang.toLowerCase().includes(language.value.toLowerCase())
+  return countries.filter((c) =>
+    c.name.toLowerCase().includes(country.value.toLowerCase())
   );
 });
 
-const {
-  value: language,
-  errorMessage: languageError,
-  handleBlur: languageBlur,
-} = useField<string>("language");
+const { value: country, errorMessage: countryError } =
+  useField<RegisterForm["country"]>("country");
 
-const emit = defineEmits<{
-  filterchange: [language: string];
-}>();
+const {
+  value: email,
+  errorMessage: emailError,
+  handleBlur: emailBlur,
+} = useField<string>("email");
 
 watch(
-  language,
-  (newLanguage) => {
-    emit("filterchange", newLanguage || "");
+  country,
+  (newCountry) => {
+    emit("filterchangeCountry", newCountry || "");
   },
   { immediate: true }
 );
 
-const selected = ref("");
-
-const email = [
-  { value: "act", name: "Activa" },
-  { value: "ina", name: "Inactivo" },
-];
+watch(
+  email,
+  (newEmail) => {
+    emit("filterchangeEmail", newEmail || "");
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped></style>

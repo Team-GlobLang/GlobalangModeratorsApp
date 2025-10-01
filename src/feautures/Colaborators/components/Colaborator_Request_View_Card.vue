@@ -17,11 +17,17 @@
       {{ props.message }}
     </p>
   </div>
-  <div class="grid grid-cols-2 w-full">
-    <span>Academic title:</span>
-    <span>{{ props.title }}</span>
+  <div
+    v-if="props.filesUrls && props.filesUrls.length > 0"
+    class="flex flex-wrap gap-2"
+  >
+    <button
+      v-for="(url, index) in props.filesUrls"
+      :key="index"
+      @click="() => openFile(url)"
+      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+    ></button>
   </div>
-  <p>FILE PLACE</p>
   <Btn_Group_Without_Icon
     accept-text="Approve"
     reject-text="Reject"
@@ -51,8 +57,9 @@ const props = defineProps({
   message: {
     type: String,
   },
-  title: {
-    type: String,
+  filesUrls: {
+    type: Array as () => string[],
+    default: () => [],
   },
 });
 const emit = defineEmits<{
@@ -66,6 +73,10 @@ const onAccept = (itemId: string) => {
 
 const onReject = (itemId: string) => {
   emit("reject", itemId);
+};
+
+const openFile = (url: string) => {
+  window.open(url, "_blank", "noopener,noreferrer");
 };
 </script>
 

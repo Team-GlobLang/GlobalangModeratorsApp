@@ -3,12 +3,11 @@
     <Request_Colaborator_Card
       v-if="colaboratorsRequest.length > 0"
       v-for="item in colaboratorsRequest"
-      :key="item.Colaborator_Id"
-      :id_item="item.Colaborator_Id"
-      :user="item.userinfo.fullName"
-      :language="item.Languages"
-      :title="item.Academic_Title"
-      :category="item.Category"
+      :key="item.id"
+      :id_item="item.id"
+      :user="item.fullName"
+      :language="item.languages"
+      :category="item.category"
       @accept="HandleViewRequest"
       @reject="HandleRejected"
     />
@@ -52,8 +51,8 @@ const showingAll = ref(false);
 const allColaborators = ref<any[]>([]);
 
 const filters = ref<ColaboratorRequestFilters>({
-  Status: Status.PENDING,
-  Languages: "",
+  status: Status.PENDING,
+  languages: "",
   page: 1,
   limit: 2,
 });
@@ -73,7 +72,7 @@ watch(showingAll, (newShowingAll) => {
 watch(
   () => props.language,
   (newLanguage) => {
-    filters.value.Languages = newLanguage;
+    filters.value.languages = newLanguage;
     filters.value.page = 1;
     allColaborators.value = [];
     refetch();
@@ -99,25 +98,24 @@ watch(data, (newData) => {
 
 const router = useRouter();
 
-const HandleViewRequest = (colaboratorId: string) => {
+const HandleViewRequest = (id: string) => {
   router.push({
     name: "colaborator_request_view",
-    params: { id: colaboratorId },
+    params: { id: id },
   });
 };
 
 const mutationChangeRequest = UseChangeRequestStatus();
 
-const HandleRejected = async (colaboratorId: string) => {
+const HandleRejected = async (id: string) => {
   const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    Id: colaboratorId,
+    Id: id,
     Status: Status.REJECTED,
   };
   try {
     await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     refetch();
-    console.log("paso de fetch");
   } catch (err) {
     console.log("Error al rechazar solicitud");
   }
