@@ -3,8 +3,14 @@
   <section
     class="justify-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
   >
-    <Teacher_Colab_Registered_Filters />
-    <Teacher_Colab_Card_Container />
+    <Teacher_Colab_Registered_Filters
+      @filterchange="handleFilterChange"
+      @statusChange="handleStatus"
+    />
+    <Teacher_Colab_Card_Container
+      :language="languageFilter"
+      :status="statusFilter"
+    />
   </section>
 </template>
 
@@ -12,6 +18,7 @@
 import Teacher_Colab_Registered_Filters from "../components/Teacher_Colab_Registered_Filters.vue";
 import Teacher_Colab_Card_Container from "../components/Teacher_Colab_Card_Container.vue";
 import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+import { ref } from "vue";
 
 const breadCrumbItems = [
   {
@@ -26,6 +33,18 @@ const breadCrumbItems = [
     label: "Colaborators",
   },
 ];
+
+const languageFilter = ref<string>("");
+
+const handleFilterChange = (language: string) => {
+  languageFilter.value = language;
+};
+
+const statusFilter = ref<string>("");
+
+const handleStatus = (status: string) => {
+  statusFilter.value = status;
+};
 </script>
 
 <style scoped></style>

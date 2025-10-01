@@ -1,12 +1,13 @@
 <template>
   <Colaborator_Request_View_Card
     v-if="colaborator"
-    :name="colaborator.userInfo.fullName"
-    :email="colaborator.userInfo.email"
-    :message="colaborator.Info_Extra"
-    :languages="colaborator.Languages"
-    :title="colaborator.Academic_Title"
+    :key="colaborator.id"
+    :name="colaborator.fullName"
+    :email="colaborator.email"
+    :message="colaborator.aboutColaborator"
+    :languages="colaborator.languages"
     :id_item="props.id"
+    :files-urls="colaborator.filesUrls"
     @reject="HandleRejected"
     @accept="HandleAccept"
   />

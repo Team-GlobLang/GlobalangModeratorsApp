@@ -21,7 +21,8 @@
       {{ lang }}
     </option>
   </datalist>
-  <fwb-select v-model="selected" :options="status" label="Chaoose a status" />
+
+  <fwb-select v-model="selected" :options="status" label="Choose a status" />
 </template>
 
 <script setup lang="ts">
@@ -61,6 +62,7 @@ const {
 
 const emit = defineEmits<{
   filterchange: [language: string];
+  statusChange: [status: string];
 }>();
 
 watch(
@@ -74,9 +76,17 @@ watch(
 const selected = ref("");
 
 const status = [
-  { value: "act", name: "Activa" },
-  { value: "ina", name: "Inactivo" },
+  { value: "ACCEPTED", name: "Accepted" },
+  { value: "REJECTED", name: "Rejected" },
 ];
+
+watch(
+  selected,
+  (newStatus) => {
+    emit("statusChange", newStatus || "");
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped></style>

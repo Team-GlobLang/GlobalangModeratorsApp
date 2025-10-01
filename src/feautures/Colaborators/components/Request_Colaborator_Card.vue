@@ -3,7 +3,6 @@
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h2 class="text-lg font-bold">{{ props.user }}</h2>
       <span class="flex flex-col font-light">
-        <small>Academic title: {{ props.title }}</small>
         <small>Language: {{ props.language }}</small>
         <small>Category: {{ props.category }}</small>
       </span>
@@ -29,9 +28,6 @@ const props = defineProps({
     type: String,
   },
   user: {
-    type: String,
-  },
-  title: {
     type: String,
   },
   category: {
