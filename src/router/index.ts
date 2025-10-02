@@ -21,36 +21,37 @@ const routes = [
     path: "/",
     name: "StartPage",
     component: StartPage,
+    meta: { showBottomBar: false },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { showBottomBar: false },
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
+    meta: { showBottomBar: false },
   },
   {
     path: "/forgetPassword",
     name: "ForgetPassword",
     component: ForgetPassword,
+    meta: { showBottomBar: false },
   },
   {
     path: "/home",
     name: "Home",
-    component: Lyout,
+    component: Home_Moderators,
+    meta: { showBottomBar: true },
     children: [
-      {
-        path: "",
-        name: "Home_Moderator",
-        component: Home_Moderators,
-      },
       {
         path: "user-info",
         name: "User_Info",
         component: Info_User,
+        meta: { showBottomBar: true },
       },
     ],
   },
@@ -58,7 +59,6 @@ const routes = [
   {
     path: "/request",
     name: "Request",
-    component: Lyout, //CAMBIAR POR UN URL Y COMPONENTE INTERMEDIO DE REQUES
     children: [
       {
         path: "quiz",
@@ -81,7 +81,6 @@ const routes = [
   {
     path: "/registered",
     name: "registered",
-    component: Lyout, ///CAMBIAR POR URL Y COMPONENTE INTERMEDIO DE REGISTRADOS
     children: [
       {
         path: "phrases",
@@ -109,7 +108,6 @@ const routes = [
   {
     path: "/review",
     name: "review",
-    component: Lyout,
     children: [
       {
         path: "quiz",
@@ -138,7 +136,6 @@ const router = createRouter({
     return { top: 0 };
   },
 });
-
 
 /* 
 const publicPages = [
