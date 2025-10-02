@@ -3,7 +3,6 @@
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h2 class="text-2xl font-bold">{{ props.user }}</h2>
       <span class="flex flex-col font-light text-lg gap-0.5">
-        <small>Academic Title: {{ props.title }}</small>
         <small>Language: {{ props.language }}</small>
         <small>Category: {{ props.category }}</small>
         <small>Approve by: {{ props.aprobeBy }}</small>
@@ -22,9 +21,6 @@ import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   user: {
-    type: String,
-  },
-  title: {
     type: String,
   },
   language: {
