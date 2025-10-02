@@ -4,7 +4,7 @@
       <section class="flex-1">
         <MyInfo />
       </section>
-      <section class="shadow flex flex-col gap-10">
+      <section class="flex flex-col gap-10">
         <div v-for="(card, index) in cards" :key="index">
           <RedirectionCard :card-data="card" />
         </div>
