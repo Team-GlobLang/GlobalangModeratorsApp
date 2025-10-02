@@ -53,6 +53,6 @@ const navItems: BottomNavItem[] = [
   { name: 'Teacher/Collaborator', routeName: 'teacher-colaborator_Registered', icon: 'pi-address-book', segment: 'teacher-colaborator' },
   { name: 'Home', routeName: 'Home', icon: 'pi-th-large' },
   { name: 'Phrases', routeName: 'Phrases_Registered', icon: 'pi-headphones', segment: 'phrases' },
-  { name: 'Quizzes', routeName: 'quizzes_Registered', icon: 'pi-user', segment: 'quizzes' }
+  { name: 'Quizzes', routeName: 'quizzes_Registered', icon: 'pi-file-check', segment: 'quizzes' }
 ]
 </script>
