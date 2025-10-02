@@ -37,8 +37,8 @@
           reject-icon="pi-trash"
           reject-text="Reject"
           :id_item="props.id || ''"
-          @accept="handleAccept"
-          @reject="handleReject"
+          @accept="onAccept"
+          @reject="onReject"
         />
       </div>
     </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import Btn_Group from "../../Home/components/Btn_Group.vue";
 import { FwbCard } from "flowbite-vue";
 
@@ -105,22 +105,17 @@ function onLoadedMetadata() {
   }
 }
 
-const timeLabel = computed(() => {
-  const format = (t: number) =>
-    `${Math.floor(t / 60)
-      .toString()
-      .padStart(2, "0")}:${(t % 60).toString().padStart(2, "0")}`;
-  return `${format(currentTime.value)} / ${
-    duration.value ? format(duration.value) : "--:--"
-  }`;
-});
+const emit = defineEmits<{
+  accept: [itemId: string];
+  reject: [itemId: string];
+}>();
 
-const handleAccept = () => {
-  console.log("Implementar logica");
+const onAccept = (itemId: string) => {
+  emit("accept", itemId);
 };
 
-const handleReject = () => {
-  console.log("Implementar logica");
+const onReject = (itemId: string) => {
+  emit("reject", itemId);
 };
 </script>
 
