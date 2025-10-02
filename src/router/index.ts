@@ -3,7 +3,6 @@ import Login from "../feautures/Auth/Page/Login.vue";
 import Register from "../feautures/Auth/Page/Register.vue";
 import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
 import StartPage from "../feautures/Auth/Page/StartPage.vue";
-import Lyout from "../lyouts/Lyout.vue";
 import Home_Moderators from "../feautures/Home/Pages/Home_Moderators.vue";
 import Quizz_request from "../feautures/Quiz/pages/Quizz_request.vue";
 import Request_Colaborator from "../feautures/Colaborators/pages/Request_Colaborator.vue";
