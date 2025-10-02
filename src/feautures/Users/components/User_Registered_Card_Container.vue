@@ -11,6 +11,13 @@
       end_date="20/9/2026"
     />
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
+
+    <div
+      v-if="!isLoading && Users.length === 0"
+      class="text-center mt-10 p-10 bg-white"
+    >
+      We dont havent colaboratos request now
+    </div>
   </div>
 </template>
 
@@ -73,7 +80,6 @@ watch(
 
 onMounted(() => {
   refetch();
-  console.log(data);
 });
 </script>
 
