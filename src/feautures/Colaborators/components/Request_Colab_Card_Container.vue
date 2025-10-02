@@ -109,8 +109,8 @@ const mutationChangeRequest = UseChangeRequestStatus();
 
 const HandleRejected = async (id: string) => {
   const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    Id: id,
-    Status: Status.REJECTED,
+    id: id,
+    status: Status.REJECTED,
   };
   try {
     await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);

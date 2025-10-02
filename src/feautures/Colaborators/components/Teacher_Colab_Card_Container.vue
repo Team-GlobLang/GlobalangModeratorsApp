@@ -5,14 +5,20 @@
     <Teacher_Colaborator_Card
       v-if="colaboratorRequests.length > 0"
       v-for="item in colaboratorRequests"
-      :key="item.Colaborator_Id"
-      :user="item.userinfo.fullName"
-      :category="item.Category"
-      :aprobe-by="item.Moderator_Id"
-      :title="item.Academic_Title"
-      :language="item.Languages"
+      :key="item.id"
+      :user="item.fullName"
+      :category="item.category"
+      :aprobe-by="item.reviewedId"
+      :language="item.languages"
     />
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
+
+    <div
+      v-if="!isLoading && colaboratorRequests.length === 0"
+      class="text-center mt-10 p-10 bg-white"
+    >
+      We dont havent colaboratos request now
+    </div>
   </div>
 </template>
 
@@ -35,8 +41,8 @@ const props = defineProps({
 });
 
 const filters = ref<ColaboratorRequestFilters>({
-  Status: Status.ACCEPTED,
-  Languages: "",
+  status: Status.ACCEPTED,
+  languages: "",
   page: 1,
   limit: 2,
 });
@@ -46,7 +52,7 @@ const allColaborators = ref<any[]>([]);
 watch(
   () => props.language,
   (newLanguage) => {
-    filters.value.Languages = newLanguage;
+    filters.value.languages = newLanguage;
     filters.value.page = 1;
     allColaborators.value = [];
     refetch();
@@ -56,7 +62,7 @@ watch(
 watch(
   () => props.status,
   (newStatus) => {
-    filters.value.Status = newStatus;
+    filters.value.status = newStatus;
     filters.value.page = 1;
     allColaborators.value = [];
     refetch();

@@ -48,8 +48,8 @@ const mutationChangeRequest = UseChangeRequestStatus();
 
 const HandleRejected = async (colaboratorId: string) => {
   const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    Id: colaboratorId,
-    Status: Status.REJECTED,
+    id: colaboratorId,
+    status: Status.REJECTED,
   };
   try {
     await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
@@ -62,8 +62,8 @@ const HandleRejected = async (colaboratorId: string) => {
 
 const HandleAccept = async (colaboratorId: string) => {
   const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    Id: colaboratorId,
-    Status: Status.ACCEPTED,
+    id: colaboratorId,
+    status: Status.ACCEPTED,
   };
   try {
     await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
@@ -75,7 +75,6 @@ const HandleAccept = async (colaboratorId: string) => {
 };
 
 onMounted(() => {
-  console.log(colaborator.value);
   refetch();
 });
 </script>
