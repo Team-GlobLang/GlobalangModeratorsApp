@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 import { Toaster } from "vue3-hot-toast";
+import NavBarlayout from "./lyouts/NavBarlayout.vue";
+const route = useRoute();
+const showBottomBar = computed(() => route.meta.showBottomBar !== false);
 </script>
 
 <template>
   <Toaster />
   <router-view v-slot="{ Component }">
     <Transition>
-      <component :is="Component" />
+      <div :class="{ 'pb-14': showBottomBar }">
+        <component :is="Component" />
+      </div>
     </Transition>
   </router-view>
+  <NavBarlayout v-if="showBottomBar" />
 </template>
 
 <style lang="css">
