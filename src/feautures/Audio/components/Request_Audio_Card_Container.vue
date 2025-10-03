@@ -29,10 +29,16 @@
 import { FwbButton } from "flowbite-vue";
 import Request_Audio_Card from "./Request_Audio._Card.vue";
 import type { AudiosByFilters } from "../interfaces/AudiosByFilter";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetAllAudiosByFilters } from "../services/AudioService";
 import { UseDisableShort } from "../hooks/UseDisableShort";
+
+const props = defineProps({
+  Country: {
+    type: String,
+  },
+});
 
 const filters = ref<AudiosByFilters>({
   country: "",
@@ -44,6 +50,14 @@ const { data, isLoading, refetch } = useQuery({
   queryKey: ["Request_Audios", filters],
   queryFn: () => GetAllAudiosByFilters(filters.value),
 });
+
+watch(
+  () => props.Country,
+  (newCountry) => {
+    filters.value.country = newCountry;
+    refetch();
+  }
+);
 
 const audiosRequest = computed(() => data.value?.data ?? []);
 

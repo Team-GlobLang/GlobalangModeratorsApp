@@ -29,10 +29,19 @@
 import { FwbButton } from "flowbite-vue";
 import Phrases_Registered_Card from "./Phrases_Registered_Card.vue";
 import { useQuery } from "@tanstack/vue-query";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import type { AudiosByFilters } from "../../Audio/interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "../../Audio/services/AudioService";
 import { UseDeleteShort } from "../../Audio/hooks/UseDeleteShorts";
+
+const props = defineProps({
+  Status: {
+    type: Boolean,
+  },
+  Country: {
+    type: String,
+  },
+});
 
 const filters = ref<AudiosByFilters>({
   page: 1,
@@ -45,6 +54,22 @@ const { data, isLoading, refetch } = useQuery({
   queryKey: ["Audios_Registered", filters],
   queryFn: () => GetAllAudiosByFilters(filters.value),
 });
+
+watch(
+  () => props.Country,
+  (newCountry) => {
+    filters.value.country = newCountry;
+    refetch();
+  }
+);
+
+watch(
+  () => props.Status,
+  (newStatus) => {
+    filters.value.approved = newStatus;
+    refetch();
+  }
+);
 
 const audiosRegistered = computed(() => data.value?.data ?? []);
 
