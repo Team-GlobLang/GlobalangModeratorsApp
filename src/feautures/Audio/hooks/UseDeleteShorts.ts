@@ -4,7 +4,7 @@ import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
 import { DeleteShort } from "../services/AudioService";
 
-const UseDisableShort = () => {
+const UseDeleteShort = () => {
   const mutation = useMutation({
     mutationFn: (id: string) =>
       toast.promise(
@@ -22,4 +22,4 @@ const UseDisableShort = () => {
   return mutation;
 };
 
-export { UseDisableShort };
+export { UseDeleteShort };

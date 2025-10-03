@@ -34,7 +34,7 @@ const DisableShort = async (id: string) => {
 
 const DeleteShort = async (id: string) => {
   try {
-    const response = await axiosInstance.post(`shorts/remove/${id}`);
+    const response = await axiosInstance.delete(`shorts/remove/${id}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

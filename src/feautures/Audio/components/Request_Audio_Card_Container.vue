@@ -20,7 +20,7 @@
       v-if="!isLoading && audiosRequest.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      We dont havent Audio requests now
+      We dont havent audio requests now
     </div>
   </div>
 </template>
