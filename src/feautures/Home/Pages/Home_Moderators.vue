@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full flex justify-center items-center mt-10">
-    <div class="flex flex-col md:flex-row gap-10 w-full max-w-5xl p-4 md:p-8">
+  <div class="w-full flex justify-center items-center">
+    <div class="flex flex-col md:flex-row gap-3 w-full max-w-5xl p-4 md:p-8">
       <section class="flex-1">
         <MyInfo />
       </section>
-      <section class="flex flex-col gap-10">
+      <section class="flex flex-col gap-3">
         <div v-for="(card, index) in cards" :key="index">
           <RedirectionCard :card-data="card" />
         </div>
@@ -74,13 +74,7 @@ const stats = [
     entity: "Users",
     counter: 1200,
     color: "#BFDBFE", // azul pastel
-  },
-  {
-    title: "Active",
-    entity: "Collaborators",
-    counter: 45,
-    color: "#FFE5D4", // papaya pastel
-  },
+  }
 ];
 </script>
 

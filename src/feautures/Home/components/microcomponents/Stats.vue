@@ -4,8 +4,8 @@
             border: `2px solid ${props.data.color}`,
 
         }">
-        <span class="text-2xl font-bold">{{ props.data.counter }}</span>
-        <span class="text-lg font-semibold mt-1">{{ props.data.title }}</span>
+        <span class="text-lg font-bold">{{ props.data.counter }}</span>
+        <span class="text-md font-semibold mt-1">{{ props.data.title }}</span>
         <span class="text-sm mt-1">{{ props.data.entity }}</span>
     </div>
 

@@ -5,8 +5,8 @@
                 <i :class="`pi ${props.cardData.icon} ${props.cardData.color} p-6 rounded-full`"
                     style="font-size: 2rem"></i>
                 <span>
-                    <h2 class="text-lg font-bold">{{ props.cardData.resourceType }} request</h2>
-                    <p class="text-md">{{ props.cardData.message }}</p>
+                    <h2 class="text-md font-bold">{{ props.cardData.resourceType }} request</h2>
+                    <p class="text-sm">{{ props.cardData.message }}</p>
                 </span>
             </div>
             <div class="flex items-center cursor-pointer w-1/12" @click="goto(props.cardData.redirectPath)">
