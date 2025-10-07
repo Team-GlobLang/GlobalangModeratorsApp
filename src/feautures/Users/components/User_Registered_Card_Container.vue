@@ -12,11 +12,8 @@
     />
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
 
-    <div
-      v-if="!isLoading && Users.length === 0"
-      class="text-center mt-10 p-10 bg-white"
-    >
-      We dont havent colaboratos request now
+    <div v-if="!isLoading && Users.length === 0" class="text-center w-1/2 m-4">
+      <NotFound message="Sorry, we dont have user avalible now" />
     </div>
   </div>
 </template>
@@ -28,6 +25,7 @@ import type { UserFilter } from "../interfaces/user-filter-interface";
 import { computed, onMounted, ref, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetUsersFiltered } from "../services/UserServices";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   Email: {
