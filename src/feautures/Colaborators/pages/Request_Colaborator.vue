@@ -1,11 +1,13 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section
-    class="w-full flex flex-col justify-center bg-[#F6F6F6] p-2 rounded-lg"
-  >
-    <Request_colab_Filters @filterchange="handleFilterChange" />
-    <Request_Colab_Card_Container :language="languageFilter" />
-  </section>
+  <div class="p-2">
+    <section
+      class="w-full flex flex-col justify-center bg-white p-2 rounded-lg"
+    >
+      <Request_colab_Filters @filterchange="handleFilterChange" />
+      <Request_Colab_Card_Container :language="languageFilter" />
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
