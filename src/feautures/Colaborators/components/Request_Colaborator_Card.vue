@@ -1,21 +1,25 @@
 <template>
   <fwb-card class="w-full">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
-      <h2 class="text-lg font-bold">{{ props.user }}</h2>
-      <span class="flex flex-col font-light">
-        <small>Language: {{ props.language }}</small>
-        <small>Category: {{ props.category }}</small>
-      </span>
-      <btn_-group
-        accept-icon="pi-cloud-upload"
-        accept-text="Review request"
-        reject-icon="pi-trash"
-        reject-text="Reject"
-        accept-path="/request/colaborator/view/moderator"
-        :id_item="props.id_item || ''"
-        @accept="onAccept"
-        @reject="onReject"
-      />
+      <p>
+        <small class="font-bold text-md">{{ props.user }}</small>
+        <span class="flex flex-col font-light text-sm gap-0.5">
+          <small>Language: {{ props.language }}</small>
+          <small>Category: {{ props.category }}</small>
+        </span>
+      </p>
+      <div class="w-full flex flex-col">
+        <btn_-group
+          accept-icon="pi-cloud-upload"
+          accept-text="Review request"
+          reject-icon="pi-trash"
+          reject-text="Reject"
+          accept-path="/request/colaborator/view/moderator"
+          :id_item="props.id_item || ''"
+          @accept="onAccept"
+          @reject="onReject"
+        />
+      </div>
     </div>
   </fwb-card>
 </template>

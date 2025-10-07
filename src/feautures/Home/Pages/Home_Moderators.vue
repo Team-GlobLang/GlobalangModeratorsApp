@@ -74,7 +74,7 @@ const stats = [
     entity: "Users",
     counter: 1200,
     color: "#BFDBFE", // azul pastel
-  }
+  },
 ];
 </script>
 

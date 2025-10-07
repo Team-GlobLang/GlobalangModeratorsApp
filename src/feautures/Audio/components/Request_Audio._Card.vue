@@ -1,21 +1,30 @@
 <template>
-  <fwb-card class="w-full">
-    <div class="bg-white rounded-lg p-4 flex justify-center items-center gap-4">
-      <div>
-        <div class="flex items-center justify-center">
-          <button
-            class="rounded-full w-20 h-20 flex items-center justify-center shadow transition active:scale-95 bg-blue-500 hover:bg-blue-600 text-white"
-            :aria-pressed="localPlaying"
-            :title="localPlaying ? 'Pausar' : 'Reproducir'"
-            @click="toggle"
-          >
-            <i
-              class="pi text-3xl"
-              :class="localPlaying ? 'pi-pause' : 'pi-play'"
-            ></i>
-          </button>
-        </div>
-      </div>
+  <fwb-card
+    class="w-full rounded-lg p-4 bg-[#f6f6f6] shadow-gray-300 shadow-md"
+  >
+    <div class="flex flex-col gap-2">
+      <span class="flex flex-col">
+        <small class="text-md font-bold">Created by: {{ props.name }}</small>
+        <small class="text-sm font-light">Phrase: {{ props.phrase }} </small>
+        <small class="text-sm font-light">Meaning: {{ props.meaning }} </small>
+      </span>
+
+      <fwb-button
+        :aria-pressed="localPlaying"
+        :title="localPlaying ? 'Pausar' : 'Reproducir'"
+        @click="toggle"
+        class=""
+      >
+        <p class="flex flex-row items-center justify-center gap-2 text-xs">
+          <span>Reproduce audio</span>
+          <i
+            class="pi"
+            :class="localPlaying ? 'pi-pause-circle' : 'pi-play-circle'"
+            style="font-size: 1rem"
+          ></i>
+        </p>
+      </fwb-button>
+
       <audio
         ref="audioRef"
         :src="fileUrl"
@@ -24,23 +33,16 @@
         @timeupdate="updateTime"
         @ended="onEnded"
       ></audio>
-      <div class="flex flex-col gap-2">
-        <span class="flex flex-col font-light text-lg">
-          <h3 class="text-xl font-bold">Created by: {{ props.name }}</h3>
-          <small>Phrase: {{ props.phrase }} </small>
-          <small>Meaning: {{ props.meaning }} </small>
-        </span>
 
-        <btn_-group
-          accept-icon="pi-cloud-upload"
-          accept-text="Approve"
-          reject-icon="pi-trash"
-          reject-text="Reject"
-          :id_item="props.id || ''"
-          @accept="onAccept"
-          @reject="onReject"
-        />
-      </div>
+      <btn_-group
+        accept-icon="pi-cloud-upload"
+        accept-text="Approve"
+        reject-icon="pi-trash"
+        reject-text="Reject"
+        :id_item="props.id || ''"
+        @accept="onAccept"
+        @reject="onReject"
+      />
     </div>
   </fwb-card>
 </template>
@@ -48,7 +50,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import Btn_Group from "../../Home/components/Btn_Group.vue";
-import { FwbCard } from "flowbite-vue";
+import { FwbButton } from "flowbite-vue";
 
 const props = defineProps({
   name: {
