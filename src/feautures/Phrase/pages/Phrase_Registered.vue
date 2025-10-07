@@ -1,8 +1,6 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section
-    class="justify-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
-  >
+  <section class="justify-center flex flex-col bg-white p-2 rounded-lg gap-4">
     <Request_Phrase_Filters
       @filterCountryChange="hadleCountryFilter"
       @filterStatusChange="handleStatusFilter"
