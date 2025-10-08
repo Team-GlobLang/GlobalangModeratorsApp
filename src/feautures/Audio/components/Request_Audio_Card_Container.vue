@@ -11,7 +11,9 @@
       :meaning="request.description"
       :phrase="request.text"
       :fileUrl="request.fileUrl"
-      @reject="HandleRejected"
+      @idItem="handleIdItem"
+      @openModal="handleOpenModal"
+      @isAccepted="handleAction"
     />
 
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
@@ -20,8 +22,15 @@
       v-if="!isLoading && audiosRequest.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      We dont havent audio requests now
+      <NotFound />
     </div>
+    <Audio_Request_Modal
+      :isOpen="isModalOpen"
+      @close="isModalOpen = false"
+      :typeAction="isAccepeted"
+      :idRequest="IdItem"
+      @completed="handleCompleted"
+    />
   </div>
 </template>
 
@@ -32,7 +41,8 @@ import type { AudiosByFilters } from "../interfaces/AudiosByFilter";
 import { computed, onMounted, ref, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetAllAudiosByFilters } from "../services/AudioService";
-import { UseDisableShort } from "../hooks/UseDisableShort";
+import Audio_Request_Modal from "./modas/Audio_Request_Modal.vue";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   Country: {
@@ -41,9 +51,10 @@ const props = defineProps({
 });
 
 const filters = ref<AudiosByFilters>({
-  country: "",
+  country: undefined,
   page: 1,
   limit: 5,
+  approved: undefined,
 });
 
 const { data, isLoading, refetch } = useQuery({
@@ -61,16 +72,23 @@ watch(
 
 const audiosRequest = computed(() => data.value?.data ?? []);
 
-const DisableRequestMutation = UseDisableShort();
+const isModalOpen = ref(false);
+const handleOpenModal = (shouldOpen: boolean) => {
+  isModalOpen.value = shouldOpen;
+};
 
-const HandleRejected = async (id: string) => {
-  try {
-    await DisableRequestMutation.mutate(id);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    refetch();
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
+const isAccepeted = ref(false);
+const handleAction = (action: boolean) => {
+  isAccepeted.value = action;
+};
+
+const IdItem = ref("");
+const handleIdItem = (id: string) => {
+  IdItem.value = id;
+};
+
+const handleCompleted = () => {
+  refetch();
 };
 
 onMounted(() => {

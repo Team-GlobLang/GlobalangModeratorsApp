@@ -40,16 +40,21 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  accept: [itemId: string];
-  reject: [itemId: string];
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
 }>();
 
 const handleAccept = () => {
-  emit("accept", props.id_item);
+  emit("openModal", true);
+  emit("isAccepted", true);
+  emit("idItem", props.id_item);
 };
 
 const handleReject = () => {
-  emit("reject", props.id_item);
+  emit("openModal", true);
+  emit("isAccepted", false);
+  emit("idItem", props.id_item);
 };
 </script>
 

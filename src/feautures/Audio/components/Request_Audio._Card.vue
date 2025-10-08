@@ -40,8 +40,9 @@
         reject-icon="pi-trash"
         reject-text="Reject"
         :id_item="props.id || ''"
-        @accept="onAccept"
-        @reject="onReject"
+        @idItem="IdItem"
+        @openModal="openModal"
+        @isAccepted="onIsAccepted"
       />
     </div>
   </fwb-card>
@@ -108,16 +109,21 @@ function onLoadedMetadata() {
 }
 
 const emit = defineEmits<{
-  accept: [itemId: string];
-  reject: [itemId: string];
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
 }>();
 
-const onAccept = (itemId: string) => {
-  emit("accept", itemId);
+const IdItem = (itemId: string) => {
+  emit("idItem", itemId);
 };
 
-const onReject = (itemId: string) => {
-  emit("reject", itemId);
+const openModal = (isModalOpen: boolean) => {
+  emit("openModal", isModalOpen);
+};
+
+const onIsAccepted = (isAccepted: boolean) => {
+  emit("isAccepted", isAccepted);
 };
 </script>
 
