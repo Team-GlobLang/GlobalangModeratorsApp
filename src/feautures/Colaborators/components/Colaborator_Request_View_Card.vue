@@ -21,12 +21,13 @@
     v-if="props.filesUrls && props.filesUrls.length > 0"
     class="flex flex-wrap gap-2"
   >
-    <button
+    <i
       v-for="(url, index) in props.filesUrls"
       :key="index"
       @click="() => openFile(url)"
-      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-    ></button>
+      class="pi pi-file hover:bg-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+      style="font-size: 2.5rem"
+    ></i>
   </div>
   <Btn_Group_Without_Icon
     accept-text="Approve"
@@ -83,6 +84,7 @@ const onIsAccepted = (isAccepted: boolean) => {
 };
 
 const openFile = (url: string) => {
+  //CAMBIAR POR IFRAME LIBRARY
   window.open(url, "_blank", "noopener,noreferrer");
 };
 </script>
