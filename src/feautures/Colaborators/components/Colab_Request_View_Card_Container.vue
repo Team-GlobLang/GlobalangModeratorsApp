@@ -8,14 +8,15 @@
     :languages="colaborator.languages"
     :id_item="props.id"
     :files-urls="colaborator.filesUrls"
-    @reject="HandleRejected"
-    @accept="HandleAccept"
+    @idItem="handleItemId"
+    @openModal="handleIsOpenModal"
+    @isAccepted="handleIsAccepted"
   />
 </template>
 
 <script setup lang="ts">
 import Colaborator_Request_View_Card from "./Colaborator_Request_View_Card.vue";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 import { useRouter } from "vue-router";
@@ -72,6 +73,21 @@ const HandleAccept = async (colaboratorId: string) => {
   } catch (err) {
     console.log("Error al rechazar solicitud");
   }
+};
+
+const item = ref("");
+const handleItemId = (idItem: string) => {
+  item.value = idItem;
+};
+
+const isOpenModal = ref(false);
+const handleIsOpenModal = (isOpen: boolean) => {
+  isOpenModal.value = isOpen;
+};
+
+const isAccepeted = ref(false);
+const handleIsAccepted = (status: boolean) => {
+  isAccepeted.value = status;
 };
 
 onMounted(() => {

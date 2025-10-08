@@ -9,7 +9,9 @@
       :language="item.languages"
       :category="item.category"
       @accept="HandleViewRequest"
-      @reject="HandleRejected"
+      @idItem="handleIdItem"
+      @openModal="handleOpenModal"
+      @isAccepted="handleAction"
     />
 
     <fwb-button
@@ -25,6 +27,13 @@
     >
       We dont havent colaboratos request now
     </div>
+    <Request_Colab_Modal
+      :isOpen="isModalOpen"
+      @close="isModalOpen = false"
+      :typeAction="isAccepeted"
+      :idRequest="IdItem"
+      @completed="handleCompleted"
+    />
   </div>
 </template>
 
@@ -32,13 +41,12 @@
 import Request_Colaborator_Card from "./Request_Colaborator_Card.vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
-import { UseChangeRequestStatus } from "../hooks/UseChangeRequestStatus";
 import { computed, onMounted, ref, watch } from "vue";
 import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
 import { useRouter } from "vue-router";
-import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 import { FwbButton } from "flowbite-vue";
+import Request_Colab_Modal from "./modals/Request_Colab_Modal.vue";
 
 const props = defineProps({
   language: {
@@ -105,24 +113,27 @@ const HandleViewRequest = (id: string) => {
   });
 };
 
-const mutationChangeRequest = UseChangeRequestStatus();
-
-const HandleRejected = async (id: string) => {
-  const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    id: id,
-    status: Status.REJECTED,
-  };
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    refetch();
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
-};
-
 const toggleShowAll = () => {
   showingAll.value = !showingAll.value;
+};
+
+const isModalOpen = ref(false);
+const handleOpenModal = (shouldOpen: boolean) => {
+  isModalOpen.value = shouldOpen;
+};
+
+const isAccepeted = ref(false);
+const handleAction = (action: boolean) => {
+  isAccepeted.value = action;
+};
+
+const IdItem = ref("");
+const handleIdItem = (id: string) => {
+  IdItem.value = id;
+};
+
+const handleCompleted = () => {
+  refetch();
 };
 
 onMounted(() => {

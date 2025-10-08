@@ -34,8 +34,9 @@
     color-accept="bg-[#00A1FF]"
     color-reject="bg-[#900B09]"
     :id_item="props.id_item || ''"
-    @accept="onAccept"
-    @reject="onReject"
+    @idItem="IdItem"
+    @openModal="openModal"
+    @isAccepted="onIsAccepted"
   />
 </template>
 
@@ -62,17 +63,23 @@ const props = defineProps({
     default: () => [],
   },
 });
+
 const emit = defineEmits<{
-  accept: [itemId: string];
-  reject: [itemId: string];
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
 }>();
 
-const onAccept = (itemId: string) => {
-  emit("accept", itemId);
+const IdItem = (itemId: string) => {
+  emit("idItem", itemId);
 };
 
-const onReject = (itemId: string) => {
-  emit("reject", itemId);
+const openModal = (isModalOpen: boolean) => {
+  emit("openModal", isModalOpen);
+};
+
+const onIsAccepted = (isAccepted: boolean) => {
+  emit("isAccepted", isAccepted);
 };
 
 const openFile = (url: string) => {

@@ -11,7 +11,7 @@
         </span>
       </p>
       <div class="w-full flex flex-col">
-        <btn_-group
+        <Btn_Colab_Request
           accept-icon="pi-cloud-upload"
           accept-text="Review request"
           reject-icon="pi-trash"
@@ -19,7 +19,9 @@
           accept-path="/request/colaborator/view/moderator"
           :id_item="props.id_item || ''"
           @accept="onAccept"
-          @reject="onReject"
+          @idItem="onItemId"
+          @openModal="onOpenModal"
+          @isAccepted="onIsAccepted"
         />
       </div>
     </div>
@@ -27,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import Btn_Group from "../../Home/components/Btn_Group.vue";
+import Btn_Colab_Request from "./modals/Btn_Colab_Request.vue";
 //import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
 const props = defineProps({
   id_item: {
@@ -45,16 +47,26 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
   accept: [itemId: string];
-  reject: [itemId: string];
 }>();
 
 const onAccept = (itemId: string) => {
   emit("accept", itemId);
 };
 
-const onReject = (itemId: string) => {
-  emit("reject", itemId);
+const onItemId = (itemId: string) => {
+  emit("idItem", itemId);
+};
+
+const onOpenModal = (isModalOpen: boolean) => {
+  emit("openModal", isModalOpen);
+};
+
+const onIsAccepted = (isAccepeted: boolean) => {
+  emit("isAccepted", isAccepeted);
 };
 </script>
 
