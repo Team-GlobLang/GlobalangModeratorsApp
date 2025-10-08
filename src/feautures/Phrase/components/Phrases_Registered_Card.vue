@@ -29,7 +29,7 @@
 
         <fwb-button
           class="w-1/2 border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
-          @click="handleDelete"
+          @click="handleAction"
         >
           <p class="flex items-center justify-center gap-2">
             <i class="pi pi-trash text-[#FF0000]"></i>
@@ -67,8 +67,9 @@ const props = defineProps({
   admin: {
     type: String,
   },
-  id: {
+  itemId: {
     type: String,
+    required: true,
   },
   fileUrl: {
     type: String,
@@ -83,7 +84,7 @@ const duration = ref(0);
 
 watchEffect(() => {
   const favs = JSON.parse(localStorage.getItem("favorites") || "[]");
-  favorite.value = favs.includes(props.id);
+  favorite.value = favs.includes(props.itemId);
 });
 
 function toggle() {
@@ -113,11 +114,13 @@ function onLoadedMetadata() {
 }
 
 const emit = defineEmits<{
-  delete: [itemId: string];
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
 }>();
 
-const handleDelete = () => {
-  emit("delete", props.id || "");
+const handleAction = () => {
+  emit("openModal", true);
+  emit("idItem", props.itemId);
 };
 </script>
 

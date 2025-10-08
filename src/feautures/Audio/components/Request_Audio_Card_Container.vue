@@ -41,7 +41,7 @@ import type { AudiosByFilters } from "../interfaces/AudiosByFilter";
 import { computed, onMounted, ref, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetAllAudiosByFilters } from "../services/AudioService";
-import Audio_Request_Modal from "./modas/Audio_Request_Modal.vue";
+import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
 import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({

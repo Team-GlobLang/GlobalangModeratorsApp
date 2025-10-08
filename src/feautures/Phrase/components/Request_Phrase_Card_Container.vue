@@ -6,13 +6,14 @@
       v-if="audiosRegistered.length > 0"
       v-for="audio in audiosRegistered"
       :key="audio.id"
-      :id="audio.id"
+      :itemId="audio.id"
       :admin="audio.reviewedBy"
       :meaning="audio.description"
       :name="audio.createBy"
       :phrase="audio.text"
       :fileUrl="audio.fileUrl"
-      @delete="HandleDelte"
+      @idItem="handleItem"
+      @openModal="handleIsOpenModal"
     />
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
 
@@ -22,6 +23,13 @@
     >
       We dont havent audios registereds now
     </div>
+
+    <Phrases_Registered_Modal
+      :isOpen="isOpenModal"
+      @close="isOpenModal = false"
+      :idRequest="item"
+      @completed="handleCompleted"
+    />
   </div>
 </template>
 
@@ -32,7 +40,7 @@ import { useQuery } from "@tanstack/vue-query";
 import { computed, onMounted, ref, watch } from "vue";
 import type { AudiosByFilters } from "../../Audio/interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "../../Audio/services/AudioService";
-import { UseDeleteShort } from "../../Audio/hooks/UseDeleteShorts";
+import Phrases_Registered_Modal from "./modal/Phrases_Registered_Modal.vue";
 
 const props = defineProps({
   Status: {
@@ -73,16 +81,18 @@ watch(
 
 const audiosRegistered = computed(() => data.value?.data ?? []);
 
-const DeleteMutation = UseDeleteShort();
+const item = ref("");
+const handleItem = (itemId: string) => {
+  item.value = itemId;
+};
 
-const HandleDelte = async (id: string) => {
-  try {
-    await DeleteMutation.mutate(id);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    refetch();
-  } catch (err) {
-    console.log("error al eliminar audio");
-  }
+const isOpenModal = ref(false);
+const handleIsOpenModal = (isModalOpen: boolean) => {
+  isOpenModal.value = isModalOpen;
+};
+
+const handleCompleted = () => {
+  refetch();
 };
 
 onMounted(() => {
