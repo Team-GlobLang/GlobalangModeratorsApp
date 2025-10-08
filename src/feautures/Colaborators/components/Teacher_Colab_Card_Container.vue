@@ -12,12 +12,11 @@
       :language="item.languages"
     />
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
-
     <div
       v-if="!isLoading && colaboratorRequests.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      We dont havent colaboratos request now
+      <NotFound message="Sorry, we dont have collaborators avalible now" />
     </div>
   </div>
 </template>
@@ -30,6 +29,7 @@ import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequest
 import { computed, onMounted, ref, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   language: {

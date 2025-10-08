@@ -25,7 +25,9 @@
       v-if="!isLoading && colaboratorsRequest.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      We dont havent colaboratos request now
+      <NotFound
+        message="Sorry, we dont have collaboratos requests avalible now"
+      />
     </div>
     <Request_Colab_Modal
       :isOpen="isModalOpen"
@@ -47,6 +49,7 @@ import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequest
 import { useRouter } from "vue-router";
 import { FwbButton } from "flowbite-vue";
 import Request_Colab_Modal from "./modals/Request_Colab_Modal.vue";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   language: {

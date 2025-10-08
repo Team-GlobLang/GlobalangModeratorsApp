@@ -13,6 +13,13 @@
     @isAccepted="handleIsAccepted"
   />
 
+  <div
+    v-if="!isLoading && colaborator.length === 0"
+    class="text-center mt-10 p-10 bg-white"
+  >
+    <NotFound message="Sorry, we dont have this request avalible now" />
+  </div>
+
   <Colab_Request_View_Modal
     :isOpen="isOpenModal"
     @close="isOpenModal = false"
@@ -27,8 +34,8 @@ import Colaborator_Request_View_Card from "./Colaborator_Request_View_Card.vue";
 import { computed, onMounted, ref } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestById } from "../services/ColaboratorServices";
-
 import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   id: {
@@ -36,7 +43,7 @@ const props = defineProps({
   },
 });
 
-const { data, refetch } = useQuery({
+const { data, isLoading, refetch } = useQuery({
   queryKey: ["colaborator", props.id],
   queryFn: () => GetColaboratorRequestById(props.id || ""),
 });

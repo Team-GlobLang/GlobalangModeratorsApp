@@ -21,7 +21,7 @@
       v-if="!isLoading && audiosRegistered.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      We dont havent audios registereds now
+      <NotFound message="Sorry, we dont have phrases avalible now" />
     </div>
 
     <Phrases_Registered_Modal
@@ -41,6 +41,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import type { AudiosByFilters } from "../../Audio/interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "../../Audio/services/AudioService";
 import Phrases_Registered_Modal from "./modal/Phrases_Registered_Modal.vue";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   Status: {

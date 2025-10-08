@@ -13,7 +13,7 @@
     <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
 
     <div v-if="!isLoading && Users.length === 0" class="text-center w-1/2 m-4">
-      <NotFound message="Sorry, we dont have user avalible now" />
+      <NotFound message="Sorry, we dont have users avalible now" />
     </div>
   </div>
 </template>
