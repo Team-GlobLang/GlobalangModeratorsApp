@@ -5,7 +5,7 @@
     :name="colaborator.fullName"
     :email="colaborator.email"
     :message="colaborator.aboutColaborator"
-    :languages="colaborator.languages"
+    :Languages="colaborator.languages"
     :id_item="props.id"
     :files-urls="colaborator.filesUrls"
     @idItem="handleItemId"
