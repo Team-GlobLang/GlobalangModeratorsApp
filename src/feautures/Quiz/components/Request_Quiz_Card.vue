@@ -1,29 +1,31 @@
 <template>
-  <fwb-card class="w-full">
-    <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
+  <fwb-card class="w-full rounded-lg bg-[#f6f6f6] shadow-gray-300 shadow-md">
+    <div class="r} p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
         <small>Title: {{ props.title }}</small>
         <small>Number of questions: {{ props.questionsNUmber }}</small>
-        <small>Language: {{ props.language }}</small>
+        <small>Country: {{ props.country }}</small>
       </span>
-      <btn_-group
+      <Btn_Colab_Request
         accept-icon="pi-cloud-upload"
-        accept-text="Begin review"
+        accept-text="Review request"
         reject-icon="pi-trash"
         reject-text="Reject"
-        :id_item="props.id || ''"
-        @accept="handleAccept"
-        @reject="handleReject"
+        accept-path="/request/colaborator/view/moderator"
+        :id_item="props.id"
+        @accept="onAccept"
+        @idItem="onItemId"
+        @openModal="onOpenModal"
+        @isAccepted="onIsAccepted"
       />
     </div>
   </fwb-card>
 </template>
 
 <script setup lang="ts">
-import { FwbCard } from "flowbite-vue";
-import Btn_Group from "../../Home/components/Btn_Group.vue";
-import { useRouter } from "vue-router";
+//import { FwbCard } from "flowbite-vue";
+import Btn_Colab_Request from "../../Colaborators/components/modals/Btn_Colab_Request.vue";
 const props = defineProps({
   user: {
     type: String,
@@ -34,22 +36,36 @@ const props = defineProps({
   questionsNUmber: {
     type: Number,
   },
-  language: {
+  country: {
     type: String,
   },
   id: {
     type: String,
+    required: true,
   },
 });
 
-const router = useRouter();
+const emit = defineEmits<{
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
+  accept: [itemId: string];
+}>();
 
-const handleAccept = () => {
-  router.push({ name: "review_quiz" });
+const onAccept = (itemId: string) => {
+  emit("accept", itemId);
 };
 
-const handleReject = () => {
-  console.log("implementar logica");
+const onItemId = (itemId: string) => {
+  emit("idItem", itemId);
+};
+
+const onOpenModal = (isModalOpen: boolean) => {
+  emit("openModal", isModalOpen);
+};
+
+const onIsAccepted = (isAccepeted: boolean) => {
+  emit("isAccepted", isAccepeted);
 };
 </script>
 

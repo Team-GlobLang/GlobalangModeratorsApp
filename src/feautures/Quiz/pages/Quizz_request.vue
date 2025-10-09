@@ -1,10 +1,10 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
   <section
-    class="w-full flex flex-col justify-center gap-4 bg-[#F6F6F6] p-2 rounded-lg"
+    class="w-full flex flex-col justify-center gap-4 bg-white p-4 rounded-lg"
   >
-    <Request_Quiz_Filters />
-    <Request_Quiz_Card_Container />
+    <Request_Quiz_Filters @filterCountryChange="handleFilterCountry" />
+    <Request_Quiz_Card_Container :country="FilterContry" />
   </section>
 </template>
 
@@ -12,6 +12,7 @@
 import Request_Quiz_Filters from "../components/Request_Quiz_Filters.vue";
 import Request_Quiz_Card_Container from "../components/Request_Quiz_Card_Container.vue";
 import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+import { ref } from "vue";
 
 const breadCrumbItems = [
   {
@@ -26,6 +27,11 @@ const breadCrumbItems = [
     label: "Quizzes",
   },
 ];
+
+const FilterContry = ref("");
+const handleFilterCountry = (country: string) => {
+  FilterContry.value = country;
+};
 </script>
 
 <style lang="scss" scoped></style>
