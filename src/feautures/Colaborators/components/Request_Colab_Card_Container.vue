@@ -14,12 +14,21 @@
       @isAccepted="handleAction"
     />
 
-    <fwb-button
-      v-if="showingAll != true"
-      @click="toggleShowAll"
-      class="w-full bg-[#2C2C2C]"
-      >See more</fwb-button
+    <GoToStart v-show="showScrollTop" @click="scrollToTop" />
+
+    <div
+      v-if="isPending || isFetchingNextPage"
+      class="text-center py-4 text-gray-500"
     >
+      Loading more...
+    </div>
+
+    <div
+      v-if="!hasNextPage && colaboratorsRequest.length > 0"
+      class="text-center py-4 text-gray-500"
+    >
+      No more requests
+    </div>
 
     <div
       v-if="!isLoading && colaboratorsRequest.length === 0"
@@ -41,15 +50,17 @@
 
 <script setup lang="ts">
 import Request_Colaborator_Card from "./Request_Colaborator_Card.vue";
-import { useQuery } from "@tanstack/vue-query";
+import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
 import { useRouter } from "vue-router";
-import { FwbButton } from "flowbite-vue";
 import Request_Colab_Modal from "./modals/Request_Colab_Modal.vue";
 import NotFound from "../../../common/components/NotFound.vue";
+import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
+import type { Collab } from "../interfaces/Colaborator";
+import GoToStart from "../../../components/microcomponents/GoToStart.vue";
 
 const props = defineProps({
   language: {
@@ -57,27 +68,9 @@ const props = defineProps({
   },
 });
 
-const showingAll = ref(false);
-
-const allColaborators = ref<any[]>([]);
-
 const filters = ref<ColaboratorRequestFilters>({
   status: Status.PENDING,
   languages: "",
-  page: 1,
-  limit: 2,
-});
-
-watch(showingAll, (newShowingAll) => {
-  if (newShowingAll) {
-    filters.value.page = 1;
-    filters.value.limit = 999999;
-  } else {
-    filters.value.page = 1;
-    filters.value.limit = 2;
-  }
-  allColaborators.value = [];
-  refetch();
 });
 
 watch(
@@ -85,28 +78,60 @@ watch(
   (newLanguage) => {
     filters.value.languages = newLanguage;
     filters.value.page = 1;
-    allColaborators.value = [];
     refetch();
   }
 );
 
-const { data, isLoading, refetch } = useQuery({
-  queryKey: ["colaborators", filters],
-  queryFn: () => GetColaboratorRequestsFilters(filters.value),
+const showScrollTop = ref(false);
+
+const {
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  isPending,
+  refetch,
+  isLoading,
+} = useInfiniteQuery<PaginatedResponse<Collab>, Error>({
+  queryKey: computed(() => ["Request_Collab", filters]),
+  queryFn: async ({ pageParam = 1 }) => {
+    const page = pageParam as number;
+    return await GetColaboratorRequestsFilters({
+      ...filters.value,
+      page,
+      limit: 6,
+    });
+  },
+  initialPageParam: 1,
+  getNextPageParam: (lastPage, allPages) => {
+    return lastPage.meta?.hasNextPage ? allPages.length + 1 : undefined;
+  },
+  getPreviousPageParam: (firstPage, allPages) => {
+    return firstPage.meta?.hasPrevPage ? allPages.length - 1 : undefined;
+  },
 });
 
-const colaboratorsRequest = computed(() => data.value?.data ?? []);
+const colaboratorsRequest = computed(
+  () => data.value?.pages.flatMap((page) => page.data) ?? []
+);
 
-watch(data, (newData) => {
-  if (newData?.data) {
-    if (filters.value.page === 1) {
-      allColaborators.value = newData.data;
-    } else {
-      allColaborators.value = [...allColaborators.value, ...newData.data];
-    }
+const onScroll = async () => {
+  const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+  showScrollTop.value = scrollTop > 300;
+
+  if (
+    scrollTop + clientHeight >= scrollHeight - 150 &&
+    hasNextPage.value &&
+    !isFetchingNextPage.value
+  ) {
+    await fetchNextPage();
   }
-});
+};
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 const router = useRouter();
 
 const HandleViewRequest = (id: string) => {
@@ -114,10 +139,6 @@ const HandleViewRequest = (id: string) => {
     name: "colaborator_request_view",
     params: { id: id },
   });
-};
-
-const toggleShowAll = () => {
-  showingAll.value = !showingAll.value;
 };
 
 const isModalOpen = ref(false);
@@ -140,7 +161,10 @@ const handleCompleted = () => {
 };
 
 onMounted(() => {
-  refetch();
+  window.addEventListener("scroll", onScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
 });
 </script>
 
