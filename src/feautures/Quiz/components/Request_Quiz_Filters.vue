@@ -1,24 +1,27 @@
 <template>
   <FwbInput
-    list="languages"
-    v-model="language"
+    list="countries"
+    v-model="country"
     type="text"
-    :validation-status="languageError ? 'error' : undefined"
-    @blur="languageBlur"
-    label="Choose a language"
-    placeholder="Ej: Spanish, English"
+    :validation-status="countryError ? 'error' : undefined"
+    label="Contry"
+    placeholder="Ej: Costa Rica"
   >
     <template #suffix>
-      <span class="pi pi-language"></span>
+      <span class="pi pi-home"></span>
     </template>
     <template #validationMessage>
-      <span class="font-medium">{{ languageError }} </span>
+      <span class="font-medium">{{ countryError }} </span>
     </template>
   </FwbInput>
 
-  <datalist id="languages">
-    <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-      {{ lang }}
+  <datalist id="countries">
+    <option
+      v-for="countryItem in filteredCountries"
+      :key="countryItem.code"
+      :value="countryItem.name"
+    >
+      {{ countryItem.name }}
     </option>
   </datalist>
 </template>
@@ -28,42 +31,30 @@ import { FwbInput } from "flowbite-vue";
 import { useField } from "vee-validate";
 import { countries } from "../../../Core/CountriesArray";
 import { computed, watch } from "vue";
+import type { RegisterForm } from "../../Auth/Interfaces";
 
 const MAX_INITIAL = 10;
 
-const allLanguages = computed(() => {
-  const languagesSet = new Set<string>();
-  countries.forEach((country) => {
-    country.languages.forEach((lang) => {
-      languagesSet.add(lang);
-    });
-  });
-  return Array.from(languagesSet).sort();
-});
-
-const filteredLanguages = computed(() => {
-  if (!language.value) {
-    return allLanguages.value.slice(0, MAX_INITIAL);
+const filteredCountries = computed(() => {
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
   }
-  return allLanguages.value.filter((lang) =>
-    lang.toLowerCase().includes(language.value.toLowerCase())
+  return countries.filter((c) =>
+    c.name.toLowerCase().includes(country.value.toLowerCase())
   );
 });
 
-const {
-  value: language,
-  errorMessage: languageError,
-  handleBlur: languageBlur,
-} = useField<string>("language");
+const { value: country, errorMessage: countryError } =
+  useField<RegisterForm["country"]>("country");
 
 const emit = defineEmits<{
-  filterchange: [language: string];
+  filterCountryChange: [country: string];
 }>();
 
 watch(
-  language,
-  (newLanguage) => {
-    emit("filterchange", newLanguage || "");
+  country,
+  (newCountry) => {
+    emit("filterCountryChange", newCountry || "");
   },
   { immediate: true }
 );

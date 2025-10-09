@@ -1,21 +1,170 @@
 <template>
   <!-- Cambiar por v for cuando haga logica con db -->
   <!-- Ajustar fondo para que abarque full el height sin importar el contenido-->
-  <div class="flex flex-col items-center gap-8 w-full">
+  <div class="flex flex-col items-center gap-8 bg-white w-full">
     <Quiz_Registerd_Card
-      user="Keirin Obando Duarte"
-      language="Tico"
-      aprobe-by="Adrian Aguilar Diaz"
-      title="Español intermedio"
-      :questions-n-umber="12"
+      v-if="quizList.length > 0"
+      v-for="quiz in quizList"
+      :key="quiz.id"
+      :id="quiz.id"
+      :user="quiz.creator"
+      :country="quiz.country"
+      :aprobe-by="quiz.approvedBy"
+      :title="quiz.name"
+      :questions-n-umber="quiz.numberOfQuestions"
+      @accept="HandleViewRequest"
+      @idItem="handleIdItem"
+      @openModal="handleOpenModal"
+      @isAccepted="handleAction"
     />
-    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
+
+    <GoToStart v-show="showScrollTop" @click="scrollToTop" />
+
+    <div
+      v-if="isPending || isFetchingNextPage"
+      class="text-center py-4 text-gray-500"
+    >
+      Loading more...
+    </div>
+
+    <div
+      v-if="!hasNextPage && quizList.length > 0"
+      class="text-center py-4 text-gray-500"
+    >
+      No more requests
+    </div>
+
+    <div
+      v-if="!isLoading && quizList.length === 0"
+      class="text-center mt-10 p-10 bg-white"
+    >
+      <NotFound message="Sorry, we dont have audio requests avalible now" />
+    </div>
+
+    <Quiz_Registered_Modal
+      :isOpen="isModalOpen"
+      @close="isModalOpen = false"
+      :typeAction="isAccepeted"
+      :idRequest="IdItem"
+      @completed="handleCompleted"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { FwbButton } from "flowbite-vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import type { QuizData, QuizzesFilters } from "../interfaces/QuizType";
+import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
+import { useInfiniteQuery } from "@tanstack/vue-query";
+import { GetQuizzesList } from "../services/QuizService";
+import { useRouter } from "vue-router";
 import Quiz_Registerd_Card from "./Quiz_Registerd_Card.vue";
+import Quiz_Registered_Modal from "./modals/Quiz_Registered_Modal.vue";
+
+const props = defineProps({
+  country: {
+    type: String,
+  },
+});
+
+const filters = ref<QuizzesFilters>({
+  country: undefined,
+  isApproved: undefined,
+});
+
+const showScrollTop = ref(false);
+
+const {
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  isPending,
+  refetch,
+  isLoading,
+} = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
+  queryKey: computed(() => ["Request_Audios", filters]),
+  queryFn: async ({ pageParam = 1 }) => {
+    const page = pageParam as number;
+    return await GetQuizzesList({
+      ...filters.value,
+      page,
+      limit: 5,
+    });
+  },
+  initialPageParam: 1,
+  getNextPageParam: (lastPage, allPages) => {
+    return lastPage.meta?.hasNextPage ? allPages.length + 1 : undefined;
+  },
+  getPreviousPageParam: (firstPage, allPages) => {
+    return firstPage.meta?.hasPrevPage ? allPages.length - 1 : undefined;
+  },
+});
+
+const quizList = computed(
+  () => data.value?.pages.flatMap((page) => page.data) ?? []
+);
+
+watch(
+  () => props.country,
+  (newCountry) => {
+    filters.value.country = newCountry;
+    refetch();
+  }
+);
+
+const onScroll = async () => {
+  const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+  showScrollTop.value = scrollTop > 300;
+
+  if (
+    scrollTop + clientHeight >= scrollHeight - 150 &&
+    hasNextPage.value &&
+    !isFetchingNextPage.value
+  ) {
+    await fetchNextPage();
+  }
+};
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+const router = useRouter();
+//CAMBIAR PAGE DE LOS QUIZEES
+const HandleViewRequest = (id: string) => {
+  router.push({
+    name: "colaborator_request_view",
+    params: { id: id },
+  });
+};
+
+const isModalOpen = ref(false);
+const handleOpenModal = (shouldOpen: boolean) => {
+  isModalOpen.value = shouldOpen;
+};
+
+const isAccepeted = ref(false);
+const handleAction = (action: boolean) => {
+  isAccepeted.value = action;
+};
+
+const IdItem = ref("");
+const handleIdItem = (id: string) => {
+  IdItem.value = id;
+};
+
+const handleCompleted = () => {
+  refetch();
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", onScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
+});
 </script>
 
 <style scoped></style>
