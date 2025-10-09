@@ -10,24 +10,38 @@
       :suscripcion="item.membership || 'Free trial'"
       end_date="20/9/2026"
     />
-    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
+
+    <GoToStart v-show="showScrollTop" @click="scrollToTop" />
 
     <div
-      v-if="!isLoading && Users.length === 0"
-      class="text-center mt-10 p-10 bg-white"
+      v-if="isPending || isFetchingNextPage"
+      class="text-center py-4 text-gray-500"
     >
-      We dont havent colaboratos request now
+      Loading more...
+    </div>
+
+    <div
+      v-if="!hasNextPage && Users.length > 0"
+      class="text-center py-4 text-gray-500"
+    >
+      No more requests
+    </div>
+    <div v-if="!isLoading && Users.length === 0" class="text-center w-1/2 m-4">
+      <NotFound message="Sorry, we dont have users avalible now" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Users_Registered_Card from "./Users_Registered_Card.vue";
-import { FwbButton } from "flowbite-vue";
 import type { UserFilter } from "../interfaces/user-filter-interface";
-import { computed, onMounted, ref, watch } from "vue";
-import { useQuery } from "@tanstack/vue-query";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetUsersFiltered } from "../services/UserServices";
+import NotFound from "../../../common/components/NotFound.vue";
+import GoToStart from "../../../components/microcomponents/GoToStart.vue";
+import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
+import type { User } from "../interfaces/User";
 
 const props = defineProps({
   Email: {
@@ -39,18 +53,60 @@ const props = defineProps({
 });
 
 const filters = ref<UserFilter>({
-  page: 1,
-  limit: 5,
   country: undefined,
   email: undefined,
 });
 
-const { data, isLoading, refetch } = useQuery({
-  queryKey: ["Users", filters],
-  queryFn: () => GetUsersFiltered(filters.value),
+const showScrollTop = ref(false);
+
+const {
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  isPending,
+  refetch,
+  isLoading,
+} = useInfiniteQuery<PaginatedResponse<User>, Error>({
+  queryKey: computed(() => ["Users", filters]),
+  queryFn: async ({ pageParam = 1 }) => {
+    const page = pageParam as number;
+    return await GetUsersFiltered({
+      ...filters.value,
+      page,
+      limit: 5,
+    });
+  },
+  initialPageParam: 1,
+  getNextPageParam: (lastPage, allPages) => {
+    return lastPage.meta?.hasNextPage ? allPages.length + 1 : undefined;
+  },
+  getPreviousPageParam: (firstPage, allPages) => {
+    return firstPage.meta?.hasPrevPage ? allPages.length - 1 : undefined;
+  },
 });
 
-const Users = computed(() => data.value?.data ?? []);
+const Users = computed(
+  () => data.value?.pages.flatMap((page) => page.data) ?? []
+);
+
+const onScroll = async () => {
+  const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+  showScrollTop.value = scrollTop > 300;
+
+  if (
+    scrollTop + clientHeight >= scrollHeight - 150 &&
+    hasNextPage.value &&
+    !isFetchingNextPage.value
+  ) {
+    await fetchNextPage();
+  }
+};
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
 const calculateAge = (birthdate: string | Date): number => {
   if (!birthdate) return 0;
@@ -79,7 +135,10 @@ watch(
 );
 
 onMounted(() => {
-  refetch();
+  window.addEventListener("scroll", onScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
 });
 </script>
 

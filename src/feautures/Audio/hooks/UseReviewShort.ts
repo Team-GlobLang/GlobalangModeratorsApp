@@ -2,13 +2,14 @@ import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
-import { DeleteShort } from "../services/AudioService";
+import { ReviewShorts } from "../services/AudioService";
+import type { ReviewShort } from "../interfaces/ReviewShort";
 
-const UseDeleteShort = () => {
+const UseReviewShort = () => {
   const mutation = useMutation({
-    mutationFn: (id: string) =>
+    mutationFn: (Data: ReviewShort) =>
       toast.promise(
-        DeleteShort(id).then((response) => {
+        ReviewShorts(Data).then((response) => {
           return response;
         }),
         {
@@ -22,4 +23,4 @@ const UseDeleteShort = () => {
   return mutation;
 };
 
-export { UseDeleteShort };
+export { UseReviewShort };

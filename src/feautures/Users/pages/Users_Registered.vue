@@ -1,17 +1,17 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section
-    class="justify-center flex flex-col bg-[#F6F6F6] p-2 rounded-lg gap-4"
-  >
-    <User_Registered_Filters
-      @filterchangeCountry="handleFilterCountry"
-      @filterchangeEmail="handleFilterEmail"
-    />
-    <User_Registered_Card_Container
-      :country="CountryFilter"
-      :Email="EmailFilter"
-    />
-  </section>
+  <div class="p-2">
+    <section class="justify-center flex flex-col bg-white p-2 rounded-lg gap-4">
+      <User_Registered_Filters
+        @filterchangeCountry="handleFilterCountry"
+        @filterchangeEmail="handleFilterEmail"
+      />
+      <User_Registered_Card_Container
+        :country="CountryFilter"
+        :Email="EmailFilter"
+      />
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -21,12 +21,13 @@
     v-if="props.filesUrls && props.filesUrls.length > 0"
     class="flex flex-wrap gap-2"
   >
-    <button
+    <i
       v-for="(url, index) in props.filesUrls"
       :key="index"
       @click="() => openFile(url)"
-      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-    ></button>
+      class="pi pi-file hover:bg-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+      style="font-size: 2.5rem"
+    ></i>
   </div>
   <Btn_Group_Without_Icon
     accept-text="Approve"
@@ -34,8 +35,9 @@
     color-accept="bg-[#00A1FF]"
     color-reject="bg-[#900B09]"
     :id_item="props.id_item || ''"
-    @accept="onAccept"
-    @reject="onReject"
+    @idItem="IdItem"
+    @openModal="openModal"
+    @isAccepted="onIsAccepted"
   />
 </template>
 
@@ -62,20 +64,27 @@ const props = defineProps({
     default: () => [],
   },
 });
+
 const emit = defineEmits<{
-  accept: [itemId: string];
-  reject: [itemId: string];
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
 }>();
 
-const onAccept = (itemId: string) => {
-  emit("accept", itemId);
+const IdItem = (itemId: string) => {
+  emit("idItem", itemId);
 };
 
-const onReject = (itemId: string) => {
-  emit("reject", itemId);
+const openModal = (isModalOpen: boolean) => {
+  emit("openModal", isModalOpen);
+};
+
+const onIsAccepted = (isAccepted: boolean) => {
+  emit("isAccepted", isAccepted);
 };
 
 const openFile = (url: string) => {
+  //CAMBIAR POR IFRAME LIBRARY
   window.open(url, "_blank", "noopener,noreferrer");
 };
 </script>

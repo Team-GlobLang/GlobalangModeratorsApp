@@ -1,28 +1,36 @@
 <template>
   <fwb-card class="w-full">
-    <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
-      <h2 class="text-lg font-bold">{{ props.user }}</h2>
-      <span class="flex flex-col font-light">
-        <small>Language: {{ props.language }}</small>
-        <small>Category: {{ props.category }}</small>
-      </span>
-      <btn_-group
-        accept-icon="pi-cloud-upload"
-        accept-text="Review request"
-        reject-icon="pi-trash"
-        reject-text="Reject"
-        accept-path="/request/colaborator/view/moderator"
-        :id_item="props.id_item || ''"
-        @accept="onAccept"
-        @reject="onReject"
-      />
+    <div
+      class="rounded-lg p-4 flex flex-col gap-2 bg-[#f6f6f6] shadow-gray-300 shadow-md"
+    >
+      <p>
+        <small class="font-bold text-md">{{ props.user }}</small>
+        <span class="flex flex-col font-light text-sm gap-0.5">
+          <small>Language: {{ props.language }}</small>
+          <small>Category: {{ props.category }}</small>
+        </span>
+      </p>
+      <div class="w-full flex flex-col">
+        <Btn_Colab_Request
+          accept-icon="pi-cloud-upload"
+          accept-text="Review request"
+          reject-icon="pi-trash"
+          reject-text="Reject"
+          accept-path="/request/colaborator/view/moderator"
+          :id_item="props.id_item || ''"
+          @accept="onAccept"
+          @idItem="onItemId"
+          @openModal="onOpenModal"
+          @isAccepted="onIsAccepted"
+        />
+      </div>
     </div>
   </fwb-card>
 </template>
 
 <script setup lang="ts">
-import Btn_Group from "../../Home/components/Btn_Group.vue";
-import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
+import Btn_Colab_Request from "./modals/Btn_Colab_Request.vue";
+//import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
 const props = defineProps({
   id_item: {
     type: String,
@@ -39,16 +47,26 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
   accept: [itemId: string];
-  reject: [itemId: string];
 }>();
 
 const onAccept = (itemId: string) => {
   emit("accept", itemId);
 };
 
-const onReject = (itemId: string) => {
-  emit("reject", itemId);
+const onItemId = (itemId: string) => {
+  emit("idItem", itemId);
+};
+
+const onOpenModal = (isModalOpen: boolean) => {
+  emit("openModal", isModalOpen);
+};
+
+const onIsAccepted = (isAccepeted: boolean) => {
+  emit("isAccepted", isAccepeted);
 };
 </script>
 

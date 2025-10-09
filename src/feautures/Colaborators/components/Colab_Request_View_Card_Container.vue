@@ -8,20 +8,34 @@
     :languages="colaborator.languages"
     :id_item="props.id"
     :files-urls="colaborator.filesUrls"
-    @reject="HandleRejected"
-    @accept="HandleAccept"
+    @idItem="handleItemId"
+    @openModal="handleIsOpenModal"
+    @isAccepted="handleIsAccepted"
+  />
+
+  <div
+    v-if="!isLoading && colaborator.length === 0"
+    class="text-center mt-10 p-10 bg-white"
+  >
+    <NotFound message="Sorry, we dont have this request avalible now" />
+  </div>
+
+  <Colab_Request_View_Modal
+    :isOpen="isOpenModal"
+    @close="isOpenModal = false"
+    :typeAction="isAccepeted"
+    :idRequest="item"
+    @completed="handleCompleted"
   />
 </template>
 
 <script setup lang="ts">
 import Colaborator_Request_View_Card from "./Colaborator_Request_View_Card.vue";
-import { computed, onMounted } from "vue";
-import { Status } from "../interfaces/ColaboratorRequestInterface";
-import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
-import { useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestById } from "../services/ColaboratorServices";
-import { UseChangeRequestStatus } from "../hooks/UseChangeRequestStatus";
+import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
+import NotFound from "../../../common/components/NotFound.vue";
 
 const props = defineProps({
   id: {
@@ -29,49 +43,30 @@ const props = defineProps({
   },
 });
 
-const { data, refetch } = useQuery({
+const { data, isLoading, refetch } = useQuery({
   queryKey: ["colaborator", props.id],
   queryFn: () => GetColaboratorRequestById(props.id || ""),
 });
 
 const colaborator = computed(() => data.value);
 
-const router = useRouter();
-
-const HandleViewRequest = () => {
-  router.push({
-    name: "Request_colaborator",
-  });
+const item = ref("");
+const handleItemId = (idItem: string) => {
+  item.value = idItem;
 };
 
-const mutationChangeRequest = UseChangeRequestStatus();
-
-const HandleRejected = async (colaboratorId: string) => {
-  const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    id: colaboratorId,
-    status: Status.REJECTED,
-  };
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await HandleViewRequest();
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
+const isOpenModal = ref(false);
+const handleIsOpenModal = (isOpen: boolean) => {
+  isOpenModal.value = isOpen;
 };
 
-const HandleAccept = async (colaboratorId: string) => {
-  const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
-    id: colaboratorId,
-    status: Status.ACCEPTED,
-  };
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await HandleViewRequest();
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
+const isAccepeted = ref(false);
+const handleIsAccepted = (status: boolean) => {
+  isAccepeted.value = status;
+};
+
+const handleCompleted = () => {
+  refetch();
 };
 
 onMounted(() => {

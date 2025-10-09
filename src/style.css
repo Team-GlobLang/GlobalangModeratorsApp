@@ -15,8 +15,13 @@
 
 @import "primeicons/primeicons.css";
 
-body {
+/* body {
   background-color: rgb(231, 242, 248);
+  color: black;
+} */
+
+body {
+  background-color: #f6f6f6;
   color: black;
 }
 

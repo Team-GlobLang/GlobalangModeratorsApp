@@ -1,15 +1,15 @@
 <template>
   <fwb-button-group>
-    <div class="w-full flex justify-between gap-4">
+    <div class="flex justify-between gap-4">
       <fwb-button
-        class="w-full flex flex-row items-center justify-center gap-2 p border border-[#FF0000] rounded-md p-2 text-lg"
+        class="flex flex-1 flex-row items-center justify-center gap-2 border border-[#FF0000] p-1.5 rounded-md text-sm"
         @Click="handleReject"
       >
         <i :class="`pi ${props.rejectIcon} text-[#FF0000]`"></i>
         <small>{{ props.rejectText }}</small>
       </fwb-button>
       <fwb-button
-        class="w-full flex flex-row items-center justify-center gap-2 bg-[#009951] rounded-md text-white p-2 text-lg"
+        class="flex flex-1 flex-row items-center justify-center gap-2 bg-[#009951] rounded-md text-white p-1.5 text-sm"
         @click="handleAccept"
       >
         <i :class="`pi ${props.acceptIcon}`"></i>
@@ -40,16 +40,21 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  accept: [itemId: string];
-  reject: [itemId: string];
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
 }>();
 
 const handleAccept = () => {
-  emit("accept", props.id_item);
+  emit("openModal", true);
+  emit("isAccepted", true);
+  emit("idItem", props.id_item);
 };
 
 const handleReject = () => {
-  emit("reject", props.id_item);
+  emit("openModal", true);
+  emit("isAccepted", false);
+  emit("idItem", props.id_item);
 };
 </script>
 
