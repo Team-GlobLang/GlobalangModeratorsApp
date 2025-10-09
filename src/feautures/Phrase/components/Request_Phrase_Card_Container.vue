@@ -7,7 +7,7 @@
       v-for="audio in audiosRegistered"
       :key="audio.id"
       :itemId="audio.id"
-      :admin="audio.reviewedBy"
+      :admin="audio.reviewedBy || ''"
       :meaning="audio.description"
       :name="audio.createBy"
       :phrase="audio.text"
@@ -15,7 +15,22 @@
       @idItem="handleItem"
       @openModal="handleIsOpenModal"
     />
-    <fwb-button class="w-full bg-[#2C2C2C]">See more</fwb-button>
+
+    <GoToStart v-show="showScrollTop" @click="scrollToTop" />
+
+    <div
+      v-if="isPending || isFetchingNextPage"
+      class="text-center py-4 text-gray-500"
+    >
+      Loading more...
+    </div>
+
+    <div
+      v-if="!hasNextPage && audiosRegistered.length > 0"
+      class="text-center py-4 text-gray-500"
+    >
+      No more requests
+    </div>
 
     <div
       v-if="!isLoading && audiosRegistered.length === 0"
@@ -34,14 +49,16 @@
 </template>
 
 <script setup lang="ts">
-import { FwbButton } from "flowbite-vue";
 import Phrases_Registered_Card from "./Phrases_Registered_Card.vue";
-import { useQuery } from "@tanstack/vue-query";
-import { computed, onMounted, ref, watch } from "vue";
+import { useInfiniteQuery } from "@tanstack/vue-query";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import type { AudiosByFilters } from "../../Audio/interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "../../Audio/services/AudioService";
 import Phrases_Registered_Modal from "./modal/Phrases_Registered_Modal.vue";
 import NotFound from "../../../common/components/NotFound.vue";
+import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
+import type { Short } from "../../Audio/interfaces/Short";
+import GoToStart from "../../../components/microcomponents/GoToStart.vue";
 
 const props = defineProps({
   Status: {
@@ -53,16 +70,60 @@ const props = defineProps({
 });
 
 const filters = ref<AudiosByFilters>({
-  page: 1,
-  limit: 5,
-  country: "",
+  country: undefined,
   approved: true,
 });
 
-const { data, isLoading, refetch } = useQuery({
-  queryKey: ["Audios_Registered", filters],
-  queryFn: () => GetAllAudiosByFilters(filters.value),
+const showScrollTop = ref(false);
+
+const {
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  isPending,
+  refetch,
+  isLoading,
+} = useInfiniteQuery<PaginatedResponse<Short>, Error>({
+  queryKey: computed(() => ["Request_Audios", filters]),
+  queryFn: async ({ pageParam = 1 }) => {
+    const page = pageParam as number;
+    return await GetAllAudiosByFilters({
+      ...filters.value,
+      page,
+      limit: 5,
+    });
+  },
+  initialPageParam: 1,
+  getNextPageParam: (lastPage, allPages) => {
+    return lastPage.meta?.hasNextPage ? allPages.length + 1 : undefined;
+  },
+  getPreviousPageParam: (firstPage, allPages) => {
+    return firstPage.meta?.hasPrevPage ? allPages.length - 1 : undefined;
+  },
 });
+
+const audiosRegistered = computed(
+  () => data.value?.pages.flatMap((page) => page.data) ?? []
+);
+
+const onScroll = async () => {
+  const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+  showScrollTop.value = scrollTop > 300;
+
+  if (
+    scrollTop + clientHeight >= scrollHeight - 150 &&
+    hasNextPage.value &&
+    !isFetchingNextPage.value
+  ) {
+    await fetchNextPage();
+  }
+};
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
 watch(
   () => props.Country,
@@ -80,8 +141,6 @@ watch(
   }
 );
 
-const audiosRegistered = computed(() => data.value?.data ?? []);
-
 const item = ref("");
 const handleItem = (itemId: string) => {
   item.value = itemId;
@@ -97,7 +156,10 @@ const handleCompleted = () => {
 };
 
 onMounted(() => {
-  refetch();
+  window.addEventListener("scroll", onScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
 });
 </script>
 
