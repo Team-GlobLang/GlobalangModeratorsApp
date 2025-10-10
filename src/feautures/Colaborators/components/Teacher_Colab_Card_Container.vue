@@ -6,10 +6,14 @@
       v-if="colaboratorRequests.length > 0"
       v-for="item in colaboratorRequests"
       :key="item.id"
+      :id="item.id"
       :user="item.fullName"
       :category="item.category"
       :aprobe-by="item.reviewedId"
       :language="item.languages"
+      :status="item.status || ''"
+      @idItem="handleIdItem"
+      @openModal="handleOpenModal"
     />
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
 
@@ -32,6 +36,14 @@
     >
       <NotFound message="Sorry, we dont have collaborators avalible now" />
     </div>
+
+    <Teacher_Collab_Registerd_Modal
+      :isOpen="isModalOpen"
+      @close="isModalOpen = false"
+      :typeAction="isAccepeted"
+      :idRequest="IdItem"
+      @completed="handleCompleted"
+    />
   </div>
 </template>
 
@@ -46,6 +58,7 @@ import NotFound from "../../../common/components/NotFound.vue";
 import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { Collab } from "../interfaces/Colaborator";
 import GoToStart from "../../../components/microcomponents/GoToStart.vue";
+import Teacher_Collab_Registerd_Modal from "./modals/Teacher_Collab_Registerd_Modal.vue";
 
 const props = defineProps({
   language: {
@@ -128,6 +141,20 @@ const onScroll = async () => {
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+const isModalOpen = ref(false);
+const handleOpenModal = (shouldOpen: boolean) => {
+  isModalOpen.value = shouldOpen;
+};
+
+const IdItem = ref("");
+const handleIdItem = (id: string) => {
+  IdItem.value = id;
+};
+
+const handleCompleted = () => {
+  refetch();
 };
 
 onMounted(() => {

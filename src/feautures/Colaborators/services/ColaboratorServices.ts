@@ -78,9 +78,27 @@ const GetColaboratorRequestById = async (id: string) => {
   }
 };
 
+const RetireCollab = async (id: string) => {
+  try {
+    const response = await axiosInstance.delete(
+      `colaborator/colaborator-retire/${id}`
+    );
+    return response;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw error;
+    } else {
+      console.error("Error desconocido: ", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
 export {
   CreateColabortorRequest,
   ChangeStatusColaboratorRequest,
   GetColaboratorRequestsFilters,
   GetColaboratorRequestById,
+  RetireCollab,
 };
