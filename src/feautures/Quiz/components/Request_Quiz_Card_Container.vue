@@ -133,10 +133,9 @@ const scrollToTop = () => {
 };
 
 const router = useRouter();
-//CAMBIAR PAGE DE LOS QUIZEES
 const HandleViewRequest = (id: string) => {
   router.push({
-    name: "colaborator_request_view",
+    name: "review_quiz",
     params: { id: id },
   });
 };

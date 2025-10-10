@@ -12,6 +12,7 @@
       :name="audio.createBy"
       :phrase="audio.text"
       :fileUrl="audio.fileUrl"
+      :status="audio.approved ?? false"
       @idItem="handleItem"
       @openModal="handleIsOpenModal"
     />

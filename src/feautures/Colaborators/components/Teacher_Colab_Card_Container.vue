@@ -40,7 +40,6 @@
     <Teacher_Collab_Registerd_Modal
       :isOpen="isModalOpen"
       @close="isModalOpen = false"
-      :typeAction="isAccepeted"
       :idRequest="IdItem"
       @completed="handleCompleted"
     />

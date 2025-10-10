@@ -15,7 +15,7 @@
           :aria-pressed="localPlaying"
           :title="localPlaying ? 'Pausar' : 'Reproducir'"
           @click="toggle"
-          class="w-1/2"
+          class="w-full"
         >
           <p class="flex flex-row items-center justify-center gap-2 text-md">
             <span>Reproduce audio</span>
@@ -28,7 +28,8 @@
         </fwb-button>
 
         <fwb-button
-          class="w-1/2 border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
+          class="w-full border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
+          v-if="props.status"
           @click="handleAction"
         >
           <p class="flex items-center justify-center gap-2">
@@ -53,6 +54,7 @@
 <script setup lang="ts">
 //import { FwbCard } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
+
 import { ref, watchEffect } from "vue";
 const props = defineProps({
   name: {
@@ -73,6 +75,10 @@ const props = defineProps({
   },
   fileUrl: {
     type: String,
+  },
+  status: {
+    type: Boolean,
+    required: true,
   },
 });
 

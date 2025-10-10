@@ -12,9 +12,9 @@ import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
 import List_Quiz_Registered from "../feautures/Quiz/pages/List_Quiz_Registered.vue";
 import Teacher_Colaborator_Registered from "../feautures/Colaborators/pages/Teacher_Colaborator_Registered.vue";
 import Review_Quiz from "../feautures/Quiz/pages/Review_Quiz.vue";
-import Quizz_Result from "../feautures/Quiz/pages/Quizz_Result.vue";
 import Info_User from "../feautures/Home/Pages/Info_User.vue";
 import Colaborator_Request_View from "../feautures/Colaborators/pages/Colaborator_Request_View.vue";
+import Review_Quiz_Registered from "../feautures/Quiz/pages/Review_Quiz_Registered.vue";
 const routes = [
   {
     path: "/",
@@ -109,14 +109,16 @@ const routes = [
     name: "review",
     children: [
       {
-        path: "quiz",
+        path: "quiz/:id",
         name: "review_quiz",
         component: Review_Quiz,
+        props: true,
       },
       {
-        path: "quiz-result",
-        name: "review_quiz_result",
-        component: Quizz_Result,
+        path: "quiz-registered/:id",
+        name: "review_quiz_registered",
+        component: Review_Quiz_Registered,
+        props: true,
       },
       {
         path: "colaborator-request/:id",

@@ -43,4 +43,19 @@ const ApprovalQuiz = async (Data: QuizChangeStatus) => {
   }
 };
 
-export { GetQuizzesList, ApprovalQuiz };
+const getQuizQuestions = async (id: string) => {
+  try {
+    const response = await axiosInstance.get(`/Full-Quiz/question/${id}`);
+    return response.data.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+export { GetQuizzesList, ApprovalQuiz, getQuizQuestions };

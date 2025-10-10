@@ -12,6 +12,7 @@
       :aprobe-by="quiz.approvedBy"
       :title="quiz.name"
       :questions-n-umber="quiz.numberOfQuestions"
+      :status="quiz.isApproved ?? false"
       @accept="HandleViewRequest"
       @idItem="handleIdItem"
       @openModal="handleOpenModal"
@@ -38,10 +39,10 @@
       v-if="!isLoading && quizList.length === 0"
       class="text-center mt-10 p-10 bg-white"
     >
-      <NotFound message="Sorry, we dont have audio requests avalible now" />
+      <NotFound message="Sorry, we dont have quizzes avalible now" />
     </div>
 
-    <Quiz_Registered_Modal
+    <Retire_Register_Quiz_Modal
       :isOpen="isModalOpen"
       @close="isModalOpen = false"
       :typeAction="isAccepeted"
@@ -59,17 +60,21 @@ import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetQuizzesList } from "../services/QuizService";
 import { useRouter } from "vue-router";
 import Quiz_Registerd_Card from "./Quiz_Registerd_Card.vue";
-import Quiz_Registered_Modal from "./modals/Quiz_Registered_Modal.vue";
+import NotFound from "../../../common/components/NotFound.vue";
+import Retire_Register_Quiz_Modal from "./modals/Retire_Register_Quiz_Modal.vue";
 
 const props = defineProps({
   country: {
     type: String,
   },
+  status: {
+    type: Boolean,
+  },
 });
 
 const filters = ref<QuizzesFilters>({
   country: undefined,
-  isApproved: undefined,
+  isApproved: false,
 });
 
 const showScrollTop = ref(false);
@@ -113,6 +118,13 @@ watch(
   }
 );
 
+watch(
+  () => props.status,
+  (newStatus) => {
+    filters.value.isApproved = newStatus;
+    refetch();
+  }
+);
 const onScroll = async () => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 
@@ -132,10 +144,9 @@ const scrollToTop = () => {
 };
 
 const router = useRouter();
-//CAMBIAR PAGE DE LOS QUIZEES
 const HandleViewRequest = (id: string) => {
   router.push({
-    name: "colaborator_request_view",
+    name: "review_quiz_registered",
     params: { id: id },
   });
 };
