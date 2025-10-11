@@ -1,15 +1,14 @@
 import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
-import { RetireCollab } from "../services/ColaboratorServices";
 import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
-import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
+import { DeleteCollab } from "../services/ColaboratorServices";
 
-const UseRetireCollab = () => {
+const UseDeleteCollab = () => {
   const mutation = useMutation({
-    mutationFn: (data: ColaboratorRequestChangeStatus) =>
+    mutationFn: (id: string) =>
       toast.promise(
-        RetireCollab(data).then((response) => {
+        DeleteCollab(id).then((response) => {
           return response;
         }),
         {
@@ -23,4 +22,4 @@ const UseRetireCollab = () => {
   return mutation;
 };
 
-export { UseRetireCollab };
+export { UseDeleteCollab };

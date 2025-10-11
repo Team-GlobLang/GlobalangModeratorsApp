@@ -78,10 +78,28 @@ const GetColaboratorRequestById = async (id: string) => {
   }
 };
 
-const RetireCollab = async (id: string) => {
+const DeleteCollab = async (id: string) => {
   try {
     const response = await axiosInstance.delete(
       `colaborator/colaborator-retire/${id}`
+    );
+    return response;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw error;
+    } else {
+      console.error("Error desconocido: ", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+const RetireCollab = async (Data: ColaboratorRequestChangeStatus) => {
+  try {
+    const response = await axiosInstance.patch(
+      "colaborator/retire-collab",
+      Data
     );
     return response;
   } catch (error: unknown) {
@@ -100,5 +118,6 @@ export {
   ChangeStatusColaboratorRequest,
   GetColaboratorRequestsFilters,
   GetColaboratorRequestById,
+  DeleteCollab,
   RetireCollab,
 };
