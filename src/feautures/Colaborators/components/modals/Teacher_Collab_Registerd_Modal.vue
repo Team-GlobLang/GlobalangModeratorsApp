@@ -26,9 +26,9 @@
 <script lang="ts" setup>
 import { FwbButton, FwbModal } from "flowbite-vue";
 import type { ColaboratorRequestChangeStatus } from "../../interfaces/ColaboratorRequestChangeStatusInterface";
-import { UseChangeRequestStatus } from "../../hooks/UseChangeRequestStatus";
 import { ref, watch } from "vue";
 import { Status } from "../../interfaces/ColaboratorRequestInterface";
+import { UseRetireCollab } from "../../hooks/UseRetire";
 
 const props = defineProps({
   isOpen: {
@@ -46,20 +46,20 @@ const props = defineProps({
   },
 });
 
-const mutationChangeRequest = UseChangeRequestStatus();
+const mutationRetireCollab = UseRetireCollab();
 
 const Data = ref<ColaboratorRequestChangeStatus>({
   id: props.idRequest,
-  status: props.typeAction ? `${Status.ACCEPTED}` : `${Status.REJECTED}`,
+  status: props.typeAction ? Status.ACCEPTED : Status.REJECTED,
 });
 
 const HandleAction = async () => {
-  const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
+  const RetireCollab: ColaboratorRequestChangeStatus = {
     id: Data.value.id,
     status: Data.value.status,
   };
   try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
+    await mutationRetireCollab.mutate(RetireCollab);
     await new Promise((resolve) => setTimeout(resolve, 1000));
   } catch (err) {
     console.log("Error al retirar colaborador");
