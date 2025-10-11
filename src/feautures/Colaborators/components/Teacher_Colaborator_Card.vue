@@ -9,7 +9,12 @@
         <small>Category: {{ props.category }}</small>
         <small>Approve by: {{ props.aprobeBy }}</small>
       </span>
-      <fwb-button color="light" class="border-[#FF0000] text-sm">
+      <fwb-button
+        v-if="props.status != 'REJECTED'"
+        color="light"
+        class="border-[#FF0000] text-sm"
+        @click="handleRetire"
+      >
         <i class="pi pi-trash text-[#FF0000]"></i>
         Retire as a {{ props.category }}</fwb-button
       >
@@ -36,8 +41,25 @@ const props = defineProps({
   },
   id: {
     type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
   },
 });
+
+const emit = defineEmits<{
+  idItem: [itemId: string];
+  openModal: [isModalOpen: boolean];
+  isApprove: [isApprove: boolean];
+}>();
+
+const handleRetire = () => {
+  emit("idItem", props.id);
+  emit("openModal", true);
+  emit("isApprove", false);
+};
 </script>
 
 <style scoped></style>

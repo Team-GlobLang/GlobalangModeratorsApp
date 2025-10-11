@@ -12,8 +12,10 @@
       :name="audio.createBy"
       :phrase="audio.text"
       :fileUrl="audio.fileUrl"
+      :status="audio.approved ?? false"
       @idItem="handleItem"
       @openModal="handleIsOpenModal"
+      @isAccepted="handleAction"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -44,6 +46,7 @@
       @close="isOpenModal = false"
       :idRequest="item"
       @completed="handleCompleted"
+      :typeAction="isAccepeted"
     />
   </div>
 </template>
@@ -149,6 +152,11 @@ const handleItem = (itemId: string) => {
 const isOpenModal = ref(false);
 const handleIsOpenModal = (isModalOpen: boolean) => {
   isOpenModal.value = isModalOpen;
+};
+
+const isAccepeted = ref(false);
+const handleAction = (action: boolean) => {
+  isAccepeted.value = action;
 };
 
 const handleCompleted = () => {

@@ -28,7 +28,7 @@
       </div>
 
       <div v-else class="w-11/12 max-w-3xl">
-        <Result
+        <Question_Quiz_Registered_Result
           :questions="shuffledQuestions"
           :userAnswers="userAnswers"
           :quizId="quizId"
@@ -46,8 +46,9 @@ import { getQuizQuestions } from "../services/QuizService";
 import type { QuizQuestion, QuizOption } from "../interfaces/QuestionQuizType";
 
 import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
-import Result from "../components/microcomponents/Result.vue";
+
 import QuestionCard from "../components/microcomponents/QuestionCard.vue";
+import Question_Quiz_Registered_Result from "../components/microcomponents/Question_Quiz_Registered_Result.vue";
 
 const route = useRoute();
 const quizId = computed(() => route.params.id as string);
