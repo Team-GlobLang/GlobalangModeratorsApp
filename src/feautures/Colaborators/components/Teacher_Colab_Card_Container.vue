@@ -14,6 +14,7 @@
       :status="item.status || ''"
       @idItem="handleIdItem"
       @openModal="handleOpenModal"
+      @isApprove="handleAction"
     />
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
 
@@ -42,6 +43,7 @@
       @close="isModalOpen = false"
       :idRequest="IdItem"
       @completed="handleCompleted"
+      :typeAction="isAccepeted"
     />
   </div>
 </template>
@@ -150,6 +152,11 @@ const handleOpenModal = (shouldOpen: boolean) => {
 const IdItem = ref("");
 const handleIdItem = (id: string) => {
   IdItem.value = id;
+};
+
+const isAccepeted = ref(false);
+const handleAction = (action: boolean) => {
+  isAccepeted.value = action;
 };
 
 const handleCompleted = () => {

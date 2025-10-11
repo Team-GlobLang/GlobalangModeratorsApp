@@ -25,7 +25,10 @@
 
 <script lang="ts" setup>
 import { FwbButton, FwbModal } from "flowbite-vue";
-import { UseRetireCollab } from "../../hooks/UseRetire";
+import type { ColaboratorRequestChangeStatus } from "../../interfaces/ColaboratorRequestChangeStatusInterface";
+import { UseChangeRequestStatus } from "../../hooks/UseChangeRequestStatus";
+import { ref, watch } from "vue";
+import { Status } from "../../interfaces/ColaboratorRequestInterface";
 
 const props = defineProps({
   isOpen: {
@@ -36,19 +39,48 @@ const props = defineProps({
     type: String,
     required: true,
   },
+
+  typeAction: {
+    type: Boolean,
+    required: true,
+  },
 });
 
-const mutationChangeRequest = UseRetireCollab();
+const mutationChangeRequest = UseChangeRequestStatus();
 
-const handleRetire = async () => {
-  const id = props.idRequest;
+const Data = ref<ColaboratorRequestChangeStatus>({
+  id: props.idRequest,
+  status: props.typeAction ? `${Status.ACCEPTED}` : `${Status.REJECTED}`,
+});
+
+const HandleAction = async () => {
+  const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
+    id: Data.value.id,
+    status: Data.value.status,
+  };
   try {
-    await mutationChangeRequest.mutate(id);
+    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
     await new Promise((resolve) => setTimeout(resolve, 1000));
   } catch (err) {
     console.log("Error al retirar colaborador");
   }
 };
+
+watch(
+  () => props.typeAction,
+  (newVal) => {
+    Data.value.status = newVal ? Status.ACCEPTED : Status.REJECTED;
+  },
+  { immediate: true }
+);
+
+watch(
+  () => props.idRequest,
+  (newVal) => {
+    Data.value.id = newVal;
+  },
+  { immediate: true }
+);
 
 const emit = defineEmits<{
   close: [];
@@ -56,7 +88,7 @@ const emit = defineEmits<{
 }>();
 
 const handleAction = () => {
-  handleRetire();
+  HandleAction();
   emit("close");
   emit("completed");
 };

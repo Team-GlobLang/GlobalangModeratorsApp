@@ -71,13 +71,8 @@ const filters = ref<AudiosByFilters>({
   approved: undefined,
 });
 
-// const { data, isLoading, refetch } = useQuery({
-//   queryKey: ["Request_Audios", filters],
-//   queryFn: () => GetAllAudiosByFilters(filters.value),
-// });
 const showScrollTop = ref(false);
 
-// Configuración de useInfiniteQuery
 const {
   data,
   fetchNextPage,

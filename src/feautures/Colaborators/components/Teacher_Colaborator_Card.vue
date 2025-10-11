@@ -52,11 +52,13 @@ const props = defineProps({
 const emit = defineEmits<{
   idItem: [itemId: string];
   openModal: [isModalOpen: boolean];
+  isApprove: [isApprove: boolean];
 }>();
 
 const handleRetire = () => {
   emit("idItem", props.id);
   emit("openModal", true);
+  emit("isApprove", false);
 };
 </script>
 

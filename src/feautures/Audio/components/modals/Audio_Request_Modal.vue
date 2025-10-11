@@ -32,11 +32,10 @@
 </template>
 
 <script lang="ts" setup>
-import { FwbButton, FwbModal } from "flowbite-vue";
+import { FwbButton, FwbModal, FwbTextarea } from "flowbite-vue";
 import { UseReviewShort } from "../../hooks/UseReviewShort";
 import { ref, toRaw, watch } from "vue";
 import type { ReviewShort } from "../../interfaces/ReviewShort";
-import { FwbTextarea } from "flowbite-vue";
 const props = defineProps({
   isOpen: {
     type: Boolean,

@@ -34,7 +34,7 @@
         >
           <p class="flex items-center justify-center gap-2">
             <i class="pi pi-trash text-[#FF0000]"></i>
-            <small>Delete</small>
+            <small>Retire</small>
           </p>
         </fwb-button>
       </div>
@@ -122,11 +122,13 @@ function onLoadedMetadata() {
 const emit = defineEmits<{
   idItem: [itemId: string];
   openModal: [isModalOpen: boolean];
+  isAccepted: [isAccepeted: boolean];
 }>();
 
 const handleAction = () => {
   emit("openModal", true);
   emit("idItem", props.itemId);
+  emit("isAccepted", false);
 };
 </script>
 

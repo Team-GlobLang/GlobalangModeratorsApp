@@ -8,24 +8,32 @@
           alt="WarningImage"
           class="rounded-full w-1/2"
         />
-        <span class="text-xl">Are you sure to delete this audio?</span>
+        <span class="text-xl">Are you sure to retire this audio?</span>
         <span class="text-sm font-bold">this action is unreversible</span>
       </div>
+      <fwb-textarea
+        v-model="reviewShortData.reviewComment"
+        :rows="4"
+        label=""
+        placeholder="Write an comment ..."
+      />
     </template>
     <template #footer>
       <div class="flex justify-between">
         <fwb-button @click="closeModal" color="alternative">
           Cancel
         </fwb-button>
-        <fwb-button @click="handleAction" color="red"> Delete </fwb-button>
+        <fwb-button @click="handleAction" color="red"> Retire </fwb-button>
       </div>
     </template>
   </fwb-modal>
 </template>
 
 <script lang="ts" setup>
-import { FwbButton, FwbModal } from "flowbite-vue";
-import { UseDeleteShort } from "../../../Audio/hooks/UseDeleteShorts";
+import { FwbButton, FwbModal, FwbTextarea } from "flowbite-vue";
+import { ref, toRaw, watch } from "vue";
+import type { ReviewShort } from "../../../Audio/interfaces/ReviewShort";
+import { UseReviewShort } from "../../../Audio/hooks/UseReviewShort";
 const props = defineProps({
   isOpen: {
     type: Boolean,
@@ -35,17 +43,51 @@ const props = defineProps({
     type: String,
     required: true,
   },
+
+  typeAction: {
+    type: Boolean,
+    required: true,
+  },
 });
 
-const DeleteMutation = UseDeleteShort();
-const HandleDelte = async (id: string) => {
+const reviewShortData = ref<ReviewShort>({
+  reviewShortId: props.idRequest,
+  reviewComment: "",
+  approved: props.typeAction,
+});
+
+const ReviewShorts = UseReviewShort();
+
+const handleReviewShort = async () => {
+  const NewData: ReviewShort = {
+    reviewShortId: reviewShortData.value.reviewShortId,
+    reviewComment: reviewShortData.value.reviewComment,
+    approved: reviewShortData.value.approved,
+  };
+  const data = toRaw(NewData);
   try {
-    await DeleteMutation.mutate(id);
+    await ReviewShorts.mutate(data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
-  } catch (err) {
-    console.log("error al eliminar audio");
+  } catch {
+    console.log("Error al aceptar solicitud");
   }
 };
+
+watch(
+  () => props.idRequest,
+  (newId) => {
+    reviewShortData.value.reviewShortId = newId;
+    reviewShortData.value.reviewComment = "";
+  }
+);
+
+watch(
+  () => props.typeAction,
+  (newstatus) => {
+    reviewShortData.value.approved = newstatus;
+    reviewShortData.value.reviewComment = "";
+  }
+);
 
 const emit = defineEmits<{
   close: [];
@@ -53,7 +95,7 @@ const emit = defineEmits<{
 }>();
 
 const handleAction = () => {
-  HandleDelte(props.idRequest);
+  handleReviewShort();
   emit("close");
   emit("completed");
 };
