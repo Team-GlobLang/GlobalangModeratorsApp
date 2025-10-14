@@ -1,0 +1,34 @@
+<template>
+  <BreadCrumb :items="breadCrumbItems" />
+  <section class="flex flex-col p-4 gap-4 bg-white rounded-lg">
+    <Rankin_Filters @filterCountryChange="handleFilterCountry" />
+    <Ranking_User_Card_Container :country="FilterContry" />
+    <Rankin_Card_Container :country="FilterContry" />
+  </section>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import Rankin_Card_Container from "../components/Rankin_Card_Container.vue";
+import Rankin_Filters from "../components/Rankin_Filters.vue";
+import Ranking_User_Card_Container from "../components/Ranking_User_Card_Container.vue";
+import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+
+const breadCrumbItems = [
+  {
+    label: "Home",
+    route: "Home",
+    isHome: true,
+  },
+  {
+    label: "Ranking",
+  },
+];
+
+const FilterContry = ref("");
+const handleFilterCountry = (country: string) => {
+  FilterContry.value = country;
+};
+</script>
+
+<style scoped></style>
