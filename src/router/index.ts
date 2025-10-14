@@ -45,14 +45,12 @@ const routes = [
     name: "Home",
     component: Home_Moderators,
     meta: { showBottomBar: true },
-    children: [
-      {
-        path: "user-info",
-        name: "User_Info",
-        component: Info_User,
-        meta: { showBottomBar: true },
-      },
-    ],
+  },
+  {
+    path: "/user-info",
+    name: "User_Info",
+    component: Info_User,
+    meta: { showBottomBar: true },
   },
 
   {
