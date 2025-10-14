@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="fullName"
+    @click="goto('User_Info')"
     class="w-full rounded-xl p-4 py-6 flex items-center gap-4 bg-white shadow transition-all md:max-w-md md:mx-auto xl:max-w-lg"
   >
     <img
@@ -27,7 +28,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { userStore } from "../../../../Stores/user";
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 const fullName = computed(() => userStore.user?.fullName);
 
@@ -37,9 +38,9 @@ const props = defineProps({
   },
 });
 
-// const router = useRouter();
+const router = useRouter();
 
-// function goto(pathName: string) {
-//   router.push({ name: pathName });
-// }
+function goto(pathName: string) {
+  router.push({ name: pathName });
+}
 </script>
