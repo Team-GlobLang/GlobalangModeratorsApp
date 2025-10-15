@@ -16,7 +16,6 @@ import Info_User from "../feautures/Home/Pages/Info_User.vue";
 import Colaborator_Request_View from "../feautures/Colaborators/pages/Colaborator_Request_View.vue";
 import Review_Quiz_Registered from "../feautures/Quiz/pages/Review_Quiz_Registered.vue";
 import Rankin_Page from "../feautures/Stats/page/Rankin_Page.vue";
-import RequestMiddlePage from "../feautures/MiddlePages/Pages/RequestMiddlePage.vue";
 const routes = [
   {
     path: "/",
@@ -58,7 +57,6 @@ const routes = [
   {
     path: "/request",
     name: "Request",
-    component: RequestMiddlePage,
     children: [
       {
         path: "quiz",
