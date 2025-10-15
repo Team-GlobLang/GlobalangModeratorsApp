@@ -37,18 +37,15 @@ const breadCrumbItems = [
   },
 ];
 
-const CountryFilter = ref<string>("");
+const CountryFilter = ref<string | undefined>(undefined);
+const EmailFilter = ref<string | undefined>(undefined);
 
-const handleFilterCountry = (country: string) => {
+const handleFilterCountry = (country: string | undefined) => {
   CountryFilter.value = country;
-  console.log(country);
 };
 
-const EmailFilter = ref<string>("");
-
-const handleFilterEmail = (email: string) => {
+const handleFilterEmail = (email: string | undefined) => {
   EmailFilter.value = email;
-  console.log(email);
 };
 </script>
 

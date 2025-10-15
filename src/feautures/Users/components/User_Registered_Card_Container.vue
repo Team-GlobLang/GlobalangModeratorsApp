@@ -43,14 +43,10 @@ import GoToStart from "../../../components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { User } from "../interfaces/User";
 
-const props = defineProps({
-  Email: {
-    type: String,
-  },
-  country: {
-    type: String,
-  },
-});
+const props = defineProps<{
+  Email?: string;
+  country?: string;
+}>();
 
 const filters = ref<UserFilter>({
   country: undefined,

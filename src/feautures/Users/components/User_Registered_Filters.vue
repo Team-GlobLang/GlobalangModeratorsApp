@@ -47,8 +47,8 @@ import type { RegisterForm } from "../../Auth/Interfaces";
 const MAX_INITIAL = 10;
 
 const emit = defineEmits<{
-  filterchangeCountry: [country: string];
-  filterchangeEmail: [email: string];
+  filterchangeCountry: [country: string | undefined];
+  filterchangeEmail: [email: string | undefined];
 }>();
 
 const filteredCountries = computed(() => {
@@ -72,7 +72,8 @@ const {
 watch(
   country,
   (newCountry) => {
-    emit("filterchangeCountry", newCountry || "");
+    const valueToEmit = newCountry === "" ? undefined : newCountry;
+    emit("filterchangeCountry", valueToEmit);
   },
   { immediate: true }
 );
@@ -80,7 +81,8 @@ watch(
 watch(
   email,
   (newEmail) => {
-    emit("filterchangeEmail", newEmail || "");
+    const valueToEmit = newEmail === "" ? undefined : newEmail;
+    emit("filterchangeEmail", valueToEmit);
   },
   { immediate: true }
 );
