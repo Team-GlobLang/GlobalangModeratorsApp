@@ -1,8 +1,5 @@
 <template>
-  <div class="flex flex-col">
-    <div class="flex justify-end">
-      <fwb-button color="green">Register a moderator</fwb-button>
-    </div>
+  <div class="flex flex-col px-4">
     <FwbInput
       list="countries"
       v-model="country"
@@ -42,7 +39,6 @@
 
 <script setup lang="ts">
 import { FwbInput } from "flowbite-vue";
-import { FwbButton } from "flowbite-vue";
 import { useField } from "vee-validate";
 import { countries } from "../../../Core/CountriesArray";
 import { computed, watch } from "vue";
