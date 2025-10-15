@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full rounded-lg bg-[#f6f6f6] shadow-gray-300 shadow-md">
+  <FwbCard class="w-full rounded-lg bg-[#f6f6f6] shadow-gray-300 shadow-md">
     <div class="r} p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
@@ -20,12 +20,13 @@
         @isAccepted="onIsAccepted"
       />
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">
-//import { FwbCard } from "flowbite-vue";
-import Btn_Colab_Request from "../../Colaborators/components/modals/Btn_Colab_Request.vue";
+import Btn_Colab_Request from '@shared/Components/Btn_Colab_Request.vue';
+import { FwbCard } from 'flowbite-vue';
+
 const props = defineProps({
   user: {
     type: String,

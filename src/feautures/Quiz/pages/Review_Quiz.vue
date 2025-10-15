@@ -45,9 +45,9 @@ import { useQuery } from "@tanstack/vue-query";
 import { getQuizQuestions } from "../services/QuizService";
 import type { QuizQuestion, QuizOption } from "../interfaces/QuestionQuizType";
 
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 import Result from "../components/microcomponents/Result.vue";
 import QuestionCard from "../components/microcomponents/QuestionCard.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const route = useRoute();
 const quizId = computed(() => route.params.id as string);

@@ -1,17 +1,22 @@
 <script setup lang="ts">
+import { Capacitor } from "@capacitor/core";
+import NavBarlayout from "@layouts/NavBarlayout.vue";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { Toaster } from "vue3-hot-toast";
-import NavBarlayout from "./lyouts/NavBarlayout.vue";
 const route = useRoute();
 const showBottomBar = computed(() => route.meta.showBottomBar !== false);
+const isNative = Capacitor.isNativePlatform();
+
+const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 </script>
 
 <template>
   <Toaster />
+  <div v-if="isNative" class="bg-[#193cb8] w-full h-[5dvh] fixed z-50"></div>
   <router-view v-slot="{ Component }">
     <Transition>
-      <div :class="{ 'pb-14': showBottomBar }">
+      <div :class="[{ 'pb-14': showBottomBar }, containerPadingop]">
         <component :is="Component" />
       </div>
     </Transition>

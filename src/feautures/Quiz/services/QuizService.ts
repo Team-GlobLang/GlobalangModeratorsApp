@@ -1,6 +1,6 @@
 import axios from "axios";
-import axiosInstance from "../../../Core/AxiosConfig";
 import type { QuizChangeStatus, QuizzesFilters } from "../interfaces/QuizType";
+import axiosInstance from "@core/AxiosConfig";
 
 const GetQuizzesList = async (data: QuizzesFilters) => {
   try {

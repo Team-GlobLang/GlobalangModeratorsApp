@@ -1,8 +1,8 @@
 import axios from "axios";
-import axiosInstance from "../../../Core/AxiosConfig";
 import type { ColaboratorRequestForm } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestChangeStatus } from "../interfaces/ColaboratorRequestChangeStatusInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
+import axiosInstance from "@core/AxiosConfig";
 
 const CreateColabortorRequest = async (Data: ColaboratorRequestForm) => {
   try {

@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import { FwbButton, FwbModal, FwbTextarea } from "flowbite-vue";
 import { ref, toRaw, watch } from "vue";
-import type { ReviewShort } from "../../../Audio/interfaces/ReviewShort";
+import type { ReviewShort } from "../../../Shared/Interfaces/ReviewShort";
 import { UseReviewShort } from "../../../Audio/hooks/UseReviewShort";
 const props = defineProps({
   isOpen: {

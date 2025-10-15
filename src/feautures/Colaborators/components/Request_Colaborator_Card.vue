@@ -29,7 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import Btn_Colab_Request from "./modals/Btn_Colab_Request.vue";
+import Btn_Colab_Request from '@shared/Components/Btn_Colab_Request.vue';
+
 //import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
 const props = defineProps({
   id_item: {

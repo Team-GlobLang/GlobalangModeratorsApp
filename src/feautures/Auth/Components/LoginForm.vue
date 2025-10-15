@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm" class="flex-col flex gap-5 w-3/4">
+  <form @submit.prevent="submitForm" class="flex-col flex gap-5 w-11/12">
     <FwbInput label="Email" type="email" placeholder="your@email.com" v-model="email" @blur="emailBlur()"
       :validation-status="emailError ? 'error' : undefined">
       <template #suffix>
@@ -35,9 +35,9 @@ import { FwbA, FwbButton, FwbInput } from 'flowbite-vue';
 import { ref } from 'vue';
 import type { LoginForm } from '../Interfaces/LoginInterface';
 import { useField, useForm } from 'vee-validate';
-import { rules } from '../../../Core/validators/rules';
 import { UseSingIn } from '../Hooks/useSingIn';
 import { useRouter } from 'vue-router';
+import { rules } from '@core/validators/rules';
 
 const showPassword = ref<boolean>(false)
 function changeShowPassword(show: boolean) {

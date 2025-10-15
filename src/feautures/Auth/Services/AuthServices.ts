@@ -1,5 +1,4 @@
 import axios from "axios";
-import axiosInstance from "../../../Core/AxiosConfig";
 import type {
   changePasswordInterface,
   LoginForm,
@@ -7,6 +6,7 @@ import type {
 } from "../Interfaces";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
 import { userStore } from "../../../Stores/user";
+import axiosInstance from "@core/AxiosConfig";
 
 const singIn = async (Data: LoginForm) => {
   try {

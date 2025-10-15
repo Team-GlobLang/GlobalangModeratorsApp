@@ -1,5 +1,5 @@
 <template>
-    <form v-if="!expired" @submit.prevent="submitForm" class="flex-col flex gap-5 w-3/4">
+    <form v-if="!expired" @submit.prevent="submitForm" class="flex-col flex gap-5 w-11/12">
         <FwbInput label="New Password" :type="showPassword ? 'text' : 'password'" placeholder="Your password"
             v-model="newPassword" :validation-status="passwordError ? 'error' : undefined">
             <template #suffix>
@@ -43,8 +43,8 @@ import type { changePasswordInterface } from '../Interfaces';
 import { useRouter } from 'vue-router';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FwbButton, FwbInput, FwbA } from 'flowbite-vue';
-import { rules } from '../../../Core/validators/rules';
 import { UseChangePassword } from '../Hooks/ChangePassword';
+import { rules } from '@core/validators/rules';
 
 
 const timeLeft = ref(8 * 60)

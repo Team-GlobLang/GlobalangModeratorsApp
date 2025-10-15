@@ -1,4 +1,4 @@
-import type { PaginationDto } from "../../../common/dto/pagination.dto";
+import type { PaginationDto } from "@ComonDto";
 import type { Categories, Status } from "./ColaboratorRequestInterface";
 
 export interface ColaboratorRequestFilters extends PaginationDto {

@@ -38,10 +38,9 @@ import type { UserFilter } from "../interfaces/user-filter-interface";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetUsersFiltered } from "../services/UserServices";
-import NotFound from "../../../common/components/NotFound.vue";
-import GoToStart from "../../../components/microcomponents/GoToStart.vue";
-import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { User } from "../interfaces/User";
+import GoToStart from "@components/microcomponents/GoToStart.vue";
+import type { PaginatedResponse } from "@ComonResponse";
 
 const props = defineProps({
   Email: {

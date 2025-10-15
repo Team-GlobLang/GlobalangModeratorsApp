@@ -1,4 +1,4 @@
-import type { PaginationDto } from "../../../common/dto/pagination.dto";
+import type { PaginationDto } from "@ComonDto";
 
 export interface UserFilter extends PaginationDto {
   userId?: string;

@@ -33,9 +33,8 @@ import { ref } from "vue";
 import { FwbInput } from "flowbite-vue";
 import { FwbSelect } from "flowbite-vue";
 import { useField } from "vee-validate";
-import { countries } from "../../../Core/CountriesArray";
 import { computed, watch } from "vue";
-import type { RegisterForm } from "../../Auth/Interfaces";
+import { countries } from "@core/CountriesArray";
 
 const MAX_INITIAL = 10;
 
@@ -49,7 +48,7 @@ const filteredCountries = computed(() => {
 });
 
 const { value: country, errorMessage: countryError } =
-  useField<RegisterForm["country"]>("country");
+  useField<{ country: string }["country"]>("country");
 
 const emit = defineEmits<{
   filterCountryChange: [country: string];

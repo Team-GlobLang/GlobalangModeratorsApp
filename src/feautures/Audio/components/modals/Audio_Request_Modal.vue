@@ -35,7 +35,7 @@
 import { FwbButton, FwbModal, FwbTextarea } from "flowbite-vue";
 import { UseReviewShort } from "../../hooks/UseReviewShort";
 import { ref, toRaw, watch } from "vue";
-import type { ReviewShort } from "../../interfaces/ReviewShort";
+import type { ReviewShort } from "@shared/Interfaces/ReviewShort";
 const props = defineProps({
   isOpen: {
     type: Boolean,

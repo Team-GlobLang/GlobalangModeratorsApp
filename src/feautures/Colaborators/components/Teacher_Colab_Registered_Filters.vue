@@ -30,8 +30,8 @@ import { ref } from "vue";
 import { FwbInput } from "flowbite-vue";
 import { FwbSelect } from "flowbite-vue";
 import { useField } from "vee-validate";
-import { countries } from "../../../Core/CountriesArray";
 import { computed, watch } from "vue";
+import { countries } from "@core/CountriesArray";
 
 const MAX_INITIAL = 10;
 

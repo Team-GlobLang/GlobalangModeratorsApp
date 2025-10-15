@@ -45,10 +45,10 @@ import { useQuery } from "@tanstack/vue-query";
 import { getQuizQuestions } from "../services/QuizService";
 import type { QuizQuestion, QuizOption } from "../interfaces/QuestionQuizType";
 
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 
 import QuestionCard from "../components/microcomponents/QuestionCard.vue";
 import Question_Quiz_Registered_Result from "../components/microcomponents/Question_Quiz_Registered_Result.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const route = useRoute();
 const quizId = computed(() => route.params.id as string);

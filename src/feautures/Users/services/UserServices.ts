@@ -1,6 +1,6 @@
 import axios from "axios";
-import axiosInstance from "../../../Core/AxiosConfig";
 import type { UserFilter } from "../interfaces/user-filter-interface";
+import axiosInstance from "@core/AxiosConfig";
 
 const GetUsersFiltered = async (Data: UserFilter) => {
   try {

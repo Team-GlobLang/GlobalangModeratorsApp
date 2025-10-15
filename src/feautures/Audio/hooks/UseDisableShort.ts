@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
-import type { ApiError } from "../../../Core/types/ApiError";
-import { DisableShort } from "../services/AudioService";
+import { DisableShort } from "@shared/Service/AudioService";
+import type { ApiError } from "@core/types/ApiError";
 
 const UseDisableShort = () => {
   const mutation = useMutation({
@@ -13,7 +13,7 @@ const UseDisableShort = () => {
         }),
         {
           loading: "Please wait...",
-          success: h("span", `Se realizo la acción exitosamente.`),
+          success: h("span", `The action was completed successfully..`),
           error: (error: ApiError) => h("span", `${error.message}`),
         }
       ),

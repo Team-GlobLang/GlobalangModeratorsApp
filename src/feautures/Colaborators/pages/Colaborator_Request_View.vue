@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 import Colab_Request_View_Card_Container from "../components/Colab_Request_View_Card_Container.vue";
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 
 const props = defineProps({
   id: {

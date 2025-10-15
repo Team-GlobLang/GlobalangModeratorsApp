@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 import List_Quiz_Registered_Filters from "../components/List_Quiz_Registered_Filters.vue";
 import Quiz_Registered_Card_Container from "../components/Quiz_Registered_Card_Container.vue";
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 import { ref } from "vue";
 
 const breadCrumbItems = [
