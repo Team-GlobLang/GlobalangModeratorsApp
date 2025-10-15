@@ -1,6 +1,6 @@
 <template>
-  <FwbCard class="w-full rounded-lg bg-[#f6f6f6] shadow-gray-300 shadow-md">
-    <div class="r} p-4 flex flex-col gap-2">
+  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+    <div class="p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
         <small>Title: {{ props.title }}</small>
@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import Btn_Colab_Request from '@shared/Components/Btn_Colab_Request.vue';
-import { FwbCard } from 'flowbite-vue';
+import Btn_Colab_Request from "@shared/Components/Btn_Colab_Request.vue";
+import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   user: {

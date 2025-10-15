@@ -1,7 +1,5 @@
 <template>
-  <fwb-card
-    class="w-full rounded-lg p-4 bg-[#f6f6f6] shadow-gray-300 shadow-md"
-  >
+  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <span class="flex flex-col font-light text-sm">
         <small class="text-md font-bold">{{ props.phrase }}</small>
@@ -11,6 +9,17 @@
       </span>
 
       <div class="w-full flex text-sm gap-4">
+        <fwb-button
+          class="w-full border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
+          v-if="props.status"
+          @click="handleAction"
+        >
+          <p class="flex items-center justify-center gap-2">
+            <i class="pi pi-trash text-[#FF0000]"></i>
+            <small>Retire</small>
+          </p>
+        </fwb-button>
+
         <fwb-button
           :aria-pressed="localPlaying"
           :title="localPlaying ? 'Pausar' : 'Reproducir'"
@@ -24,17 +33,6 @@
               :class="localPlaying ? 'pi-pause-circle' : 'pi-play-circle'"
               style="font-size: 1rem"
             ></i>
-          </p>
-        </fwb-button>
-
-        <fwb-button
-          class="w-full border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
-          v-if="props.status"
-          @click="handleAction"
-        >
-          <p class="flex items-center justify-center gap-2">
-            <i class="pi pi-trash text-[#FF0000]"></i>
-            <small>Retire</small>
           </p>
         </fwb-button>
       </div>

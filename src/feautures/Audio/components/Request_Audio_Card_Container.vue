@@ -1,7 +1,5 @@
 <template>
-  <!-- Cambiar por v for cuando haga logica con db -->
-  <!-- Ajustar fondo para que abarque full el height sin importar el contenido-->
-  <div class="flex flex-col gap-4 items-center w-full bg-white">
+  <div class="flex flex-col gap-4 items-center w-11/12">
     <Request_Audio_Card
       v-if="audiosRequest.length > 0"
       v-for="request in audiosRequest"
@@ -34,7 +32,7 @@
 
     <div
       v-if="!isLoading && audiosRequest.length === 0"
-      class="text-center mt-10 p-10 bg-white"
+      class="text-center mt-10 p-10"
     >
       <NotFoundVue message="Sorry, we dont have audio requests avalible now" />
     </div>

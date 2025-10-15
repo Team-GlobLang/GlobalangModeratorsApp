@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col items-center gap-6">
+  <div class="flex flex-col gap-4 items-center w-11/12">
     <Request_Colaborator_Card
       v-if="colaboratorsRequest.length > 0"
       v-for="item in colaboratorsRequest"
@@ -32,7 +32,7 @@
 
     <div
       v-if="!isLoading && colaboratorsRequest.length === 0"
-      class="text-center mt-10 p-10 bg-white"
+      class="text-center mt-10 p-10"
     >
       <NotFoundVue
         message="Sorry, we dont have collaboratos requests avalible now"

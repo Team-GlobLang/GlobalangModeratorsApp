@@ -1,7 +1,5 @@
 <template>
-  <!-- Cambiar por v for cuando haga logica con db -->
-  <!-- Ajustar fondo para que abarque full el height sin importar el contenido-->
-  <div class="flex flex-col gap-8 w-full items-center">
+  <div class="flex flex-col gap-4 items-center w-11/12">
     <Teacher_Colaborator_Card
       v-if="colaboratorRequests.length > 0"
       v-for="item in colaboratorRequests"
@@ -33,7 +31,7 @@
     </div>
     <div
       v-if="!isLoading && colaboratorRequests.length === 0"
-      class="text-center mt-10 p-10 bg-white"
+      class="text-center mt-10 p-10"
     >
       <NotFoundVue message="Sorry, we dont have collaborators avalible now" />
     </div>

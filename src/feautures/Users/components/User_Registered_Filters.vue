@@ -1,48 +1,42 @@
 <template>
-  <div class="flex flex-col">
-    <div class="flex justify-end">
-      <fwb-button color="green">Register a moderator</fwb-button>
-    </div>
-    <FwbInput
-      list="countries"
-      v-model="country"
-      type="text"
-      :validation-status="countryError ? 'error' : undefined"
-      label="Contry"
-      placeholder="Ej: Costa Rica"
+  <FwbInput
+    list="countries"
+    v-model="country"
+    type="text"
+    :validation-status="countryError ? 'error' : undefined"
+    label="Contry"
+    placeholder="Ej: Costa Rica"
+  >
+    <template #suffix>
+      <span class="pi pi-home"></span>
+    </template>
+    <template #validationMessage>
+      <span class="font-medium">{{ countryError }} </span>
+    </template>
+  </FwbInput>
+
+  <datalist id="countries">
+    <option
+      v-for="countryItem in filteredCountries"
+      :key="countryItem.code"
+      :value="countryItem.name"
     >
-      <template #suffix>
-        <span class="pi pi-home"></span>
-      </template>
-      <template #validationMessage>
-        <span class="font-medium">{{ countryError }} </span>
-      </template>
-    </FwbInput>
+      {{ countryItem.name }}
+    </option>
+  </datalist>
 
-    <datalist id="countries">
-      <option
-        v-for="countryItem in filteredCountries"
-        :key="countryItem.code"
-        :value="countryItem.name"
-      >
-        {{ countryItem.name }}
-      </option>
-    </datalist>
-
-    <FwbInput
-      v-model="email"
-      type="email"
-      :validation-status="emailError ? 'error' : undefined"
-      @blur="emailBlur"
-      label="Email"
-      placeholder="example@email.com"
-    />
-  </div>
+  <FwbInput
+    v-model="email"
+    type="email"
+    :validation-status="emailError ? 'error' : undefined"
+    @blur="emailBlur"
+    label="Email"
+    placeholder="example@email.com"
+  />
 </template>
 
 <script setup lang="ts">
 import { FwbInput } from "flowbite-vue";
-import { FwbButton } from "flowbite-vue";
 import { useField } from "vee-validate";
 import { computed, watch } from "vue";
 import { countries } from "@core/CountriesArray";
@@ -50,8 +44,8 @@ import { countries } from "@core/CountriesArray";
 const MAX_INITIAL = 10;
 
 const emit = defineEmits<{
-  filterchangeCountry: [country: string];
-  filterchangeEmail: [email: string];
+  filterchangeCountry: [country: string | undefined];
+  filterchangeEmail: [email: string | undefined];
 }>();
 
 const filteredCountries = computed(() => {
@@ -75,7 +69,8 @@ const {
 watch(
   country,
   (newCountry) => {
-    emit("filterchangeCountry", newCountry || "");
+    const valueToEmit = newCountry === "" ? undefined : newCountry;
+    emit("filterchangeCountry", valueToEmit);
   },
   { immediate: true }
 );
@@ -83,7 +78,8 @@ watch(
 watch(
   email,
   (newEmail) => {
-    emit("filterchangeEmail", newEmail || "");
+    const valueToEmit = newEmail === "" ? undefined : newEmail;
+    emit("filterchangeEmail", valueToEmit);
   },
   { immediate: true }
 );

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col gap-6 items-center">
+  <div class="flex flex-col gap-4 items-center w-11/12">
     <Users_Registered_Card
       v-if="Users.length > 0"
       v-for="item in Users"
@@ -42,14 +42,10 @@ import type { User } from "../interfaces/User";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 
-const props = defineProps({
-  Email: {
-    type: String,
-  },
-  country: {
-    type: String,
-  },
-});
+const props = defineProps<{
+  Email?: string;
+  country?: string;
+}>();
 
 const filters = ref<UserFilter>({
   country: undefined,
