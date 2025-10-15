@@ -1,21 +1,27 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "../feautures/Auth/Page/Login.vue";
-import Register from "../feautures/Auth/Page/Register.vue";
-import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
-import StartPage from "../feautures/Auth/Page/StartPage.vue";
-import Home_Moderators from "../feautures/Home/Pages/Home_Moderators.vue";
-import Quizz_request from "../feautures/Quiz/pages/Quizz_request.vue";
-import Request_Colaborator from "../feautures/Colaborators/pages/Request_Colaborator.vue";
+
+import {
+  List_Quiz_Registered,
+  Quizz_request,
+  Review_Quiz,
+  Review_Quiz_Registered,
+} from "../feautures/Quiz/pages";
+import {
+  Login,
+  StartPage,
+  Register,
+  ForgetPassword,
+} from "../feautures/Auth/Page";
+import { Home_Moderators, Info_User } from "../feautures/Home/Pages";
 import Audio_Request_Moderator from "../feautures/Audio/pages/Audio_Request_Moderator.vue";
 import Phrase_Registered from "../feautures/Phrase/pages/Phrase_Registered.vue";
 import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
-import List_Quiz_Registered from "../feautures/Quiz/pages/List_Quiz_Registered.vue";
-import Teacher_Colaborator_Registered from "../feautures/Colaborators/pages/Teacher_Colaborator_Registered.vue";
-import Review_Quiz from "../feautures/Quiz/pages/Review_Quiz.vue";
-import Info_User from "../feautures/Home/Pages/Info_User.vue";
-import Colaborator_Request_View from "../feautures/Colaborators/pages/Colaborator_Request_View.vue";
-import Review_Quiz_Registered from "../feautures/Quiz/pages/Review_Quiz_Registered.vue";
 import Rankin_Page from "../feautures/Stats/page/Rankin_Page.vue";
+import {
+  Colaborator_Request_View,
+  Request_Colaborator,
+  Teacher_Colaborator_Registered,
+} from "../feautures/Colaborators/pages";
 const routes = [
   {
     path: "/",

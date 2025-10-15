@@ -32,7 +32,7 @@
         @ended="onEnded"
       ></audio>
 
-      <btn_-group
+      <Btn_Group
         accept-icon="pi-cloud-upload"
         accept-text="Approve"
         reject-icon="pi-trash"
@@ -48,8 +48,8 @@
 
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import Btn_Group from "../../Home/components/Btn_Group.vue";
 import { FwbButton } from "flowbite-vue";
+import Btn_Group from "@shared/Components/Btn_Group.vue";
 
 const props = defineProps({
   name: {

@@ -9,7 +9,18 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": ["src/layouts/*"],
+      "@core/*": ["src/Core/*"],
+      "@components/*": ["src/components/*"],
+      "@shared/*": ["src/feautures/Shared/*"],
+      "@UserStore": ["src/Stores/user.ts"],
+      "@NotFound":["src/common/components/NotFound.vue"],
+      "@ComonDto":["src/common/dto/pagination.dto.ts"],
+      "@ComonResponse":["src/common/dto/PaginatedReponse.ts"],
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

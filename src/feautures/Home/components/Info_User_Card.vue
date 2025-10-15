@@ -22,8 +22,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import { userStore } from "@UserStore";
 import { computed } from "vue";
-import { userStore } from "../../../Stores/user";
 
 const fullName = computed(() => userStore.user?.fullName);
 const email = computed(() => userStore.user?.email);

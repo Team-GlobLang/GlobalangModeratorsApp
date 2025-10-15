@@ -8,7 +8,7 @@
         <small>Idioma: {{ props.language }}</small>
         <small>Aprobado por: {{ props.approbeBy }}</small>
       </span>
-      <btn_-group
+      <Btn_Group
         accept-icon="pi-cloud-upload"
         accept-text="Ver preguntas"
         reject-icon="pi-trash"
@@ -20,7 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import Btn_Group from "../../Home/components/Btn_Group.vue";
+import Btn_Group from '@shared/Components/Btn_Group.vue';
+
+
 const props = defineProps({
   user: {
     type: String,

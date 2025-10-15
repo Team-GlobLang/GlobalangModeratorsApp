@@ -33,7 +33,7 @@
       v-if="!isLoading && colaboratorRequests.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFound message="Sorry, we dont have collaborators avalible now" />
+      <NotFoundVue message="Sorry, we dont have collaborators avalible now" />
     </div>
 
     <Teacher_Collab_Registerd_Modal
@@ -53,11 +53,11 @@ import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequest
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
-import NotFound from "../../../common/components/NotFound.vue";
-import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { Collab } from "../interfaces/Colaborator";
-import GoToStart from "../../../components/microcomponents/GoToStart.vue";
 import Teacher_Collab_Registerd_Modal from "./modals/Teacher_Collab_Registerd_Modal.vue";
+import NotFoundVue from "@NotFound";
+import GoToStart from "@components/microcomponents/GoToStart.vue";
+import type { PaginatedResponse } from "@ComonResponse";
 
 const props = defineProps({
   language: {

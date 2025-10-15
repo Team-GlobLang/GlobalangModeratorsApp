@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import type { changePasswordInterface } from "../Interfaces";
-import type { ApiError } from "../../../Core/types/ApiError";
 import { changePassword } from "../Services/AuthServices";
 import { h } from "vue";
+import type { ApiError } from "@core/types/ApiError";
 
 export const UseChangePassword = () => {
   const mutation = useMutation({

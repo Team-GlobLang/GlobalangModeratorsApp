@@ -36,7 +36,7 @@
       v-if="!isLoading && audiosRegistered.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFound message="Sorry, we dont have phrases avalible now" />
+      <NotFoundVue message="Sorry, we dont have phrases avalible now" />
     </div>
 
     <Phrases_Registered_Modal
@@ -53,13 +53,13 @@
 import Phrases_Registered_Card from "./Phrases_Registered_Card.vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import type { AudiosByFilters } from "../../Audio/interfaces/AudiosByFilter";
-import { GetAllAudiosByFilters } from "../../Audio/services/AudioService";
 import Phrases_Registered_Modal from "./modal/Phrases_Registered_Modal.vue";
-import NotFound from "../../../common/components/NotFound.vue";
-import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
-import type { Short } from "../../Audio/interfaces/Short";
-import GoToStart from "../../../components/microcomponents/GoToStart.vue";
+import GoToStart from "@components/microcomponents/GoToStart.vue";
+import NotFoundVue from "@NotFound";
+import type { PaginatedResponse } from "@ComonResponse";
+import type { AudiosByFilters } from "@shared/Interfaces/AudiosByFilter";
+import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
+import type { Short } from "@shared/Interfaces/Short";
 
 const props = defineProps({
   Status: {

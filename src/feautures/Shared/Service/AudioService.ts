@@ -1,7 +1,7 @@
-import type { AudiosByFilters } from "../interfaces/AudiosByFilter";
-import axiosInstance from "../../../Core/AxiosConfig";
+import type { AudiosByFilters } from "../Interfaces/AudiosByFilter";
 import axios from "axios";
-import type { ReviewShort } from "../interfaces/ReviewShort";
+import type { ReviewShort } from "../Interfaces/ReviewShort";
+import axiosInstance from "@core/AxiosConfig";
 
 const GetAllAudiosByFilters = async (Data: AudiosByFilters) => {
   try {

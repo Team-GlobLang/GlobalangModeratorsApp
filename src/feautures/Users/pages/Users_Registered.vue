@@ -21,8 +21,8 @@
 import User_Registered_Filters from "../components/User_Registered_Filters.vue";
 import { FwbButton } from "flowbite-vue";
 import User_Registered_Card_Container from "../components/User_Registered_Card_Container.vue";
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 import { ref } from "vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 const breadCrumbItems = [
   {
     label: "Home",

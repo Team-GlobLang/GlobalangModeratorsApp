@@ -34,7 +34,7 @@
       v-if="!isLoading && colaboratorsRequest.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFound
+      <NotFoundVue
         message="Sorry, we dont have collaboratos requests avalible now"
       />
     </div>
@@ -57,10 +57,10 @@ import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
 import { useRouter } from "vue-router";
 import Request_Colab_Modal from "./modals/Request_Colab_Modal.vue";
-import NotFound from "../../../common/components/NotFound.vue";
 import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { Collab } from "../interfaces/Colaborator";
-import GoToStart from "../../../components/microcomponents/GoToStart.vue";
+import NotFoundVue from "@NotFound";
+import GoToStart from "@components/microcomponents/GoToStart.vue";
 
 const props = defineProps({
   language: {

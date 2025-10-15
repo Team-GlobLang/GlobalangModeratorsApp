@@ -30,7 +30,7 @@
         value="one"
       />
 
-      <btn_-group
+      <Btn_Group
         accept-icon="pi"
         reject-icon="pi-arrow-left"
         acceptText="Finish"
@@ -43,10 +43,10 @@
 </template>
 
 <script setup lang="ts">
+import Btn_Group from "@shared/Components/Btn_Group.vue";
 import { FwbCard } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
 import { FwbRadio } from "flowbite-vue";
-import Btn_Group from "../../Home/components/Btn_Group.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 

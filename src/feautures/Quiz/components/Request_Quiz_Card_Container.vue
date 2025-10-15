@@ -35,7 +35,7 @@
       v-if="!isLoading && quizList.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFound message="Sorry, we dont have audio requests avalible now" />
+      <NotFoundVue message="Sorry, we dont have audio requests avalible now" />
     </div>
 
     <Request_Quiz_Modal
@@ -52,12 +52,12 @@
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import Request_Quiz_Card from "../components/Request_Quiz_Card.vue";
 import { GetQuizzesList } from "../services/QuizService";
-import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { QuizData, QuizzesFilters } from "../interfaces/QuizType";
 import { useInfiniteQuery } from "@tanstack/vue-query";
-import GoToStart from "../../../components/microcomponents/GoToStart.vue";
 import { useRouter } from "vue-router";
 import Request_Quiz_Modal from "./modals/Request_Quiz_Modal.vue";
+import type { PaginatedResponse } from "@ComonResponse";
+import NotFoundVue from "@NotFound";
 
 const props = defineProps({
   country: {

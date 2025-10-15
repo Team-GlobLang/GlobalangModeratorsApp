@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
-import type { ApiError } from "../../../Core/types/ApiError";
 import type { QuizChangeStatus } from "../interfaces/QuizType";
 import { ApprovalQuiz } from "../services/QuizService";
+import type { ApiError } from "@core/types/ApiError";
 const UseApprovalQuiz = () => {
   const mutation = useMutation({
     mutationFn: (data: QuizChangeStatus) =>
@@ -13,7 +13,7 @@ const UseApprovalQuiz = () => {
         }),
         {
           loading: "Please wait...",
-          success: h("span", `Se realizo la acción exitosamente.`),
+          success: h("span", `The action was completed successfully.`),
           error: (error: ApiError) => h("span", `${error.message}`),
         }
       ),

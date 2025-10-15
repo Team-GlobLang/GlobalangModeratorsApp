@@ -19,8 +19,8 @@
 <script setup lang="ts">
 import Request_Phrase_Filters from "../components/Request_Phrase_Filters.vue";
 import Request_Phrase_Card_Container from "../components/Request_Phrase_Card_Container.vue";
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 import { ref } from "vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const breadCrumbItems = [
   {

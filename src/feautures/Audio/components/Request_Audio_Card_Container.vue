@@ -34,7 +34,7 @@
       v-if="!isLoading && audiosRequest.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFound message="Sorry, we dont have audio requests avalible now" />
+      <NotFoundVue message="Sorry, we dont have audio requests avalible now" />
     </div>
     <Audio_Request_Modal
       :isOpen="isModalOpen"
@@ -48,15 +48,14 @@
 
 <script setup lang="ts">
 import Request_Audio_Card from "./Request_Audio._Card.vue";
-import type { AudiosByFilters } from "../interfaces/AudiosByFilter";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
-import { GetAllAudiosByFilters } from "../services/AudioService";
 import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
-import NotFound from "../../../common/components/NotFound.vue";
 import type { PaginatedResponse } from "../interfaces/PaginatedReponse";
 import type { Short } from "../interfaces/Short";
-import GoToStart from "../../../components/microcomponents/GoToStart.vue";
+import type { AudiosByFilters } from "@shared/Interfaces/AudiosByFilter";
+import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
+import NotFoundVue from "@NotFound";
 
 const props = defineProps({
   Country: {

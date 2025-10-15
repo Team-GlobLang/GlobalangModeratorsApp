@@ -37,7 +37,7 @@
       v-if="!isLoading && quizList.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFound message="Sorry, we dont have quizzes avalible now" />
+      <NotFoundVue message="Sorry, we dont have quizzes avalible now" />
     </div>
 
     <Retire_Register_Quiz_Modal
@@ -53,13 +53,13 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import type { QuizData, QuizzesFilters } from "../interfaces/QuizType";
-import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetQuizzesList } from "../services/QuizService";
 import { useRouter } from "vue-router";
 import Quiz_Registerd_Card from "./Quiz_Registerd_Card.vue";
-import NotFound from "../../../common/components/NotFound.vue";
 import Retire_Register_Quiz_Modal from "./modals/Retire_Register_Quiz_Modal.vue";
+import NotFoundVue from "@NotFound";
+import type { PaginatedResponse } from "@ComonResponse";
 
 const props = defineProps({
   country: {

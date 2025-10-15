@@ -4,7 +4,7 @@ import toast from "vue3-hot-toast";
 import { CreateColabortorRequest } from "../services/ColaboratorServices";
 import { h } from "vue";
 import type { ColaboratorReponse } from "../interfaces/ColaboratorReponse";
-import type { ApiError } from "../../../Core/types/ApiError";
+import type { ApiError } from "@core/types/ApiError";
 
 export const UseCreateColabRequest = () => {
   const mutation = useMutation({

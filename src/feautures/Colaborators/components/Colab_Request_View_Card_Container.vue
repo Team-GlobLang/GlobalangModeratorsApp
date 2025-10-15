@@ -17,7 +17,7 @@
     v-if="!isLoading && colaborator.length === 0"
     class="text-center mt-10 p-10"
   >
-    <NotFound message="Sorry, we dont have this request avalible now" />
+    <NotFoundVue message="Sorry, we dont have this request avalible now" />
   </div>
 
   <Colab_Request_View_Modal
@@ -35,7 +35,7 @@ import { computed, onMounted, ref } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestById } from "../services/ColaboratorServices";
 import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
-import NotFound from "../../../common/components/NotFound.vue";
+import NotFoundVue from "@NotFound";
 
 const props = defineProps({
   id: {
