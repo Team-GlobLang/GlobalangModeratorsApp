@@ -3,7 +3,7 @@
     v-show="show"
     @click="scrollToTop"
     pill
-    class="fixed bottom-18 right-3 w-12 h-12 shadow-lg flex items-center justify-center transition text-xl"
+    class="fixed bottom-24 right-3 w-12 h-12 shadow-lg flex items-center justify-center transition text-xl"
   >
     <i class="pi pi-arrow-circle-up"></i>
   </FwbButton>

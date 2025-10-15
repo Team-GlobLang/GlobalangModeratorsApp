@@ -113,7 +113,7 @@ const finishQuiz = () => {
 };
 
 const breadcrumbItems = computed(() => [
-  { label: "Home", route: "/home", isHome: true },
+  { label: "Home", route: "Home", isHome: true },
 ]);
 
 const formatTime = (seconds: number) => {

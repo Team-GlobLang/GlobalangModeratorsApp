@@ -32,7 +32,7 @@
 
     <div
       v-if="!isLoading && audiosRequest.length === 0"
-      class="text-center mt-10 p-10 bg-white"
+      class="text-center mt-10 p-10"
     >
       <NotFound message="Sorry, we dont have audio requests avalible now" />
     </div>

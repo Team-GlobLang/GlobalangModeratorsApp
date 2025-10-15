@@ -34,7 +34,7 @@
 
     <div
       v-if="!isLoading && audiosRegistered.length === 0"
-      class="text-center mt-10 p-10 bg-white"
+      class="text-center mt-10 p-10"
     >
       <NotFound message="Sorry, we dont have phrases avalible now" />
     </div>
