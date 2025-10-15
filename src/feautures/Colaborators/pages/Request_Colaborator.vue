@@ -1,10 +1,10 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
   <div class="p-2">
-    <section
-      class="w-full flex flex-col justify-center bg-white p-2 rounded-lg"
-    >
-      <Request_colab_Filters @filterchange="handleFilterChange" />
+    <section class="w-full p-2 flex flex-col gap-2 justify-center rounded-lg">
+      <div class="sticky top-0 z-10 bg-[#f6f6f6] pb-2">
+        <Request_colab_Filters @filterchange="handleFilterChange" />
+      </div>
       <Request_Colab_Card_Container :language="languageFilter" />
     </section>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col items-center gap-6">
+  <div class="flex flex-col gap-4 items-center w-full px-4">
     <Request_Colaborator_Card
       v-if="colaboratorsRequest.length > 0"
       v-for="item in colaboratorsRequest"
