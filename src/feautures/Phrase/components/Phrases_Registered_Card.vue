@@ -1,7 +1,5 @@
 <template>
-  <fwb-card
-    class="w-full rounded-lg p-4 bg-[#f6f6f6] shadow-gray-300 shadow-md"
-  >
+  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <span class="flex flex-col font-light text-sm">
         <small class="text-md font-bold">{{ props.phrase }}</small>
