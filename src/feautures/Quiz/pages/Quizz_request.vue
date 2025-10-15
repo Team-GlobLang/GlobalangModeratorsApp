@@ -1,7 +1,9 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section class="w-full p-2 flex flex-col gap-2 justify-center rounded-lg">
-    <div class="sticky top-0 z-10 bg-[#f6f6f6] pb-2">
+  <section
+    class="w-full p-2 flex flex-col gap-2 justify-center items-center rounded-lg"
+  >
+    <div class="sticky top-0 z-10 bg-[#f6f6f6] pb-2 w-11/12">
       <Request_Quiz_Filters @filterCountryChange="handleFilterCountry" />
     </div>
     <Request_Quiz_Card_Container :country="FilterContry" />

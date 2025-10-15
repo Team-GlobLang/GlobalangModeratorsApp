@@ -9,18 +9,27 @@
         <small>Approve by: {{ props.aprobeBy }}</small>
       </span>
       <Btn_Colab_Request
-        v-if="props.status"
+        v-if="status"
         accept-icon="pi-cloud-upload"
         accept-text="Review request"
         reject-icon="pi-trash"
         reject-text="Retire"
         accept-path="/request/colaborator/view/moderator"
+        :status="props.status"
         :id_item="props.id"
         @accept="onAccept"
         @idItem="onItemId"
         @openModal="onOpenModal"
         @isAccepted="onIsAccepted"
       />
+      <fwb-button
+        v-if="!props.status"
+        @click="onAccept(props.id)"
+        class="flex flex-1 flex-row items-center justify-center gap-2 bg-[#009951] rounded-md text-white p-1.5 text-sm"
+      >
+        <i class="pi pi-cloud-upload"></i>
+        <small>See Request</small>
+      </fwb-button>
     </div>
   </fwb-card>
 </template>

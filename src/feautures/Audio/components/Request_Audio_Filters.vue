@@ -1,31 +1,29 @@
 <template>
-  <div class="px-4">
-    <FwbInput
-      list="countries"
-      v-model="country"
-      type="text"
-      :validation-status="countryError ? 'error' : undefined"
-      label="Contry"
-      placeholder="Ej: Costa Rica"
-    >
-      <template #suffix>
-        <span class="pi pi-home"></span>
-      </template>
-      <template #validationMessage>
-        <span class="font-medium">{{ countryError }} </span>
-      </template>
-    </FwbInput>
+  <FwbInput
+    list="countries"
+    v-model="country"
+    type="text"
+    :validation-status="countryError ? 'error' : undefined"
+    label="Contry"
+    placeholder="Ej: Costa Rica"
+  >
+    <template #suffix>
+      <span class="pi pi-home"></span>
+    </template>
+    <template #validationMessage>
+      <span class="font-medium">{{ countryError }} </span>
+    </template>
+  </FwbInput>
 
-    <datalist id="countries">
-      <option
-        v-for="countryItem in filteredCountries"
-        :key="countryItem.code"
-        :value="countryItem.name"
-      >
-        {{ countryItem.name }}
-      </option>
-    </datalist>
-  </div>
+  <datalist id="countries">
+    <option
+      v-for="countryItem in filteredCountries"
+      :key="countryItem.code"
+      :value="countryItem.name"
+    >
+      {{ countryItem.name }}
+    </option>
+  </datalist>
 </template>
 
 <script setup lang="ts">

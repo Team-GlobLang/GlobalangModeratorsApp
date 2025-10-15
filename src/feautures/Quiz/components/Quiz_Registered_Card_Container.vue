@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4 items-center w-full px-4">
+  <div class="flex flex-col gap-4 items-center w-11/12">
     <Quiz_Registerd_Card
       v-if="quizList.length > 0"
       v-for="quiz in quizList"

@@ -1,30 +1,28 @@
 <template>
-  <div class="px-4">
-    <FwbInput
-      list="languages"
-      v-model="language"
-      type="text"
-      :validation-status="languageError ? 'error' : undefined"
-      @blur="languageBlur"
-      label="Choose a language"
-      placeholder="Ej: Spanish, English"
-    >
-      <template #suffix>
-        <span class="pi pi-language"></span>
-      </template>
-      <template #validationMessage>
-        <span class="font-medium">{{ languageError }} </span>
-      </template>
-    </FwbInput>
+  <FwbInput
+    list="languages"
+    v-model="language"
+    type="text"
+    :validation-status="languageError ? 'error' : undefined"
+    @blur="languageBlur"
+    label="Choose a language"
+    placeholder="Ej: Spanish, English"
+  >
+    <template #suffix>
+      <span class="pi pi-language"></span>
+    </template>
+    <template #validationMessage>
+      <span class="font-medium">{{ languageError }} </span>
+    </template>
+  </FwbInput>
 
-    <datalist id="languages">
-      <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-        {{ lang }}
-      </option>
-    </datalist>
+  <datalist id="languages">
+    <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
+      {{ lang }}
+    </option>
+  </datalist>
 
-    <fwb-select v-model="selected" :options="status" label="Choose a status" />
-  </div>
+  <fwb-select v-model="selected" :options="status" label="Choose a status" />
 </template>
 
 <script setup lang="ts">
