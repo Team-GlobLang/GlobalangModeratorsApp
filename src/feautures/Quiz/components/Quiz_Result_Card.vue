@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full p-4">
+  <FwbCard class="w-full p-4">
     <div class="grid grid-cols-2 gap-4 text-xl">
       <span class="text-left">Questions:</span>
       <span class="text-right">18</span>
@@ -10,7 +10,7 @@
       <span class="text-left">Score:</span>
       <span class="text-right">50%</span>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

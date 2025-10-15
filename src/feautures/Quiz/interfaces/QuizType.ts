@@ -1,4 +1,5 @@
-import type { PaginationDto } from "../../../common/dto/pagination.dto";
+import type { PaginationDto } from "@ComonDto";
+
 
 export type QuestionType = "single_selection" | "multiple_selection";
 

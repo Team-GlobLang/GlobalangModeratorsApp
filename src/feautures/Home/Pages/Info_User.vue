@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 import Info_User_Cards_Container from "../components/Info_User_Cards_Container.vue";
 
 const breadCrumbItems = [

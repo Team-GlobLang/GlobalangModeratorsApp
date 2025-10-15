@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/vue-query";
 import type { RegisterForm } from "../Interfaces";
 import toast from "vue3-hot-toast";
-import type { ApiError } from "../../../Core/types/ApiError";
+import type { ApiError } from "@core/types/ApiError";
 import { h } from "vue";
 import { singUp } from "../Services/AuthServices";
 

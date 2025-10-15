@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
 import Request_colab_Filters from "../components/Request_colab_Filters.vue";
 import Request_Colab_Card_Container from "../components/Request_Colab_Card_Container.vue";
 import { ref } from "vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const breadCrumbItems = [
   {

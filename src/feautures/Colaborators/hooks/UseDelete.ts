@@ -13,7 +13,7 @@ const UseDeleteCollab = () => {
         }),
         {
           loading: "Please wait...",
-          success: h("span", `Se realizo la acción exitosamente.`),
+          success: h("span", `The action was completed successfully..`),
           error: (error: ApiError) => h("span", `${error.message}`),
         }
       ),

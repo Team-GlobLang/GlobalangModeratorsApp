@@ -24,9 +24,9 @@
 </template>
 
 <script setup lang="ts">
+import { countries } from "@core/CountriesArray";
 import { FwbInput } from "flowbite-vue";
 import { useField } from "vee-validate";
-import { countries } from "../../../Core/CountriesArray";
 import { computed, watch } from "vue";
 
 const MAX_INITIAL = 10;

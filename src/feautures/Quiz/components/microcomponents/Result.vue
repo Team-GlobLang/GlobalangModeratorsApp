@@ -77,8 +77,8 @@ import type {
   QuizQuestion,
 } from "../../interfaces/QuestionQuizType";
 import { FwbButton } from "flowbite-vue";
-import Btn_Group_Without_Icon from "../../../Home/components/Btn_Group_Without_Icon.vue";
 import Review_Quiz_Modal from "../modals/Review_Quiz_Modal.vue";
+import Btn_Group_Without_Icon from "@shared/Components/Btn_Group_Without_Icon.vue";
 
 interface Props {
   questions: QuizQuestion[];

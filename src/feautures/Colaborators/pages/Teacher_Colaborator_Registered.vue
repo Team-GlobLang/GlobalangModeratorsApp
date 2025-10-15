@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import Teacher_Colab_Registered_Filters from "../components/Teacher_Colab_Registered_Filters.vue";
 import Teacher_Colab_Card_Container from "../components/Teacher_Colab_Card_Container.vue";
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 import { ref } from "vue";
 
 const breadCrumbItems = [

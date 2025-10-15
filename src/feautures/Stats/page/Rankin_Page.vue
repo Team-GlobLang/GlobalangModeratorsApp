@@ -12,7 +12,7 @@ import { ref } from "vue";
 import Rankin_Card_Container from "../components/Rankin_Card_Container.vue";
 import Rankin_Filters from "../components/Rankin_Filters.vue";
 import Ranking_User_Card_Container from "../components/Ranking_User_Card_Container.vue";
-import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const breadCrumbItems = [
   {

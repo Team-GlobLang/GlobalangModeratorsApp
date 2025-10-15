@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
-import type { ApiError } from "../../../Core/types/ApiError";
-import { ReviewShorts } from "../services/AudioService";
-import type { ReviewShort } from "../interfaces/ReviewShort";
+import type { ApiError } from "@core/types/ApiError";
+import { ReviewShorts } from "@shared/Service/AudioService";
+import type { ReviewShort } from "@shared/Interfaces/ReviewShort";
 
 const UseReviewShort = () => {
   const mutation = useMutation({
@@ -14,7 +14,7 @@ const UseReviewShort = () => {
         }),
         {
           loading: "Please wait...",
-          success: h("span", `Se realizo la acción exitosamente.`),
+          success: h("span", `The action was completed successfully..`),
           error: (error: ApiError) => h("span", `${error.message}`),
         }
       ),
