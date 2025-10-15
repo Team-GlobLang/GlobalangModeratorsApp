@@ -1,6 +1,6 @@
 <template>
-  <fwb-card class="w-full rounded-lg bg-[#f6f6f6] shadow-gray-300 shadow-md">
-    <div class="r} p-4 flex flex-col gap-2">
+  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+    <div class="p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
         <small>Title: {{ props.title }}</small>
