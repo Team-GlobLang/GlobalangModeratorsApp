@@ -1,7 +1,5 @@
 <template>
-  <!-- Cambiar por v for cuando haga logica con db -->
-  <!-- Ajustar fondo para que abarque full el height sin importar el contenido-->
-  <div class="flex flex-col gap-4 items-center w-full bg-white">
+  <div class="flex flex-col gap-4 items-center w-full px-4">
     <Request_Audio_Card
       v-if="audiosRequest.length > 0"
       v-for="request in audiosRequest"
