@@ -58,6 +58,7 @@ const routes = [
   {
     path: "/request",
     name: "Request",
+    component: RequestMiddlePage,
     children: [
       {
         path: "quiz",

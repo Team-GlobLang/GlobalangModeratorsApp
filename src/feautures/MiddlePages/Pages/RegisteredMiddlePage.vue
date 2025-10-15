@@ -1,13 +1,13 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
   <section class="bg-white p-4 rounded-lg">
-    <Request_Options_Container />
+    <Registered_Options_Container />
   </section>
 </template>
 
 <script setup lang="ts">
 import BreadCrumb from "../../../lyouts/BreadCrumb.vue";
-import Request_Options_Container from "../components/Request_Options_Container.vue";
+import Registered_Options_Container from "../components/Registered_Options_Container.vue";
 
 const breadCrumbItems = [
   {
@@ -16,7 +16,7 @@ const breadCrumbItems = [
     isHome: true,
   },
   {
-    label: "Request",
+    label: "Registered",
   },
 ];
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-2">
-    <h3 class="text-2xl font-bold">Request options</h3>
+    <h3 class="text-2xl font-bold">Registers options</h3>
     <Options_card
       v-for="option in options"
       :title="option.title"
@@ -18,20 +18,27 @@ const options = [
   {
     title: "shorts",
     icon: "pi-headphones",
-    description: "Review all shorts pending request",
-    route: "Request_audio",
+    description: "Manage the records of shorts",
+    route: "Phrases_Registered",
   },
   {
     title: "Collabs",
     icon: "pi-users",
-    description: "Review all collabs pending request",
-    route: "Request_colaborator",
+    description: "Manage the records of collabs",
+    route: "teacher-colaborator_Registered",
   },
+
   {
     title: "Quizzes",
     icon: "pi-file",
-    description: "Review all quizzes pending request",
-    route: "Request_Quiz",
+    description: "Manage the records of quizzes",
+    route: "quizzes_Registered",
+  },
+  {
+    title: "Users",
+    icon: "pi-user",
+    description: "Manage the records of users",
+    route: "Users_Registered",
   },
 ];
 </script>
