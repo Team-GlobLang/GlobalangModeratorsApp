@@ -1,8 +1,6 @@
 <template>
-  <fwb-card
-    class="w-full p-2 items-center bg-[#f6f6f6] shadow-gray-300 shadow-md"
-  >
-    <div class="rounded-lg p-4 flex flex-col gap-2">
+  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+    <div class="flex flex-col gap-2">
       <span class="flex flex-col font-light text-sm">
         <small class="text-md font-bold">{{ props.user }}</small>
         <small>Language: {{ props.language }}</small>
