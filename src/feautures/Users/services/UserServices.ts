@@ -4,7 +4,6 @@ import type { UserFilter } from "../interfaces/user-filter-interface";
 
 const GetUsersFiltered = async (Data: UserFilter) => {
   try {
-    console.log("el pais: ", Data.country, "el email: ", Data.email);
     const response = await axiosInstance.get("auth/users-filters", {
       params: Data,
     });
