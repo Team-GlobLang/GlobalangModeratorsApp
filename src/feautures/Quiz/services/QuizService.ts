@@ -35,7 +35,7 @@ const ApprovalQuiz = async (Data: QuizChangeStatus) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-      throw error;
+       throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -50,7 +50,7 @@ const getQuizQuestions = async (id: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-      throw new Error(error.response?.data.message);
+       throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido:", error);
       throw new Error("Error desconocido");

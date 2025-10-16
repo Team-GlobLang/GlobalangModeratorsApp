@@ -69,7 +69,7 @@ const handleReviewShort = async () => {
   };
   const data = toRaw(NewData);
   try {
-    await ReviewShorts.mutate(data);
+    ReviewShorts.mutate(data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
   } catch {
     console.log("Error al aceptar solicitud");
