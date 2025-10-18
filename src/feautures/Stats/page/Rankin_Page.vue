@@ -1,7 +1,9 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section class="flex flex-col p-4 gap-4 bg-white rounded-lg">
-    <Rankin_Filters @filterCountryChange="handleFilterCountry" />
+  <section class="flex flex-col p-4 gap-4 rounded-lg w-ful items-center">
+    <div class="w-11/12">
+      <Rankin_Filters @filterCountryChange="handleFilterCountry" />
+    </div>
     <Ranking_User_Card_Container :country="FilterContry" />
     <Rankin_Card_Container :country="FilterContry" />
   </section>

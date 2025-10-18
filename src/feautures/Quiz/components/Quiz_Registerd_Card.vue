@@ -22,14 +22,14 @@
         @openModal="onOpenModal"
         @isAccepted="onIsAccepted"
       />
-      <fwb-button
+      <FwbButton
         v-if="!props.status"
         @click="onAccept(props.id)"
         class="flex flex-1 flex-row items-center justify-center gap-2 bg-[#009951] rounded-md text-white p-1.5 text-sm"
       >
         <i class="pi pi-cloud-upload"></i>
         <small>See Request</small>
-      </fwb-button>
+      </FwbButton>
     </div>
   </FwbCard>
 </template>
@@ -37,6 +37,7 @@
 <script setup lang="ts">
 import Btn_Colab_Request from "@shared/Components/Btn_Colab_Request.vue";
 import { FwbCard } from "flowbite-vue";
+import { FwbButton } from "flowbite-vue";
 
 const props = defineProps({
   user: {
