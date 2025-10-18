@@ -1,7 +1,7 @@
 <template>
   <fwb-card class="w-full">
     <div
-      class="p-4 flex items-center gap-10 bg-[#f6f6f6] shadow-gray-300 shadow-md rounded-lg"
+      class="p-4 flex items-center gap-10 bg-white shadow-gray-300 shadow-md rounded-lg"
     >
       <small
         :class="{
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-//import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
+import { FwbCard } from "flowbite-vue";
 const props = defineProps({
   fullName: {
     type: String,

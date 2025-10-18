@@ -50,6 +50,7 @@
 import { ref, watchEffect } from "vue";
 import { FwbButton } from "flowbite-vue";
 import Btn_Group from "@shared/Components/Btn_Group.vue";
+import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   name: {

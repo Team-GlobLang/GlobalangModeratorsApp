@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col gap-6 p-4">
+  <div class="w-11/12 flex flex-col gap-6 p-4">
     <Info_User_Card />
 
     <Info_User_Options_Card

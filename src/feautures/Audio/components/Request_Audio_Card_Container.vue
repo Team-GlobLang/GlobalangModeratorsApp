@@ -56,6 +56,7 @@ import type { Short } from "../interfaces/Short";
 import type { AudiosByFilters } from "@shared/Interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
 import NotFoundVue from "@NotFound";
+import GoToStart from "@components/microcomponents/GoToStart.vue";
 
 const props = defineProps({
   Country: {
