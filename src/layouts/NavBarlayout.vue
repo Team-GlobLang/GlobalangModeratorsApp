@@ -64,7 +64,7 @@ const navItems: BottomNavItem[] = [
   { name: "Home", routeName: "Home", icon: "pi pi-th-large", segment: "home" },
   {
     name: "Phrases",
-    routeName: "Shorts_Middle_Page",
+    routeName: "Shorts",
     icon: "fa-solid fa-headphones",
     segment: "shorts",
   },
