@@ -60,6 +60,7 @@ import Quiz_Registerd_Card from "./Quiz_Registerd_Card.vue";
 import Retire_Register_Quiz_Modal from "./modals/Retire_Register_Quiz_Modal.vue";
 import NotFoundVue from "@NotFound";
 import type { PaginatedResponse } from "@ComonResponse";
+import GoToStart from "@components/microcomponents/GoToStart.vue";
 
 const props = defineProps({
   country: {

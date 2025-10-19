@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-col gap-4 bg-white">
+  <section class="flex flex-col gap-4 w-11/12">
     <div class="flex flex-col items-center" v-if="userRank">
       <span class="text-lg font-bold">current ranking position</span>
     </div>

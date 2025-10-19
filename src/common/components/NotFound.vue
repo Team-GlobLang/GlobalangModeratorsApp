@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col items-center justify-center gap-2">
     <img
       class="rounded-full"
-      src="../../assets/NotFoundImage.png"
+      src="../../../public/NotFoundImage.png"
       alt="NotFoundImage"
     />
     <p class="text-xl">

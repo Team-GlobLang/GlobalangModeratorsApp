@@ -41,6 +41,7 @@ import { GetUsersFiltered } from "../services/UserServices";
 import type { User } from "../interfaces/User";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
+import NotFound from "@NotFound";
 
 const props = defineProps<{
   Email?: string;

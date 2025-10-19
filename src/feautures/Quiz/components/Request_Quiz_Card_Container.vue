@@ -58,7 +58,7 @@ import { useRouter } from "vue-router";
 import Request_Quiz_Modal from "./modals/Request_Quiz_Modal.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFoundVue from "@NotFound";
-
+import GoToStart from "@components/microcomponents/GoToStart.vue";
 const props = defineProps({
   country: {
     type: String,

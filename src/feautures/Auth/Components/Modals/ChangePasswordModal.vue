@@ -1,5 +1,5 @@
 <template>
-  <fwb-modal v-if="isOpen" @close="closeModal">
+  <fwb-modal v-if="props.isOpen" @close="closeModal">
     <template #header> </template>
     <template #body>
       <div class="w-full flex flex-col items-center gap-2">

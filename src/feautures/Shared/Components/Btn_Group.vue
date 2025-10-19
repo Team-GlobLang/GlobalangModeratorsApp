@@ -1,22 +1,22 @@
 <template>
-  <fwb-button-group>
+  <div>
     <div class="flex justify-between gap-4">
-      <fwb-button
+      <button
         class="flex flex-1 flex-row items-center justify-center gap-2 border border-[#FF0000] p-1.5 rounded-md text-sm"
         @Click="handleReject"
       >
         <i :class="`pi ${props.rejectIcon} text-[#FF0000]`"></i>
         <small>{{ props.rejectText }}</small>
-      </fwb-button>
-      <fwb-button
+      </button>
+      <button
         class="flex flex-1 flex-row items-center justify-center gap-2 bg-[#009951] rounded-md text-white p-1.5 text-sm"
         @click="handleAccept"
       >
         <i :class="`pi ${props.acceptIcon}`"></i>
         <small>{{ props.acceptText }}</small>
-      </fwb-button>
+      </button>
     </div>
-  </fwb-button-group>
+  </div>
 </template>
 
 <script setup lang="ts">

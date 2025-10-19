@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { FwbButton } from "flowbite-vue";
-// import { FwbCard } from "flowbite-vue";
+import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   user: {

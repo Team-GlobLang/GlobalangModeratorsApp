@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-//import { FwbCard } from "flowbite-vue";
+import { FwbCard } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
 
 import { ref, watchEffect } from "vue";

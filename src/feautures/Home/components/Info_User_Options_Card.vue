@@ -12,8 +12,7 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-
-// import { FwbCard } from "flowbite-vue";
+import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   icon: {
