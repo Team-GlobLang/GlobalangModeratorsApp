@@ -58,7 +58,6 @@ import Teacher_Collab_Registerd_Modal from "./modals/Teacher_Collab_Registerd_Mo
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
-import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   language: {
