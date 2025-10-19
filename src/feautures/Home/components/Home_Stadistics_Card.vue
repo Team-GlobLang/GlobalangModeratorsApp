@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="p-3">
+  <FwbCard class="p-3">
     <div class="flex flex-col gap-4">
       <h2 class="text-lg">Statistics</h2>
       <section class="flex gap-3 w-full">
@@ -13,7 +13,7 @@
         />
       </section>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup>

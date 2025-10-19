@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full p-2 items-center">
+  <FwbCard class="w-full p-2 items-center">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Creado por: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
@@ -16,7 +16,7 @@
         :id_item="props.id || ''"
       />
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

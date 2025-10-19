@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <p class="flex flex-col font-light text-sm">
         <span class="text-md font-bold">{{ props.user }}</span>
@@ -8,9 +8,9 @@
         <span>Suscription: {{ props.suscripcion }}</span>
         <span>End date of suscription: {{ props.end_date }}</span>
       </p>
-      <fwb-button color="green">Change suscription data</fwb-button>
+      <FwbButton color="green">Change suscription data</FwbButton>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

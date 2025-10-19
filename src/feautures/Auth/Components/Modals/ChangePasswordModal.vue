@@ -1,5 +1,5 @@
 <template>
-  <fwb-modal v-if="props.isOpen" @close="closeModal">
+  <FwbModal v-if="props.isOpen" @close="closeModal">
     <template #header> </template>
     <template #body>
       <div class="w-full flex flex-col items-center gap-2">
@@ -13,7 +13,7 @@
           >this action gonna log out yours sessions</span
         >
       </div>
-      <fwb-input
+      <FwbInput
         v-model="newpassword"
         label="writte your new password"
         placeholder="Success input"
@@ -23,9 +23,9 @@
         <template #validationMessage>
           <span class="font-medium">Well done!</span> Some success message.
         </template>
-      </fwb-input>
+      </FwbInput>
       <hr class="mt-4 border-0" />
-      <fwb-input
+      <FwbInput
         v-model="newpassword"
         label="writte your new password"
         placeholder="Error input"
@@ -35,21 +35,21 @@
         <template #validationMessage>
           <span class="font-medium">Oh, snapp!</span> Some error message.
         </template>
-      </fwb-input>
+      </FwbInput>
     </template>
     <template #footer>
       <div class="flex justify-between">
-        <fwb-button @click="closeModal" color="alternative">
+        <FwbButton @click="closeModal" color="alternative">
           Cancel
-        </fwb-button>
-        <fwb-button @click="handleAction" color="green"> Accept </fwb-button>
+        </FwbButton>
+        <FwbButton @click="handleAction" color="green"> Accept </FwbButton>
       </div>
     </template>
-  </fwb-modal>
+  </FwbModal>
 </template>
 
 <script lang="ts" setup>
-import { FwbButton, FwbModal } from "flowbite-vue";
+import { FwbButton, FwbInput, FwbModal } from "flowbite-vue";
 import { ref } from "vue";
 
 const props = defineProps({

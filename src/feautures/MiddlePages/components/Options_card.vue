@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="p-2">
+  <FwbCard class="p-2">
     <div
       @click="goto(props.routeName)"
       class="w-full rounded-lg p-4 bg-[#f6f6f6] shadow-gray-300 shadow-md flex items-center justify-between gap-10"
@@ -10,7 +10,7 @@
       </div>
       <p class="text-lg text-start">{{ props.description }}</p>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

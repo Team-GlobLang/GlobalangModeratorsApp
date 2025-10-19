@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full p-2 flex items-center">
+  <FwbCard class="w-full p-2 flex items-center">
     <div class="flex w-full gap-2">
       <i
         :class="`pi ${props.icon} ${bgColor} p-7 rounded-full`"
@@ -16,7 +16,7 @@
         <i class="pi pi-chevron-right rounded-full" style="font-size: 1rem"></i>
       </div>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 <script setup>
 import { FwbCard } from "flowbite-vue";

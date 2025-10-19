@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <span class="flex flex-col">
         <small class="text-md font-bold">Created by: {{ props.name }}</small>
@@ -7,7 +7,7 @@
         <small class="text-sm font-light">Meaning: {{ props.meaning }} </small>
       </span>
 
-      <fwb-button
+      <FwbButton
         :aria-pressed="localPlaying"
         :title="localPlaying ? 'Pausar' : 'Reproducir'"
         @click="toggle"
@@ -21,7 +21,7 @@
             style="font-size: 1rem"
           ></i>
         </p>
-      </fwb-button>
+      </FwbButton>
 
       <audio
         ref="audioRef"
@@ -43,7 +43,7 @@
         @isAccepted="onIsAccepted"
       />
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

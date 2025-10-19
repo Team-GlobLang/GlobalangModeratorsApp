@@ -1,5 +1,5 @@
 <template>
-  <fwb-modal v-if="isOpen" @close="closeModal">
+  <FwbModal v-if="isOpen" @close="closeModal">
     <template #header> </template>
     <template #body>
       <div class="w-full flex flex-col items-center gap-2">
@@ -14,15 +14,15 @@
     </template>
     <template #footer>
       <div class="flex justify-between">
-        <fwb-button @click="closeModal" color="alternative">
+        <FwbButton @click="closeModal" color="alternative">
           Cancel
-        </fwb-button>
-        <fwb-button @click="handleAction" :color="typeAction ? 'green' : 'red'">
+        </FwbButton>
+        <FwbButtonn @click="handleAction" :color="typeAction ? 'green' : 'red'">
           {{ typeAction ? "Accept" : "Reject" }}
-        </fwb-button>
+        </FwbButtonn>
       </div>
     </template>
-  </fwb-modal>
+  </FwbModal>
 </template>
 
 <script lang="ts" setup>
