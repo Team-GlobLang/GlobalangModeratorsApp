@@ -7,96 +7,73 @@
         v-for="item in navItems"
         :key="item.routeName"
         class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
-        :class="
-          (
-            item.segment
-              ? selectedPathTwoSegments === item.segment
-              : selectedPath === 'home'
-          )
-            ? 'text-black'
-            : 'text-white'
-        "
+        :class="selectedSegment === item.segment ? 'text-black' : 'text-white'"
         @click="goto(item.routeName)"
       >
         <span
-          v-if="
-            item.segment
-              ? selectedPathTwoSegments === item.segment
-              : selectedPath === 'home'
-          "
+          v-if="selectedSegment === item.segment"
           class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"
         ></span>
         <i
-          :class="`${
-            item.icon
-          } text-4xl transition-transform duration-500 ease-in-out ${
-            item.segment
-              ? selectedPathTwoSegments === item.segment
-                ? 'rotate-6'
-                : 'rotate-0'
-              : selectedPath === 'home'
-              ? 'rotate-6'
-              : 'rotate-0'
-          }`"
+          :class="`${item.icon} text-4xl transition-transform duration-500 ease-in-out ${selectedSegment === item.segment ? 'rotate-6' : 'rotate-0'}`"
         ></i>
       </FwbButton>
     </FwbButtonGroup>
   </div>
 </template>
 
+
 <script setup lang="ts">
 import { computed } from "vue";
 import { FwbButton, FwbButtonGroup } from "flowbite-vue";
 import { useRoute, useRouter } from "vue-router";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
 const router = useRouter();
 const route = useRoute();
-const selectedPath = computed(() => {
+
+const selectedSegment = computed(() => {
   const segments = route.path.split("/").filter(Boolean);
-  return segments[0] || "";
+  return segments[0] || "home";
 });
 
-const selectedPathTwoSegments = computed(() => {
-  const segments = route.path.split("/").filter(Boolean);
-  return segments[1] || "";
-});
-
-function goto(pathName: string) {
-  router.push({ name: pathName });
+function goto(routeName: string) {
+  router.push({ name: routeName });
 }
 
 interface BottomNavItem {
   name: string;
   routeName: string;
   icon: string;
-  segment?: string;
+  segment: string;
 }
 
 const navItems: BottomNavItem[] = [
   {
     name: "Users",
-    routeName: "Users_Registered",
+    routeName: "Users",
     icon: "fa-solid fa-user-group",
     segment: "users",
   },
   {
-    name: "Teacher/Collaborator",
-    routeName: "teacher-colaborator_Registered",
+    name: "Collaborators",
+    routeName: "Collaborators",
     icon: "fa-solid fa-chalkboard-user",
-    segment: "teacher-colaborator",
+    segment: "collaborators",
   },
-  { name: "Home", routeName: "Home", icon: "pi pi-th-large" },
+  { name: "Home", routeName: "Home", icon: "pi pi-th-large", segment: "home" },
   {
     name: "Phrases",
-    routeName: "Phrases_Registered",
+    routeName: "Shorts",
     icon: "fa-solid fa-headphones",
-    segment: "phrases",
+    segment: "shorts",
   },
   {
     name: "Quizzes",
-    routeName: "quizzes_Registered",
+    routeName: "Quizzes",
     icon: "fa-solid fa-file-lines",
     segment: "quizzes",
   },
 ];
+
 </script>

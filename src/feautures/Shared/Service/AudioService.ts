@@ -12,6 +12,7 @@ const GetAllAudiosByFilters = async (Data: AudiosByFilters) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -26,6 +27,7 @@ const DisableShort = async (id: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -40,6 +42,7 @@ const DeleteShort = async (id: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -54,6 +57,7 @@ const ReviewShorts = async (Data: ReviewShort) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");

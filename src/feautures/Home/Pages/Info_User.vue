@@ -12,11 +12,11 @@ import Info_User_Cards_Container from "../components/Info_User_Cards_Container.v
 const breadCrumbItems = [
   {
     label: "Home",
-    route: "Home_Moderator",
+    route: "Home",
     isHome: true,
   },
   {
-    label: "User info",
+    label: "My Info",
   },
 ];
 </script>

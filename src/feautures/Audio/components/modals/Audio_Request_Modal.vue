@@ -4,7 +4,7 @@
     <template #body>
       <div class="w-full flex flex-col items-center gap-2">
         <img
-          src="../../../../assets/Warning.png"
+          src="/Warning.png"
           alt="WarningImage"
           class="rounded-full w-1/2"
         />
@@ -69,7 +69,7 @@ const handleReviewShort = async () => {
   };
   const data = toRaw(NewData);
   try {
-    await ReviewShorts.mutate(data);
+    ReviewShorts.mutate(data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
   } catch {
     console.log("Error al aceptar solicitud");

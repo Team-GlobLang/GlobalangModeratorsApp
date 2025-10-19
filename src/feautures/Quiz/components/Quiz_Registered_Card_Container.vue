@@ -145,7 +145,7 @@ const scrollToTop = () => {
 const router = useRouter();
 const HandleViewRequest = (id: string) => {
   router.push({
-    name: "review_quiz_registered",
+    name: "Review_Quiz_Registered",
     params: { id: id },
   });
 };

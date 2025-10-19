@@ -14,6 +14,7 @@ const CreateColabortorRequest = async (Data: ColaboratorRequestForm) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -33,7 +34,7 @@ const ChangeStatusColaboratorRequest = async (
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-      throw error;
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -54,6 +55,7 @@ const GetColaboratorRequestsFilters = async (
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Errro desconocido");
@@ -71,6 +73,7 @@ const GetColaboratorRequestById = async (id: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Errro desconocido");
@@ -87,7 +90,7 @@ const DeleteCollab = async (id: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-      throw error;
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -105,7 +108,7 @@ const RetireCollab = async (Data: ColaboratorRequestChangeStatus) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-      throw error;
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");

@@ -29,10 +29,11 @@ const breadCrumbItems = [
     isHome: true,
   },
   {
-    label: "Registers",
+    label: "Quizzes",
+    route: "Quizzes",
   },
   {
-    label: "Quizzes",
+    label: "Registers",
   },
 ];
 
