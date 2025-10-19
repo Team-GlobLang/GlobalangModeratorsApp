@@ -12,13 +12,15 @@ import {
   Request_Colaborator,
   Teacher_Colaborator_Registered,
 } from "../feautures/Colaborators/pages";
-import { CollaboratorsMP, QuizzesMP } from "../feautures/MiddlePages/Pages";
+import { CollaboratorsMP, QuizzesMP, ShortsMP } from "../feautures/MiddlePages/Pages";
 import {
   List_Quiz_Registered,
   Quizz_request,
   Review_Quiz,
   Review_Quiz_Registered,
 } from "../feautures/Quiz/pages";
+import Audio_Request_Moderator from "../feautures/Audio/pages/Audio_Request_Moderator.vue";
+import Phrase_Registered from "../feautures/Phrase/pages/Phrase_Registered.vue";
 const routes = [
   {
     path: "/",
@@ -114,6 +116,29 @@ const routes = [
       },
     ],
   },
+
+  {
+  path: "/shorts",
+  children: [
+    {
+      path:"",
+      name: "Shorts",
+      component: ShortsMP
+      
+    },
+    {
+      path: "request",
+      name: "Request_Audio",
+      component: Audio_Request_Moderator,
+    },
+    {
+      path: "registered/phrases",
+      name: "Phrases_Registered",
+      component: Phrase_Registered,
+    },
+  ],
+}
+
 ];
 
 const router = createRouter({
