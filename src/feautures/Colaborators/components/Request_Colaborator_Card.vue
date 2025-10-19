@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="p-4 flex flex-col gap-2">
       <p>
         <small class="font-bold text-md">{{ props.user }}</small>
@@ -23,7 +23,7 @@
         />
       </div>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <fwb-card
+  <FwbCard
     class="w-full bg-white shadow-gray-300 shadow-md rounded-lg"
     @click="goto(props.route)"
   >
@@ -7,7 +7,7 @@
       <i :class="`pi ${props.icon} ${props.color} p-4 rounded-full`"></i>
       <h3>{{ props.text }}</h3>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full p-2 flex items-center">
+  <FwbCard class="w-full p-2 flex items-center">
     <div class="flex gap-2">
       <i
         class="pi pi-user bg-[#C9F2FF] p-7 rounded-full"
@@ -14,7 +14,7 @@
         </p>
       </span>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup>

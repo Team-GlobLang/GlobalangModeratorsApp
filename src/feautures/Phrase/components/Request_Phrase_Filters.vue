@@ -25,7 +25,7 @@
     </option>
   </datalist>
 
-  <fwb-select v-model="selected" :options="status" label="Choose a status" />
+  <FwbSelect v-model="selected" :options="status" label="Choose a status" />
 </template>
 
 <script setup lang="ts">

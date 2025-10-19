@@ -1,29 +1,29 @@
 <template>
   <section class="flex flex-col gap-2">
     <span>Question {{ props.numberQuestion }}</span>
-    <fwb-card class="w-full p-2">
+    <FwbCard class="w-full p-2">
       <div class="flex flex-col text-black p-8 items-center gap-4">
         <p class="text-2xl text-center">
           {{ props.question }}
         </p>
         <i class="pi pi-headphones" style="font-size: 4rem"></i>
-        <fwb-button class="m-2 border rounded-xl">
+        <FwbButton class="m-2 border rounded-xl">
           <div class="flex gap-2 items-center">
             <i class="pi pi-play"></i>
             <span>Play audio</span>
           </div>
-        </fwb-button>
+        </FwbButton>
       </div>
-    </fwb-card>
+    </FwbCard>
     <div class="w-full flex flex-col gap-4 pt-2">
-      <fwb-radio
+      <FwbRadio
         class="border p-1.5 rounded-lg"
         v-model="picked"
         label="Sufrio un contratiempo"
         value="one"
       />
 
-      <fwb-radio
+      <FwbRadio
         class="border p-1.5 rounded-lg"
         v-model="picked"
         label="Sufrio un contratiempo"

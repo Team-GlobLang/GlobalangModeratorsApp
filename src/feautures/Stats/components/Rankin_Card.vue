@@ -1,5 +1,5 @@
 <template>
-  <fwb-card class="w-full">
+  <FwbCard class="w-full">
     <div
       class="p-4 flex items-center gap-10 bg-white shadow-gray-300 shadow-md rounded-lg"
     >
@@ -25,7 +25,7 @@
         >
       </div>
     </div>
-  </fwb-card>
+  </FwbCard>
 </template>
 
 <script setup lang="ts">

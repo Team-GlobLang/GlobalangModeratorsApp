@@ -1,23 +1,25 @@
 <template>
-  <fwb-button-group class="w-full">
+  <FwbButtonGroup class="w-full">
     <div class="flex w-full justify-between gap-10">
-      <fwb-button
+      <FwbButton
         :class="`w-full flex gap-4 justify-center border ${colorReject} p-2 text-${textColorReject} rounded-md p-0.5`"
         @click="handleReject"
       >
         <span>{{ props.rejectText }}</span>
-      </fwb-button>
-      <fwb-button
+      </FwbButton>
+      <FwbButton
         :class="`w-full flex gap-4 justify-center p-2 ${props.colorAccept} rounded-md text-${textColorApprove} p-0.5`"
         @click="handleAccept"
       >
         <span>{{ props.acceptText }}</span>
-      </fwb-button>
+      </FwbButton>
     </div>
-  </fwb-button-group>
+  </FwbButtonGroup>
 </template>
 
 <script setup lang="ts">
+import { FwbButton, FwbButtonGroup } from 'flowbite-vue';
+
 const props = defineProps({
   acceptText: {
     type: String,
