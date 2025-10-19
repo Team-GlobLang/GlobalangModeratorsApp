@@ -136,7 +136,7 @@ const router = useRouter();
 
 const HandleViewRequest = (id: string) => {
   router.push({
-    name: "colaborator_request_view",
+    name: "Collaborator_Request_View",
     params: { id: id },
   });
 };
