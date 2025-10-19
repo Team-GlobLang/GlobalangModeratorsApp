@@ -12,7 +12,11 @@ import {
   Request_Colaborator,
   Teacher_Colaborator_Registered,
 } from "../feautures/Colaborators/pages";
-import { CollaboratorsMP, QuizzesMP, ShortsMP } from "../feautures/MiddlePages/Pages";
+import {
+  CollaboratorsMP,
+  QuizzesMP,
+  ShortsMP,
+} from "../feautures/MiddlePages/Pages";
 import {
   List_Quiz_Registered,
   Quizz_request,
@@ -21,6 +25,7 @@ import {
 } from "../feautures/Quiz/pages";
 import Audio_Request_Moderator from "../feautures/Audio/pages/Audio_Request_Moderator.vue";
 import Phrase_Registered from "../feautures/Phrase/pages/Phrase_Registered.vue";
+import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
 const routes = [
   {
     path: "/",
@@ -48,15 +53,24 @@ const routes = [
   },
   {
     path: "/home",
-    name: "Home",
-    component: Home_Moderators,
-    meta: { showBottomBar: true },
+    children: [
+      {
+        path: "",
+        name: "Home",
+        component: Home_Moderators,
+      },
+      {
+        path: "user-info",
+        name: "User_Info",
+        component: Info_User,
+      },
+    ],
   },
+
   {
-    path: "/user-info",
-    name: "User_Info",
-    component: Info_User,
-    meta: { showBottomBar: true },
+    path: "/users",
+    name: "Users",
+    component: Users_Registered,
   },
   {
     path: "/collaborators",
@@ -118,27 +132,25 @@ const routes = [
   },
 
   {
-  path: "/shorts",
-  children: [
-    {
-      path:"",
-      name: "Shorts",
-      component: ShortsMP
-      
-    },
-    {
-      path: "request",
-      name: "Request_Audio",
-      component: Audio_Request_Moderator,
-    },
-    {
-      path: "registered/phrases",
-      name: "Phrases_Registered",
-      component: Phrase_Registered,
-    },
-  ],
-}
-
+    path: "/shorts",
+    children: [
+      {
+        path: "",
+        name: "Shorts",
+        component: ShortsMP,
+      },
+      {
+        path: "request",
+        name: "Request_Audio",
+        component: Audio_Request_Moderator,
+      },
+      {
+        path: "registered/phrases",
+        name: "Phrases_Registered",
+        component: Phrase_Registered,
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

@@ -51,7 +51,7 @@ interface BottomNavItem {
 const navItems: BottomNavItem[] = [
   {
     name: "Users",
-    routeName: "Users_Middle_Page",
+    routeName: "Users",
     icon: "fa-solid fa-user-group",
     segment: "users",
   },
