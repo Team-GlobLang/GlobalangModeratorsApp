@@ -7,7 +7,7 @@
         <Stats title="Active phrases" :quantity="16" color="bg-[#D0D6FF]" />
         <Stats title="Registered users" :quantity="202" color="bg-[#FFD5FE]" />
         <Stats
-          title="Active colaborators"
+          title="Active Colaborators"
           :quantity="39"
           color="bg-[#FFDADA]"
         />

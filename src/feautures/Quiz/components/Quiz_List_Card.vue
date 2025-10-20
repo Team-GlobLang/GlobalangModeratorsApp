@@ -3,10 +3,10 @@
     <div class="bg-white rounded-lg p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Creado por: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
-        <small>Titulo: {{ props.title }}</small>
-        <small>Cantidad de preguntas: {{ props.questionsNUmber }}</small>
-        <small>Idioma: {{ props.language }}</small>
-        <small>Aprobado por: {{ props.approbeBy }}</small>
+        <small>Title: {{ props.title }}</small>
+        <small>Number of questions: {{ props.questionsNUmber }}</small>
+        <small>Language: {{ props.language }}</small>
+        <small>Approved by: {{ props.approbeBy }}</small>
       </span>
       <Btn_Group
         accept-icon="pi-cloud-upload"

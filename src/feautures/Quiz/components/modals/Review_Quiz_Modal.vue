@@ -8,8 +8,8 @@
           alt="WarningImage"
           class="rounded-full w-1/2"
         />
-        <span class="text-xl">Are you sure to do this action?</span>
-        <span class="text-sm font-bold">this action is unreversible</span>
+        <span class="text-xl">Are you sure you want to do this?</span>
+        <span class="text-sm font-bold">This action is irreversible.</span>
       </div>
     </template>
     <template #footer>

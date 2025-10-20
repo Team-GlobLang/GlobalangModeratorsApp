@@ -15,9 +15,9 @@
     />
     <div class="flex flex-col">
       <span class="text-lg not-first:font-bold text-blue-700 mb-1"
-        >Welcome back, {{ fullName }}!</span
+        >Welcome back,{{ fullName }}!</span
       >
-      <span class="text-md">System moderator</span>
+      <span class="text-md">System Moderator</span>
       <span class="text-sm">
         We have received {{ props.notifyNumber }} new request that require
         moderator approval.

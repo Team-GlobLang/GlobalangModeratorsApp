@@ -8,7 +8,7 @@
         <span>Suscription: {{ props.suscripcion }}</span>
         <span>End date of suscription: {{ props.end_date }}</span>
       </p>
-      <FwbButton color="green">Change suscription data</FwbButton>
+      <FwbButton color="green">Change Suscription</FwbButton>
     </div>
   </FwbCard>
 </template>

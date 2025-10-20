@@ -18,12 +18,12 @@ import Info_user_Options_Modal_Card from "./Info_user_Options_Modal_Card.vue";
 
 const optionsModals = [
   {
-    title: "Change password",
+    title: "Change Password",
     icon: "pi-key",
     iconBg: "bg-[#CFFFC9]",
   },
   {
-    title: "Log out",
+    title: "Log Out",
     icon: "pi-sign-out",
     iconBg: "bg-[#ff4949]",
   },

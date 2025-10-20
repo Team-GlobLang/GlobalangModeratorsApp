@@ -16,7 +16,7 @@
       <span class="text-lg not-first:font-bold text-blue-700 mb-1">
         {{ fullName }}</span
       >
-      <span class="text-md">Role: System moderator</span>
+      <span class="text-md">Role: System Moderator</span>
       <span class="text-md">Email: {{ email }}</span>
     </div>
   </div>

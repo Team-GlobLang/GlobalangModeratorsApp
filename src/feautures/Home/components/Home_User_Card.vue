@@ -9,7 +9,7 @@
         <h2 class="text-md font-bold">¡Welcome {{ props.name }}!</h2>
         <h3 class="text-sm">{{ props.role }}</h3>
         <p class="text-sm">
-          We have received {{ props.notifyNumber }} new request that require
+          We have received {{ props.notifyNumber }} new requests that require
           moderator approval.
         </p>
       </span>

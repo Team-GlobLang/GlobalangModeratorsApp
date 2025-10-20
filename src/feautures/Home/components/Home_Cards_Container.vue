@@ -3,13 +3,13 @@
     <router-link :to="{ name: 'User_Info' }">
       <Home_User_Card
         name="Adrian Aguilar"
-        role="System moderator"
+        role="System Moderator"
         notifyNumber="2"
       />
     </router-link>
     <router-link :to="{ name: 'Request_Quiz' }">
       <Home_Options_Request
-        title="Quiz request"
+        title="Quiz Request"
         description="Review and approve quizzes submitted by teachers to make them public."
         requestNumber="2"
         icon="pi-list"
@@ -19,7 +19,7 @@
 
     <router-link :to="{ name: 'Request_audio' }">
       <Home_Options_Request
-        title="Phrase request"
+        title="Phrase Request"
         description="Manage request for new grades and expressions."
         requestNumber="2"
         icon="pi-microphone"
@@ -29,7 +29,7 @@
 
     <router-link :to="{ name: 'Request_colaborator' }">
       <Home_Options_Request
-        title="Colaborator request"
+        title="Colaborator Request"
         description="Approve new teachers and colaborators."
         requestNumber="2"
         icon="pi-users"

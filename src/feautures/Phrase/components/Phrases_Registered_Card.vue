@@ -27,7 +27,7 @@
           class="w-full"
         >
           <p class="flex flex-row items-center justify-center gap-2 text-md">
-            <span>Reproduce audio</span>
+            <span>Play audio</span>
             <i
               class="pi"
               :class="localPlaying ? 'pi-pause-circle' : 'pi-play-circle'"
