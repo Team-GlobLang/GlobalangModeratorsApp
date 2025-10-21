@@ -35,7 +35,7 @@
         message="Sorry, we dont have collaboratos requests avalible now"
       />
     </div>
-    <Request_Colab_Modal
+    <Colab_Request_View_Modal
       :isOpen="modalState.isOpen"
       @close="modalState.isOpen = false"
       :typeAction="modalState.isAccepted"
@@ -52,11 +52,11 @@ import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
-import Request_Colab_Modal from "./modals/Request_Colab_Modal.vue";
 import type { PaginatedResponse } from "../../Audio/interfaces/PaginatedReponse";
 import type { Collab } from "../interfaces/Colaborator";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
+import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
 
 const props = defineProps({
   language: {
