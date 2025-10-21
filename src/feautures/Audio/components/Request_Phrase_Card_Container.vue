@@ -100,12 +100,11 @@ import NotFoundVue from "@NotFound";
 import type { PaginatedResponse } from "@ComonResponse";
 import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
 import type { Short } from "@shared/Interfaces/Short";
-import Audio_Request_Modal from "../../Audio/components/modals/Audio_Request_Modal.vue";
+import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
 import { FwbInput } from "flowbite-vue";
 import { FwbSelect } from "flowbite-vue";
 import { useField } from "vee-validate";
 import { countries } from "@core/CountriesArray";
-
 import { Capacitor } from "@capacitor/core";
 
 const MAX_INITIAL = 10;

@@ -1,5 +1,32 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
+    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB] pb-3">
+      <FwbInput
+        list="countries"
+        v-model="country"
+        type="text"
+        :validation-status="countryError ? 'error' : undefined"
+        label="Contry"
+        placeholder="Ej: Costa Rica"
+      >
+        <template #suffix>
+          <span class="pi pi-home"></span>
+        </template>
+        <template #validationMessage>
+          <span class="font-medium">{{ countryError }} </span>
+        </template>
+      </FwbInput>
+
+      <datalist id="countries">
+        <option
+          v-for="countryItem in filteredCountries"
+          :key="countryItem.code"
+          :value="countryItem.name"
+        >
+          {{ countryItem.name }}
+        </option>
+      </datalist>
+    </div>
     <Request_Audio_Card
       v-if="audiosRequest.length > 0"
       v-for="request in audiosRequest"
@@ -46,26 +73,35 @@
 
 <script setup lang="ts">
 import Request_Audio_Card from "./Request_Audio._Card.vue";
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
 import type { PaginatedResponse } from "../interfaces/PaginatedReponse";
 import type { Short } from "../interfaces/Short";
-import type { AudiosByFilters } from "@shared/Interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
+import { countries } from "@core/CountriesArray";
+import { FwbInput } from "flowbite-vue";
+import { useField } from "vee-validate";
+import { Capacitor } from "@capacitor/core";
 
-const props = defineProps({
-  Country: {
-    type: String,
-  },
+const MAX_INITIAL = 10;
+
+const filteredCountries = computed(() => {
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
+  }
+  return countries.filter((c) =>
+    c.name.toLowerCase().includes(country.value.toLowerCase())
+  );
 });
 
-const filters = ref<AudiosByFilters>({
-  country: undefined,
-  approved: undefined,
-});
+const { value: country, errorMessage: countryError } =
+  useField<{ country: string }["country"]>("country");
+
+const isNative = Capacitor.isNativePlatform();
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const showScrollTop = ref(false);
 
@@ -78,11 +114,11 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<Short>, Error>({
-  queryKey: computed(() => ["Request_Audios", filters]),
+  queryKey: computed(() => ["Request_Audios", country.value]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetAllAudiosByFilters({
-      ...filters.value,
+      country: country.value,
       page,
       limit: 5,
     });
@@ -117,14 +153,6 @@ const onScroll = async () => {
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
-
-watch(
-  () => props.Country,
-  (newCountry) => {
-    filters.value.country = newCountry;
-    refetch();
-  }
-);
 
 const modalState = reactive({
   isOpen: false,
