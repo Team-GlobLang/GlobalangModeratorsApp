@@ -1,32 +1,74 @@
 <template>
-  <FwbModal v-if="isOpen" @close="closeModal">
-    <template #header> </template>
-    <template #body>
-      <div class="w-full flex flex-col items-center gap-2">
-        <img
-          src="/Warning.png"
-          alt="WarningImage"
-          class="rounded-full w-1/2"
-        />
-        <span class="text-xl">Are you sure you want to do this?</span>
-        <span class="text-sm font-bold">This action is irreversible.</span>
+  <div
+    v-if="isOpen"
+    class="fixed inset-0 bg-opacity-50 backdrop-blur-lg z-40 flex items-center justify-center"
+    @click.self="closeModal"
+  >
+    <div
+      v-if="isOpen"
+      class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 z-50"
+      @click.stop
+    >
+      <div class="px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center justify-end">
+          <button
+            @click="closeModal"
+            class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+          >
+            <i class="pi pi-times text-xl"></i>
+          </button>
+        </div>
       </div>
-    </template>
-    <template #footer>
-      <div class="flex justify-between">
-        <FwbButton @click="closeModal" color="alternative">
+
+      <div class="px-6 py-6">
+        <div class="w-full flex flex-col items-center gap-2 text-center">
+          <div
+            class="w-16 h-16 rounded-full flex items-center justify-center mb-2"
+            :class="typeAction ? 'bg-green-100' : 'bg-red-100'"
+          >
+            <i
+              class="pi text-3xl"
+              :class="
+                typeAction
+                  ? 'pi-check-circle text-green-600'
+                  : 'pi-times-circle text-red-600'
+              "
+            ></i>
+          </div>
+          <span class="text-xl font-semibold text-gray-900">
+            Are you sure you want to do this?
+          </span>
+          <span class="text-sm text-gray-600 font-medium">
+            This action is irreversible.
+          </span>
+        </div>
+      </div>
+      <div
+        class="px-6 py-4 border-t border-gray-200 flex justify-between gap-3"
+      >
+        <button
+          @click="closeModal"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
+        >
           Cancel
-        </FwbButton>
-        <FwbButton @click="handleAction" :color="typeAction ? 'green' : 'red'">
+        </button>
+        <button
+          @click="handleAction"
+          class="px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors duration-200"
+          :class="
+            typeAction
+              ? 'bg-green-600 hover:bg-green-700'
+              : 'bg-red-600 hover:bg-red-700'
+          "
+        >
           {{ typeAction ? "Accept" : "Reject" }}
-        </FwbButton>
+        </button>
       </div>
-    </template>
-  </FwbModal>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { FwbButton, FwbModal } from "flowbite-vue";
 import { ref, watch } from "vue";
 import { UseApprovalQuiz } from "../../hooks/useApprovalQuiz";
 import type { QuizChangeStatus } from "../../interfaces/QuizType";

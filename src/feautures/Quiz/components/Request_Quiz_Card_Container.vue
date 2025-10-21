@@ -37,7 +37,7 @@
       />
     </div>
 
-    <Request_Quiz_Modal
+    <Review_Quiz_Modal
       :isOpen="modalState.isOpen"
       @close="modalState.isOpen = false"
       :typeAction="modalState.isAccepted"
@@ -53,10 +53,10 @@ import Request_Quiz_Card from "../components/Request_Quiz_Card.vue";
 import { GetQuizzesList } from "../services/QuizService";
 import type { QuizData, QuizzesFilters } from "../interfaces/QuizType";
 import { useInfiniteQuery } from "@tanstack/vue-query";
-import Request_Quiz_Modal from "./modals/Request_Quiz_Modal.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
+import Review_Quiz_Modal from "./modals/Review_Quiz_Modal.vue";
 const props = defineProps({
   country: {
     type: String,
