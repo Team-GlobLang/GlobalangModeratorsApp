@@ -9,9 +9,7 @@
       :meaning="request.description"
       :phrase="request.text"
       :fileUrl="request.fileUrl"
-      @idItem="handleIdItem"
-      @openModal="handleOpenModal"
-      @isAccepted="handleAction"
+      :onAction="handleAction"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -37,10 +35,10 @@
       <NotFoundVue message="Sorry, we dont have audio requests avalible now" />
     </div>
     <Audio_Request_Modal
-      :isOpen="isModalOpen"
-      @close="isModalOpen = false"
-      :typeAction="isAccepeted"
-      :idRequest="IdItem"
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :typeAction="modalState.isAccepted"
+      :idRequest="modalState.requestId"
       @completed="handleCompleted"
     />
   </div>
@@ -48,7 +46,7 @@
 
 <script setup lang="ts">
 import Request_Audio_Card from "./Request_Audio._Card.vue";
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
 import type { PaginatedResponse } from "../interfaces/PaginatedReponse";
@@ -128,19 +126,22 @@ watch(
   }
 );
 
-const isModalOpen = ref(false);
-const handleOpenModal = (shouldOpen: boolean) => {
-  isModalOpen.value = shouldOpen;
-};
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
 
-const isAccepeted = ref(false);
-const handleAction = (action: boolean) => {
-  isAccepeted.value = action;
-};
-
-const IdItem = ref("");
-const handleIdItem = (id: string) => {
-  IdItem.value = id;
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
 };
 
 const handleCompleted = () => {

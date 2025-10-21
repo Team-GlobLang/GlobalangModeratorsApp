@@ -23,6 +23,21 @@
         </p>
       </FwbButton>
 
+      <fwb-button-group class="flex justify-between gap-4">
+        <fwb-button
+          @click="handleAction(false)"
+          class="w-full flex justify-center gap-2 border-[#FF0000]"
+          color="light"
+          ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
+        </fwb-button>
+        <fwb-button
+          @click="handleAction(true)"
+          class="w-full flex justify-center gap-2"
+          color="green"
+          ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
+        </fwb-button>
+      </fwb-button-group>
+
       <audio
         ref="audioRef"
         :src="fileUrl"
@@ -31,42 +46,42 @@
         @timeupdate="updateTime"
         @ended="onEnded"
       ></audio>
-
-      <Btn_Group
-        accept-icon="pi-cloud-upload"
-        accept-text="Approve"
-        reject-icon="pi-trash"
-        reject-text="Reject"
-        :id_item="props.id || ''"
-        @idItem="IdItem"
-        @openModal="openModal"
-        @isAccepted="onIsAccepted"
-      />
     </div>
   </FwbCard>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
-import { FwbButton } from "flowbite-vue";
-import Btn_Group from "@shared/Components/Btn_Group.vue";
+import { ref, watchEffect, type PropType } from "vue";
+import { FwbButtonGroup, FwbButton } from "flowbite-vue";
+
 import { FwbCard } from "flowbite-vue";
 
 const props = defineProps({
   name: {
     type: String,
+    requiered: true,
   },
   phrase: {
     type: String,
+    requiered: true,
   },
   meaning: {
     type: String,
+    requiered: true,
   },
   id: {
     type: String,
+    requiered: true,
   },
   fileUrl: {
     type: String,
+    requiered: true,
+  },
+  onAction: {
+    type: Function as PropType<
+      (payload: { id: string; isAccepted: boolean }) => void
+    >,
+    required: false,
   },
 });
 
@@ -107,22 +122,11 @@ function onLoadedMetadata() {
   }
 }
 
-const emit = defineEmits<{
-  idItem: [itemId: string];
-  openModal: [isModalOpen: boolean];
-  isAccepted: [isAccepeted: boolean];
-}>();
-
-const IdItem = (itemId: string) => {
-  emit("idItem", itemId);
-};
-
-const openModal = (isModalOpen: boolean) => {
-  emit("openModal", isModalOpen);
-};
-
-const onIsAccepted = (isAccepted: boolean) => {
-  emit("isAccepted", isAccepted);
+const handleAction = (isAccepted: boolean) => {
+  props.onAction?.({
+    id: props.id!,
+    isAccepted,
+  });
 };
 </script>
 
