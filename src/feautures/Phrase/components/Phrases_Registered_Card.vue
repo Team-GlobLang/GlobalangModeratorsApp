@@ -12,7 +12,7 @@
         <FwbButton
           class="w-full border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
           v-if="props.status"
-          @click="handleAction"
+          @click="handleAction(false)"
         >
           <p class="flex items-center justify-center gap-2">
             <i class="pi pi-trash text-[#FF0000]"></i>

@@ -47,7 +47,7 @@
               : 'bg-red-600 hover:bg-red-700'
           "
         >
-          {{ typeAction ? "Accept" : "Reject" }}
+          {{ typeAction ? "Accept" : isRegistered ? "Retire" : "Reject" }}
         </button>
       </div>
     </div>
@@ -75,6 +75,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  isRegistered: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 const emit = defineEmits<{
@@ -82,7 +86,6 @@ const emit = defineEmits<{
   completed: [];
 }>();
 
-// Computed con get y set para v-model
 const showModal = computed({
   get: () => props.isOpen,
   set: (value) => {

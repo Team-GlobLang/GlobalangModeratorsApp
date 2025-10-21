@@ -34,12 +34,13 @@
       <NotFoundVue message="Sorry, we dont have collaborators avalible now" />
     </div>
 
-    <Teacher_Collab_Registerd_Modal
+    <Colab_Request_View_Modal
       :isOpen="modalState.isOpen"
       @close="modalState.isOpen = false"
       :idRequest="modalState.requestId"
       @completed="handleCompleted"
       :typeAction="modalState.isAccepted"
+      :isRegistered="true"
     />
   </div>
 </template>
@@ -52,10 +53,10 @@ import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
 import type { Collab } from "../interfaces/Colaborator";
-import Teacher_Collab_Registerd_Modal from "./modals/Teacher_Collab_Registerd_Modal.vue";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
+import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
 
 const props = defineProps({
   language: {

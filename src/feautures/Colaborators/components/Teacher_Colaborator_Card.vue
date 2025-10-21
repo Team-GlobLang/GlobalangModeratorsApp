@@ -11,7 +11,7 @@
         v-if="props.status != 'REJECTED'"
         color="light"
         class="border-[#FF0000] text-sm"
-        @click="handleAction"
+        @click="handleAction(false)"
       >
         <i class="pi pi-trash text-[#FF0000]"></i>
         Retire as a {{ props.category }}</FwbButton

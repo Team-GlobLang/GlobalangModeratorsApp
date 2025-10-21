@@ -37,12 +37,13 @@
       <NotFoundVue message="Sorry, we dont have phrases avalible now" />
     </div>
 
-    <Phrases_Registered_Modal
+    <Audio_Request_Modal
       :isOpen="modalState.isOpen"
       @close="modalState.isOpen = false"
       :idRequest="modalState.requestId"
       @completed="handleCompleted"
       :typeAction="modalState.isAccepted"
+      :isRegistered="true"
     />
   </div>
 </template>
@@ -51,13 +52,13 @@
 import Phrases_Registered_Card from "./Phrases_Registered_Card.vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
-import Phrases_Registered_Modal from "./modal/Phrases_Registered_Modal.vue";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import NotFoundVue from "@NotFound";
 import type { PaginatedResponse } from "@ComonResponse";
 import type { AudiosByFilters } from "@shared/Interfaces/AudiosByFilter";
 import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
 import type { Short } from "@shared/Interfaces/Short";
+import Audio_Request_Modal from "../../Audio/components/modals/Audio_Request_Modal.vue";
 
 const props = defineProps({
   Status: {

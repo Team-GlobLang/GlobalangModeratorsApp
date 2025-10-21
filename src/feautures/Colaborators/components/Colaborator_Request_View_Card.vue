@@ -46,24 +46,25 @@
       style="font-size: 2.5rem"
     ></i>
   </div>
-
-  <Btn_Group_Without_Icon
-    accept-text="Approve"
-    reject-text="Reject"
-    color-accept="bg-[#009951]"
-    color-reject="border-[#FF0000]"
-    :id_item="props.id_item || ''"
-    textColorApprove="white"
-    textColorReject="black"
-    @idItem="IdItem"
-    @openModal="openModal"
-    @isAccepted="onIsAccepted"
-  />
+  <fwb-button-group class="flex w-full justify-between gap-4">
+    <fwb-button
+      @click="handleAction(false)"
+      class="w-full flex justify-center gap-2 border-[#FF0000]"
+      color="light"
+      ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
+    </fwb-button>
+    <fwb-button
+      @click="handleAction(true)"
+      class="w-full flex justify-center gap-2"
+      color="green"
+      ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
+    </fwb-button>
+  </fwb-button-group>
 </template>
 
 <script setup lang="ts">
-import Btn_Group_Without_Icon from "@shared/Components/Btn_Group_Without_Icon.vue";
-import { ref } from "vue";
+import { ref, type PropType } from "vue";
+import { FwbButtonGroup, FwbButton } from "flowbite-vue";
 const props = defineProps({
   id_item: {
     type: String,
@@ -84,26 +85,21 @@ const props = defineProps({
     type: Array as () => string[],
     default: () => [],
   },
+  onAction: {
+    type: Function as PropType<
+      (payload: { id: string; isAccepted: boolean }) => void
+    >,
+    required: false,
+  },
 });
 
 const selectedFile = ref<string>();
 
-const emit = defineEmits<{
-  idItem: [itemId: string];
-  openModal: [isModalOpen: boolean];
-  isAccepted: [isAccepeted: boolean];
-}>();
-
-const IdItem = (itemId: string) => {
-  emit("idItem", itemId);
-};
-
-const openModal = (isModalOpen: boolean) => {
-  emit("openModal", isModalOpen);
-};
-
-const onIsAccepted = (isAccepted: boolean) => {
-  emit("isAccepted", isAccepted);
+const handleAction = (isAccepted: boolean) => {
+  props.onAction?.({
+    id: props.id_item!,
+    isAccepted,
+  });
 };
 
 const openFile = (url: string) => {

@@ -47,7 +47,7 @@
               : 'bg-red-600 hover:bg-red-700'
           "
         >
-          {{ typeAction ? "Accept" : "Reject" }}
+          {{ typeAction ? "Accept" : isRegistered ? "Retire" : "Reject" }}
         </button>
       </div>
     </div>
@@ -77,6 +77,10 @@ const props = defineProps({
   idRequest: {
     type: String,
     required: true,
+  },
+  isRegistered: {
+    type: Boolean,
+    requiered: false,
   },
 });
 
