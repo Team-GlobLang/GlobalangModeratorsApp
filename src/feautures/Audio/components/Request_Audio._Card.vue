@@ -52,9 +52,7 @@
 
 <script setup lang="ts">
 import { ref, watchEffect, type PropType } from "vue";
-import { FwbButtonGroup, FwbButton } from "flowbite-vue";
-
-import { FwbCard } from "flowbite-vue";
+import { FwbCard, FwbButtonGroup, FwbButton } from "flowbite-vue";
 
 const props = defineProps({
   name: {
