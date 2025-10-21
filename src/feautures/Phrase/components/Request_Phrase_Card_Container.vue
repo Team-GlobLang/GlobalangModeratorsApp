@@ -11,9 +11,7 @@
       :phrase="audio.text"
       :fileUrl="audio.fileUrl"
       :status="audio.approved ?? false"
-      @idItem="handleItem"
-      @openModal="handleIsOpenModal"
-      @isAccepted="handleAction"
+      :onAction="handleAction"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -40,11 +38,11 @@
     </div>
 
     <Phrases_Registered_Modal
-      :isOpen="isOpenModal"
-      @close="isOpenModal = false"
-      :idRequest="item"
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :idRequest="modalState.requestId"
       @completed="handleCompleted"
-      :typeAction="isAccepeted"
+      :typeAction="modalState.isAccepted"
     />
   </div>
 </template>
@@ -52,7 +50,7 @@
 <script setup lang="ts">
 import Phrases_Registered_Card from "./Phrases_Registered_Card.vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import Phrases_Registered_Modal from "./modal/Phrases_Registered_Modal.vue";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import NotFoundVue from "@NotFound";
@@ -142,19 +140,22 @@ watch(
   }
 );
 
-const item = ref("");
-const handleItem = (itemId: string) => {
-  item.value = itemId;
-};
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
 
-const isOpenModal = ref(false);
-const handleIsOpenModal = (isModalOpen: boolean) => {
-  isOpenModal.value = isModalOpen;
-};
-
-const isAccepeted = ref(false);
-const handleAction = (action: boolean) => {
-  isAccepeted.value = action;
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
 };
 
 const handleCompleted = () => {

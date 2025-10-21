@@ -10,9 +10,7 @@
       :aprobe-by="item.reviewedId"
       :language="item.languages"
       :status="item.status || ''"
-      @idItem="handleIdItem"
-      @openModal="handleOpenModal"
-      @isApprove="handleAction"
+      :onAction="handleAction"
     />
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
 
@@ -37,11 +35,11 @@
     </div>
 
     <Teacher_Collab_Registerd_Modal
-      :isOpen="isModalOpen"
-      @close="isModalOpen = false"
-      :idRequest="IdItem"
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :idRequest="modalState.requestId"
       @completed="handleCompleted"
-      :typeAction="isAccepeted"
+      :typeAction="modalState.isAccepted"
     />
   </div>
 </template>
@@ -50,7 +48,7 @@
 import Teacher_Colaborator_Card from "./Teacher_Colaborator_Card.vue";
 import { Status } from "../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
 import type { Collab } from "../interfaces/Colaborator";
@@ -142,21 +140,23 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-const isModalOpen = ref(false);
-const handleOpenModal = (shouldOpen: boolean) => {
-  isModalOpen.value = shouldOpen;
-};
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
 
-const IdItem = ref("");
-const handleIdItem = (id: string) => {
-  IdItem.value = id;
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
 };
-
-const isAccepeted = ref(false);
-const handleAction = (action: boolean) => {
-  isAccepeted.value = action;
-};
-
 const handleCompleted = () => {
   refetch();
 };
