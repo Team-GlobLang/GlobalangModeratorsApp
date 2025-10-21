@@ -9,10 +9,7 @@
       :title="quizz.name"
       :country="quizz.country"
       :questionsNUmber="quizz.numberOfQuestions"
-      @accept="HandleViewRequest"
-      @idItem="handleIdItem"
-      @openModal="handleOpenModal"
-      @isAccepted="handleAction"
+      :onAction="handleAction"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -35,26 +32,27 @@
       v-if="!isLoading && quizList.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFoundVue message="Sorry, we dont have audio requests avalible now" />
+      <NotFoundVue
+        message="Sorry, we dont have quizzes requests avalible now"
+      />
     </div>
 
     <Request_Quiz_Modal
-      :isOpen="isModalOpen"
-      @close="isModalOpen = false"
-      :typeAction="isAccepeted"
-      :idRequest="IdItem"
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :typeAction="modalState.isAccepted"
+      :idRequest="modalState.requestId"
       @completed="handleCompleted"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import Request_Quiz_Card from "../components/Request_Quiz_Card.vue";
 import { GetQuizzesList } from "../services/QuizService";
 import type { QuizData, QuizzesFilters } from "../interfaces/QuizType";
 import { useInfiniteQuery } from "@tanstack/vue-query";
-import { useRouter } from "vue-router";
 import Request_Quiz_Modal from "./modals/Request_Quiz_Modal.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFoundVue from "@NotFound";
@@ -129,27 +127,22 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-const router = useRouter();
-const HandleViewRequest = (id: string) => {
-  router.push({
-    name: "Review_Quiz",
-    params: { id: id },
-  });
-};
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
 
-const isModalOpen = ref(false);
-const handleOpenModal = (shouldOpen: boolean) => {
-  isModalOpen.value = shouldOpen;
-};
-
-const isAccepeted = ref(false);
-const handleAction = (action: boolean) => {
-  isAccepeted.value = action;
-};
-
-const IdItem = ref("");
-const handleIdItem = (id: string) => {
-  IdItem.value = id;
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
 };
 
 const handleCompleted = () => {
