@@ -1,5 +1,42 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
+    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB]">
+      <FwbInput
+        list="countries"
+        v-model="country"
+        type="text"
+        :validation-status="countryError ? 'error' : undefined"
+        label="Contry"
+        placeholder="Ej: Costa Rica"
+      >
+        <template #suffix>
+          <span class="pi pi-home"></span>
+        </template>
+        <template #validationMessage>
+          <span class="font-medium">{{ countryError }} </span>
+        </template>
+      </FwbInput>
+
+      <datalist id="countries">
+        <option
+          v-for="countryItem in filteredCountries"
+          :key="countryItem.code"
+          :value="countryItem.name"
+        >
+          {{ countryItem.name }}
+        </option>
+      </datalist>
+
+      <FwbInput
+        v-model="email"
+        type="email"
+        :validation-status="emailError ? 'error' : undefined"
+        @blur="emailBlur"
+        label="Email"
+        placeholder="example@email.com"
+      />
+    </div>
+
     <Users_Registered_Card
       v-if="Users.length > 0"
       v-for="item in Users"
@@ -8,7 +45,7 @@
       :age="calculateAge(item.birthDate)"
       :email="item.email"
       :suscripcion="item.membership || 'Free trial'"
-      end_date="20/9/2026"
+      end_date="27/11/2026"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -34,24 +71,40 @@
 
 <script setup lang="ts">
 import Users_Registered_Card from "./Users_Registered_Card.vue";
-import type { UserFilter } from "../interfaces/user-filter-interface";
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetUsersFiltered } from "../services/UserServices";
 import type { User } from "../interfaces/User";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFound from "@NotFound";
+import { FwbInput } from "flowbite-vue";
+import { useField } from "vee-validate";
+import { countries } from "@core/CountriesArray";
+import { Capacitor } from "@capacitor/core";
 
-const props = defineProps<{
-  Email?: string;
-  country?: string;
-}>();
+const MAX_INITIAL = 10;
 
-const filters = ref<UserFilter>({
-  country: undefined,
-  email: undefined,
+const filteredCountries = computed(() => {
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
+  }
+  return countries.filter((c) =>
+    c.name.toLowerCase().includes(country.value.toLowerCase())
+  );
 });
+
+const { value: country, errorMessage: countryError } =
+  useField<{ country: string }["country"]>("country");
+
+const isNative = Capacitor.isNativePlatform();
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
+
+const {
+  value: email,
+  errorMessage: emailError,
+  handleBlur: emailBlur,
+} = useField<string>("email");
 
 const showScrollTop = ref(false);
 
@@ -61,14 +114,15 @@ const {
   hasNextPage,
   isFetchingNextPage,
   isPending,
-  refetch,
+  //refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<User>, Error>({
-  queryKey: computed(() => ["Users", filters]),
+  queryKey: computed(() => ["Users_Registered", email.value, country.value]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetUsersFiltered({
-      ...filters.value,
+      country: country.value,
+      email: email.value,
       page,
       limit: 5,
     });
@@ -111,24 +165,6 @@ const calculateAge = (birthdate: string | Date): number => {
   let age = today.getFullYear() - birth.getFullYear();
   return age;
 };
-
-watch(
-  () => props.Email,
-  (newEmail) => {
-    filters.value.email = newEmail;
-    filters.value.page = 1;
-    refetch();
-  }
-);
-
-watch(
-  () => props.country,
-  (newCountry) => {
-    filters.value.country = newCountry;
-    filters.value.page = 1;
-    refetch();
-  }
-);
 
 onMounted(() => {
   window.addEventListener("scroll", onScroll);

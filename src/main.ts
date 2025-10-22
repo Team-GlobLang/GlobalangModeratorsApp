@@ -11,6 +11,7 @@ import { registerPush } from "./PushNotifications/Service";
 
 const userLang = navigator.language || navigator.languages[0] || "en";
 const langCode = userLang.split("-")[0]; //=> Agarra el lang ejemplo "es-ES" y lo transforma a es
+import PrimeVue from "primevue/config";
 
 async function setVeeValidateLocale(locale: string) {
   const parts = locale.split("-");
@@ -33,7 +34,7 @@ async function setVeeValidateLocale(locale: string) {
 }
 
 await setVeeValidateLocale(langCode);
-const app = createApp(App).use(router).use(VueQueryPlugin);
+const app = createApp(App).use(router).use(VueQueryPlugin).use(PrimeVue);
 
 await registerPush(router);
 

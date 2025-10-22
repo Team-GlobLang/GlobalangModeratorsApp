@@ -11,7 +11,7 @@
         v-if="props.status != 'REJECTED'"
         color="light"
         class="border-[#FF0000] text-sm"
-        @click="handleRetire"
+        @click="handleAction(false)"
       >
         <i class="pi pi-trash text-[#FF0000]"></i>
         Retire as a {{ props.category }}</FwbButton
@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { FwbButton } from "flowbite-vue";
 import { FwbCard } from "flowbite-vue";
+import type { PropType } from "vue";
 
 const props = defineProps({
   user: {
@@ -45,18 +46,19 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  onAction: {
+    type: Function as PropType<
+      (payload: { id: string; isAccepted: boolean }) => void
+    >,
+    required: false,
+  },
 });
 
-const emit = defineEmits<{
-  idItem: [itemId: string];
-  openModal: [isModalOpen: boolean];
-  isApprove: [isApprove: boolean];
-}>();
-
-const handleRetire = () => {
-  emit("idItem", props.id);
-  emit("openModal", true);
-  emit("isApprove", false);
+const handleAction = (isAccepted: boolean) => {
+  props.onAction?.({
+    id: props.id!,
+    isAccepted,
+  });
 };
 </script>
 

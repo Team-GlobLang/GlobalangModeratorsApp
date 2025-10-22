@@ -15,13 +15,16 @@
           class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"
         ></span>
         <i
-          :class="`${item.icon} text-4xl transition-transform duration-500 ease-in-out ${selectedSegment === item.segment ? 'rotate-6' : 'rotate-0'}`"
+          :class="`${
+            item.icon
+          } text-4xl! transition-transform duration-500 ease-in-out ${
+            selectedSegment === item.segment ? 'rotate-6' : 'rotate-0'
+          }`"
         ></i>
       </FwbButton>
     </FwbButtonGroup>
   </div>
 </template>
-
 
 <script setup lang="ts">
 import { computed } from "vue";
@@ -75,5 +78,4 @@ const navItems: BottomNavItem[] = [
     segment: "quizzes",
   },
 ];
-
 </script>
