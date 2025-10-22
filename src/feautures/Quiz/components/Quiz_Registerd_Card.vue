@@ -74,7 +74,7 @@ const handleAction = (isAccepted: boolean) => {
 const router = useRouter();
 const HandleViewRequest = (id: string) => {
   router.push({
-    name: "Review_Quiz", //Review_Quiz_Registered
+    name: "Review_Quiz_Registered",
     params: { id: id },
   });
 };

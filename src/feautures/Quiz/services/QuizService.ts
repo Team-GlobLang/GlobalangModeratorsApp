@@ -35,7 +35,7 @@ const ApprovalQuiz = async (Data: QuizChangeStatus) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-       throw new Error(error.response?.data?.message || "Error desconocido");
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido: ", error);
       throw new Error("Error desconocido");
@@ -50,7 +50,7 @@ const getQuizQuestions = async (id: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-       throw new Error(error.response?.data?.message || "Error desconocido");
+      throw new Error(error.response?.data?.message || "Error desconocido");
     } else {
       console.error("Error desconocido:", error);
       throw new Error("Error desconocido");
@@ -58,4 +58,19 @@ const getQuizQuestions = async (id: string) => {
   }
 };
 
-export { GetQuizzesList, ApprovalQuiz, getQuizQuestions };
+const getQuiz = async (id: string) => {
+  try {
+    const response = await axiosInstance.get(`/Full-Quiz/${id}`);
+    return response.data.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+export { GetQuizzesList, ApprovalQuiz, getQuizQuestions, getQuiz };

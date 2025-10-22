@@ -1,126 +1,138 @@
 <template>
-  <div class="p-5 h-screen w-full flex flex-col">
-    <div class="flex">
-      <div class="w-full">
-        <BreadCrumb :items="breadcrumbItems" />
-      </div>
-      <div class="w-full mb-4 text-right font-semibold text-gray-700 text-lg">
-        Time left: {{ formatTime(timeLeft) }}
-      </div>
+  <div class="w-full flex flex-col items-center gap-3">
+    <div class="w-full p-2">
+      <!-- <BreadCrumb :items="breadcrumbItems" /> -->
     </div>
-
-    <div class="flex-1 flex flex-col items-center justify-center w-full">
-      <div v-if="isPending" class="animate-pulse space-y-4 w-11/12 max-w-3xl">
-        <div class="h-6 bg-gray-300 rounded w-3/4"></div>
-        <div class="h-4 bg-gray-200 rounded w-full"></div>
-        <div class="h-4 bg-gray-200 rounded w-full"></div>
+    <div class="w-11/12 p-4 bg-white rounded-2xl shadow-md">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+          Quiz Preview
+        </h2>
+        <FwbButton color="light" @click="onCompleted">Return</FwbButton>
       </div>
 
-      <div v-else-if="currentQuestion" class="w-11/12 max-w-3xl">
-        <QuestionCard
-          :question="currentQuestion"
-          :nextQuestionHandler="handleNext"
-        />
+      <div
+        v-if="isPending"
+        class="text-center py-8 text-gray-500 dark:text-gray-400"
+      >
+        Loading quiz data...
+      </div>
 
-        <div class="mt-2 text-gray-600 text-right">
-          Question {{ currentIndex + 1 }} / {{ shuffledQuestions.length }}
+      <div v-else>
+        <div class="mb-6 border-b pb-4">
+          <h3
+            class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200"
+          >
+            Configuration
+          </h3>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-600 dark:text-gray-300"
+          >
+            <p><strong>Name:</strong> {{ quiz?.name }}</p>
+            <p><strong>Description:</strong> {{ quiz?.description }}</p>
+            <p>
+              <strong>Time Limit:</strong> {{ quiz?.configuration?.timeLimit }}
+            </p>
+            <p>
+              <strong>Shuffle Questions:</strong>
+              {{ quiz?.configuration.shuffleQuestions ? "Yes" : "No" }}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div v-else class="w-11/12 max-w-3xl">
-        <Question_Quiz_Registered_Result
-          :questions="shuffledQuestions"
-          :userAnswers="userAnswers"
-          :quizId="quizId"
-        />
+        <div>
+          <h3
+            class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200"
+          >
+            Questions
+          </h3>
+
+          <div
+            v-for="(q, index) in questions"
+            :key="index"
+            class="border border-gray-200 dark:border-gray-700 rounded-xl p-4 mb-4 bg-gray-50 dark:bg-gray-900 transition hover:shadow-md"
+          >
+            <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-2">
+              Question #{{ index + 1 }}
+            </h4>
+
+            <p class="text-gray-700 dark:text-gray-300 mb-2">
+              {{ q.questionText }}
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+              Type: {{ q.questionType }}
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
+              Explanation: {{ q.explanation }}
+            </p>
+
+            <audio
+              v-if="q.fileUrl"
+              :src="q.fileUrl"
+              controls
+              class="w-full mb-3"
+            ></audio>
+
+            <ul class="list-disc pl-5 space-y-1">
+              <li
+                v-for="opt in q.options"
+                :key="opt.order"
+                :class="[
+                  'text-sm',
+                  opt.isCorrect
+                    ? 'text-green-600 dark:text-green-400 font-medium'
+                    : 'text-gray-600 dark:text-gray-300',
+                ]"
+              >
+                {{ opt.text }}
+                <span v-if="opt.isCorrect" class="ml-1">(Correct)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+          <FwbButton color="green" @click="onCompleted">Go back</FwbButton>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useQuery } from "@tanstack/vue-query";
-import { getQuizQuestions } from "../services/QuizService";
-import type { QuizQuestion, QuizOption } from "../interfaces/QuestionQuizType";
-
-import QuestionCard from "../components/microcomponents/QuestionCard.vue";
-import Question_Quiz_Registered_Result from "../components/microcomponents/Question_Quiz_Registered_Result.vue";
-import BreadCrumb from "@layouts/BreadCrumb.vue";
+import { getQuiz, getQuizQuestions } from "../services/QuizService";
+import type { QuizQuestion } from "../interfaces/QuestionQuizType";
+import type { Quiz } from "../interfaces/QuizType";
+import { computed } from "vue";
+import { FwbButton } from "flowbite-vue";
+//import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const route = useRoute();
-const quizId = computed(() => route.params.id as string);
-const timeLimit = Number(route.query.timeLimit) || 3600;
+const quizId = route.params.id as string;
 
-const { data, isPending } = useQuery<{ questions: QuizQuestion[] }>({
-  queryKey: [`quiz-${quizId.value}`],
-  queryFn: () => getQuizQuestions(quizId.value),
+const { data: quizData, isPending: quizPending } = useQuery<Quiz>({
+  queryKey: [`quiz-${quizId}`],
+  queryFn: () => getQuiz(quizId),
 });
 
-const questions = computed<QuizQuestion[]>(() => data.value?.questions || []);
-console.log(questions.value);
-function shuffleArray<T>(array: T[]): T[] {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
+const { data: questionsData, isPending: questionsPending } = useQuery<{
+  questions: QuizQuestion[];
+}>({
+  queryKey: ["quizQuestions", quizId],
+  queryFn: () => getQuizQuestions(quizId),
+});
 
-const shuffledQuestions = computed(() => shuffleArray(questions.value));
-
-const currentIndex = ref(0);
-const score = ref(0);
-const userAnswers = ref<(QuizOption | null)[]>([]);
-
-const currentQuestion = computed<QuizQuestion | null>(
-  () => shuffledQuestions.value[currentIndex.value] || null
+const quiz = computed(() => quizData.value);
+const questions = computed<QuizQuestion[]>(
+  () => questionsData.value?.questions || []
 );
+const isPending = quizPending || questionsPending;
 
-const timeLeft = ref(timeLimit);
-let timer: ReturnType<typeof setInterval> | null = null;
+const router = useRouter();
 
-onMounted(() => {
-  timer = setInterval(() => {
-    if (timeLeft.value > 0) {
-      timeLeft.value--;
-    } else {
-      finishQuiz();
-    }
-  }, 1000);
-});
-
-onUnmounted(() => {
-  if (timer) clearInterval(timer);
-});
-
-const handleNext = (selectedOption: QuizOption | null) => {
-  userAnswers.value[currentIndex.value] = selectedOption;
-  if (selectedOption?.isCorrect) score.value++;
-
-  if (currentIndex.value < shuffledQuestions.value.length - 1) {
-    currentIndex.value++;
-  } else {
-    finishQuiz();
-  }
-};
-
-const finishQuiz = () => {
-  if (timer) clearInterval(timer);
-  currentIndex.value = -1;
-};
-
-const breadcrumbItems = computed(() => [
-  { label: "Home", route: "Home", isHome: true },
-]);
-
-const formatTime = (seconds: number) => {
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  const mm = m.toString().padStart(2, "0");
-  const ss = s.toString().padStart(2, "0");
-  return `${mm}:${ss}`;
+const onCompleted = () => {
+  router.back();
 };
 </script>

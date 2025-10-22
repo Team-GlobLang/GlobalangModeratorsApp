@@ -137,7 +137,11 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<Collab>, Error>({
-  queryKey: computed(() => ["Request_Audios", language.value, selected.value]),
+  queryKey: computed(() => [
+    "Registers_Collabs",
+    language.value,
+    selected.value,
+  ]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetColaboratorRequestsFilters({

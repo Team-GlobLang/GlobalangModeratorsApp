@@ -2,7 +2,9 @@
   <BreadCrumb :items="breadCrumbItems" />
   <section class="w-full p-2 flex flex-col gap-2 items-center rounded-lg">
     <div class="flex justify-end w-11/12">
-      <FwbButton color="green">Register a Moderator</FwbButton>
+      <FwbButton @click="visible = true" color="green"
+        >Register a Moderator</FwbButton
+      >
     </div>
     <div class="sticky top-0 z-10 bg-[#f6f6f6] pb-2 w-11/12">
       <User_Registered_Filters
@@ -14,6 +16,8 @@
       :country="CountryFilter"
       :Email="EmailFilter"
     />
+
+    <RegisterModeradorMForm v-model:visible="visible" />
   </section>
 </template>
 
@@ -23,6 +27,7 @@ import { FwbButton } from "flowbite-vue";
 import User_Registered_Card_Container from "../components/User_Registered_Card_Container.vue";
 import { ref } from "vue";
 import BreadCrumb from "@layouts/BreadCrumb.vue";
+import RegisterModeradorMForm from "../../Auth/Components/Modals/RegisterModeradorMForm.vue";
 const breadCrumbItems = [
   {
     label: "Home",
@@ -39,6 +44,7 @@ const breadCrumbItems = [
 
 const CountryFilter = ref<string | undefined>(undefined);
 const EmailFilter = ref<string | undefined>(undefined);
+const visible = ref<boolean>(false);
 
 const handleFilterCountry = (country: string | undefined) => {
   CountryFilter.value = country;
