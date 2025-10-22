@@ -42,7 +42,7 @@ const props = defineProps({
 });
 
 const { data, isLoading, refetch } = useQuery({
-  queryKey: ["colaborator", props.id],
+  queryKey: ["Collab_Request_View", props.id],
   queryFn: () => GetColaboratorRequestById(props.id || ""),
 });
 

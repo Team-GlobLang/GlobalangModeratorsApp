@@ -6,23 +6,14 @@
         >Register a Moderator</FwbButton
       >
     </div>
-    <div class="sticky top-0 z-10 bg-[#f6f6f6] pb-2 w-11/12">
-      <User_Registered_Filters
-        @filterchangeCountry="handleFilterCountry"
-        @filterchangeEmail="handleFilterEmail"
-      />
-    </div>
-    <User_Registered_Card_Container
-      :country="CountryFilter"
-      :Email="EmailFilter"
-    />
+
+    <User_Registered_Card_Container />
 
     <RegisterModeradorMForm v-model:visible="visible" />
   </section>
 </template>
 
 <script setup lang="ts">
-import User_Registered_Filters from "../components/User_Registered_Filters.vue";
 import { FwbButton } from "flowbite-vue";
 import User_Registered_Card_Container from "../components/User_Registered_Card_Container.vue";
 import { ref } from "vue";
@@ -42,17 +33,7 @@ const breadCrumbItems = [
   },
 ];
 
-const CountryFilter = ref<string | undefined>(undefined);
-const EmailFilter = ref<string | undefined>(undefined);
 const visible = ref<boolean>(false);
-
-const handleFilterCountry = (country: string | undefined) => {
-  CountryFilter.value = country;
-};
-
-const handleFilterEmail = (email: string | undefined) => {
-  EmailFilter.value = email;
-};
 </script>
 
 <style scoped></style>

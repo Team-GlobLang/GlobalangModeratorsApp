@@ -141,7 +141,11 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<Short>, Error>({
-  queryKey: computed(() => ["Request_Audios", country.value, selected.value]),
+  queryKey: computed(() => [
+    "Registered_Audios",
+    country.value,
+    selected.value,
+  ]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetAllAudiosByFilters({
