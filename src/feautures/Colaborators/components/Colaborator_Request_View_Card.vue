@@ -49,13 +49,13 @@
   <fwb-button-group class="flex w-full justify-between gap-4">
     <fwb-button
       @click="handleAction(false)"
-      class="w-full flex justify-center gap-2 border-[#FF0000]"
+      class="w-full flex justify-center gap-2 border-[#FF0000] rounded-lg!"
       color="light"
       ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
     </fwb-button>
     <fwb-button
       @click="handleAction(true)"
-      class="w-full flex justify-center gap-2"
+      class="w-full flex justify-center gap-2 rounded-lg!"
       color="green"
       ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
     </fwb-button>

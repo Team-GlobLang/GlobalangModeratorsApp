@@ -1,8 +1,7 @@
 <template>
   <div
-    class="p-6 bg-white rounded-2xl shadow-lg max-w-md mx-auto mt-10 text-center"
+    class="p-6 bg-white rounded-2xl shadow-lg max-w-md mx-auto mt-10 text-center w-full"
   >
-    <!-- <img src="/Results.png" alt="Result Image" class="mx-auto mb-4 w-24 h-24" /> -->
     <h2 class="text-2xl font-bold mb-2">Quiz Completed!</h2>
     <p class="mb-4 text-gray-700">{{ resultMessage }}</p>
 
@@ -13,24 +12,26 @@
     </div>
 
     <Review_Quiz_Modal
-      :isOpen="isOpenModal"
-      @close="isOpenModal = false"
-      :typeAction="isAccepeted"
-      :idRequest="item"
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :typeAction="modalState.isAccepted"
+      :idRequest="modalState.requestId"
     />
 
-    <Btn_Group_Without_Icon
-      accept-text="Approve"
-      reject-text="Reject"
-      color-accept="bg-[#009951]"
-      color-reject="border-[#FF0000]"
-      :id_item="props.quizId"
-      textColorApprove="white"
-      textColorReject="black"
-      @idItem="handleItemId"
-      @openModal="handleIsOpenModal"
-      @isAccepted="handleIsAccepted"
-    />
+    <fwb-button-group class="flex w-full justify-between gap-4">
+      <fwb-button
+        @click="handleAction({ id: props.quizId, isAccepted: false })"
+        class="w-full flex justify-center gap-2 border-[#FF0000] rounded-lg!"
+        color="light"
+        ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
+      </fwb-button>
+      <fwb-button
+        @click="handleAction({ id: props.quizId, isAccepted: true })"
+        class="w-full flex justify-center gap-2 rounded-lg!"
+        color="green"
+        ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
+      </fwb-button>
+    </fwb-button-group>
 
     <div class="mt-4">
       <FwbButton
@@ -71,20 +72,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, reactive } from "vue";
 import type {
   QuizOption,
   QuizQuestion,
 } from "../../interfaces/QuestionQuizType";
-import { FwbButton } from "flowbite-vue";
 import Review_Quiz_Modal from "../modals/Review_Quiz_Modal.vue";
-import Btn_Group_Without_Icon from "@shared/Components/Btn_Group_Without_Icon.vue";
+import { FwbButtonGroup, FwbButton } from "flowbite-vue";
 
 interface Props {
   questions: QuizQuestion[];
   userAnswers: (QuizOption | null)[];
   quizId: string;
 }
+
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
+
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
+};
 
 const props = defineProps<Props>();
 
@@ -104,21 +122,6 @@ const resultMessage = computed(() => {
   if (scorePercentage.value >= 40) return "🙂 Not bad, try again!";
   return "😕 Better luck next time!";
 });
-
-const item = ref("");
-const handleItemId = (idItem: string) => {
-  item.value = idItem;
-};
-
-const isOpenModal = ref(false);
-const handleIsOpenModal = (isOpen: boolean) => {
-  isOpenModal.value = isOpen;
-};
-
-const isAccepeted = ref(false);
-const handleIsAccepted = (status: boolean) => {
-  isAccepeted.value = status;
-};
 </script>
 
 <style scoped></style>
