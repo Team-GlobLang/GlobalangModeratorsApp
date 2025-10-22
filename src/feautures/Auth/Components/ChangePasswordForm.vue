@@ -43,8 +43,8 @@ import type { changePasswordInterface } from '../Interfaces';
 import { useRouter } from 'vue-router';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FwbButton, FwbInput, FwbA } from 'flowbite-vue';
+import { rules } from '../../../Core/validators/rules';
 import { UseChangePassword } from '../Hooks/ChangePassword';
-import { rules } from '@core/validators/rules';
 
 
 const timeLeft = ref(8 * 60)

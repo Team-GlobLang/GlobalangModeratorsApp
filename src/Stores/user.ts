@@ -22,7 +22,15 @@ export const userStore = reactive({
   },
 
   logout() {
+    if (this.user?.id) {
+      localStorage.removeItem(`FreeTrialResponse_${this.user.id}`);
+    }
+
     this.user = null;
     localStorage.removeItem("user");
+    localStorage.removeItem("uuid");
+    localStorage.removeItem("refT");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("rememberMe");
   },
 });

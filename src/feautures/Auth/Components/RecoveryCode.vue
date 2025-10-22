@@ -41,10 +41,10 @@ import { FwbInput, FwbButton } from 'flowbite-vue';
 import { useField, useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { rules } from '../../../Core/validators/rules';
 import type { RecoveryCode } from '../Interfaces/RecoveryCodeInterface';
 import { UseRequestCode } from '../Hooks/useRequestCode';
 import { UseValidateCode } from '../Hooks/useValidateCode';
-import { rules } from '@core/validators/rules';
 
 const router = useRouter();
 const { required, email: emailRule, min } = rules;
@@ -101,7 +101,7 @@ const validateCode = handleSubmit((values: RecoveryCode) => {
 
     verifyCode(values, {
         onSuccess: () => {
-            router.push({ name: "ChangePassword" })
+            router.replace({ name: "ChangePassword" })
         }
     })
 

@@ -1,12 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import {
-  Login,
-  StartPage,
-  Register,
-  ForgetPassword,
-} from "../feautures/Auth/Page";
-import { Home_Moderators, Info_User } from "../feautures/Home/Pages";
+import { Login, StartPage, ForgetPassword } from "../feautures/Auth/Page";
+import { Home_Moderators } from "../feautures/Home/Pages";
 import {
   Colaborator_Request_View,
   Request_Colaborator,
@@ -26,6 +21,8 @@ import {
 import Audio_Request_Moderator from "../feautures/Audio/pages/Audio_Request_Moderator.vue";
 import Phrase_Registered from "../feautures/Audio/pages/Phrase_Registered.vue";
 import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
+import { User } from "../feautures/MyUser/Pages";
+import ChangeInfo from "../feautures/MyUser/Pages/ChangeInfo.vue";
 const routes = [
   {
     path: "/",
@@ -37,12 +34,6 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
-    meta: { showBottomBar: false },
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: Register,
     meta: { showBottomBar: false },
   },
   {
@@ -60,9 +51,19 @@ const routes = [
         component: Home_Moderators,
       },
       {
-        path: "user-info",
-        name: "User_Info",
-        component: Info_User,
+        path: "my-profile",
+        children: [
+          {
+            path: "",
+            name: "User_Info",
+            component: User,
+          },
+          {
+            path: "edit-info",
+            name: "EditUserInfo",
+            component: ChangeInfo,
+          },
+        ],
       },
     ],
   },

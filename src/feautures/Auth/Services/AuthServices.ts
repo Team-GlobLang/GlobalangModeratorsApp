@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "../../../Core/AxiosConfig";
 import type {
   changePasswordInterface,
   LoginForm,
@@ -6,15 +7,10 @@ import type {
 } from "../Interfaces";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
 import { userStore } from "../../../Stores/user";
-import axiosInstance from "@core/AxiosConfig";
 
 const singIn = async (Data: LoginForm) => {
   try {
     const response = await axiosInstance.post("auth/login", Data);
-
-    if (response.data.user.role != "MODERATOR") {
-      throw new Error("Access denied: moderators only");
-    }
     const token = response.data.token;
     if (!token) {
       throw new Error("Login failed: Please try again");
@@ -36,15 +32,6 @@ const singIn = async (Data: LoginForm) => {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
       throw new Error(error.response?.data.message);
-    } else if (error instanceof Error) {
-      const message = error.message;
-
-      if (message.toLowerCase().includes("moderator")) {
-        throw new Error(message);
-      }
-
-      console.error("Error desconocido:", message);
-      throw new Error(message || "Error desconocido");
     } else {
       console.error("Error desconocido:", error);
       throw new Error("Error desconocido");
@@ -138,11 +125,48 @@ const canUserAcces = async (to: string) => {
   }
 };
 
+const startTrial = async () => {
+  try {
+    const response = await axiosInstance.post("auth/start-trial");
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+const loginWithToken = async () => {
+  try {
+    const response = await axiosInstance.get("auth/verify");
+    const token = response.data.token;
+    localStorage.setItem("accessToken", token);
+    const user = response.data.user;
+    userStore.setUser(user);
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
 export {
+  loginWithToken,
   singIn,
   singUp,
   requestRecoveryCode,
   verifyRecoveryCode,
   changePassword,
   canUserAcces,
+  startTrial,
 };

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import { verifyRecoveryCode } from "../Services/AuthServices";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
-import type { ApiError } from "@core/types/ApiError";
+import type { ApiError } from "../../../Core/types/ApiError";
 import { h } from "vue";
 
 export const UseValidateCode = () => {
