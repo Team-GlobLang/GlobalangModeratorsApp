@@ -1,5 +1,32 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
+    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB]">
+      <FwbInput
+        list="countries"
+        v-model="country"
+        type="text"
+        :validation-status="countryError ? 'error' : undefined"
+        label="Contry"
+        placeholder="Ej: Costa Rica"
+      >
+        <template #suffix>
+          <span class="pi pi-home"></span>
+        </template>
+        <template #validationMessage>
+          <span class="font-medium">{{ countryError }} </span>
+        </template>
+      </FwbInput>
+
+      <datalist id="countries">
+        <option
+          v-for="countryItem in filteredCountries"
+          :key="countryItem.code"
+          :value="countryItem.name"
+        >
+          {{ countryItem.name }}
+        </option>
+      </datalist>
+    </div>
     <Request_Quiz_Card
       v-if="quizList.length > 0"
       v-for="quizz in quizList"
@@ -9,10 +36,7 @@
       :title="quizz.name"
       :country="quizz.country"
       :questionsNUmber="quizz.numberOfQuestions"
-      @accept="HandleViewRequest"
-      @idItem="handleIdItem"
-      @openModal="handleOpenModal"
-      @isAccepted="handleAction"
+      :onAction="handleAction"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -35,41 +59,52 @@
       v-if="!isLoading && quizList.length === 0"
       class="text-center mt-10 p-10"
     >
-      <NotFoundVue message="Sorry, we dont have audio requests avalible now" />
+      <NotFoundVue
+        message="Sorry, we dont have quizzes requests avalible now"
+      />
     </div>
 
-    <Request_Quiz_Modal
-      :isOpen="isModalOpen"
-      @close="isModalOpen = false"
-      :typeAction="isAccepeted"
-      :idRequest="IdItem"
+    <Review_Quiz_Modal
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :typeAction="modalState.isAccepted"
+      :idRequest="modalState.requestId"
       @completed="handleCompleted"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import Request_Quiz_Card from "../components/Request_Quiz_Card.vue";
 import { GetQuizzesList } from "../services/QuizService";
-import type { QuizData, QuizzesFilters } from "../interfaces/QuizType";
+import type { QuizData } from "../interfaces/QuizType";
 import { useInfiniteQuery } from "@tanstack/vue-query";
-import { useRouter } from "vue-router";
-import Request_Quiz_Modal from "./modals/Request_Quiz_Modal.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
-const props = defineProps({
-  country: {
-    type: String,
-  },
+import Review_Quiz_Modal from "./modals/Review_Quiz_Modal.vue";
+import { countries } from "@core/CountriesArray";
+import { FwbInput } from "flowbite-vue";
+import { useField } from "vee-validate";
+import { Capacitor } from "@capacitor/core";
+
+const MAX_INITIAL = 10;
+
+const filteredCountries = computed(() => {
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
+  }
+  return countries.filter((c) =>
+    c.name.toLowerCase().includes(country.value.toLowerCase())
+  );
 });
 
-const filters = ref<QuizzesFilters>({
-  country: undefined,
-  isApproved: undefined,
-});
+const { value: country, errorMessage: countryError } =
+  useField<{ country: string }["country"]>("country");
 
+const isNative = Capacitor.isNativePlatform();
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 const showScrollTop = ref(false);
 
 const {
@@ -81,11 +116,11 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
-  queryKey: computed(() => ["Request_Audios", filters]),
+  queryKey: computed(() => ["Request_Audios", country.value]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetQuizzesList({
-      ...filters.value,
+      country: country.value,
       page,
       limit: 5,
     });
@@ -101,14 +136,6 @@ const {
 
 const quizList = computed(
   () => data.value?.pages.flatMap((page) => page.data) ?? []
-);
-
-watch(
-  () => props.country,
-  (newCountry) => {
-    filters.value.country = newCountry;
-    refetch();
-  }
 );
 
 const onScroll = async () => {
@@ -129,27 +156,22 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-const router = useRouter();
-const HandleViewRequest = (id: string) => {
-  router.push({
-    name: "Review_Quiz",
-    params: { id: id },
-  });
-};
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
 
-const isModalOpen = ref(false);
-const handleOpenModal = (shouldOpen: boolean) => {
-  isModalOpen.value = shouldOpen;
-};
-
-const isAccepeted = ref(false);
-const handleAction = (action: boolean) => {
-  isAccepeted.value = action;
-};
-
-const IdItem = ref("");
-const handleIdItem = (id: string) => {
-  IdItem.value = id;
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
 };
 
 const handleCompleted = () => {

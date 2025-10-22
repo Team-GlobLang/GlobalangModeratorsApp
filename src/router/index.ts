@@ -24,7 +24,7 @@ import {
   Review_Quiz_Registered,
 } from "../feautures/Quiz/pages";
 import Audio_Request_Moderator from "../feautures/Audio/pages/Audio_Request_Moderator.vue";
-import Phrase_Registered from "../feautures/Phrase/pages/Phrase_Registered.vue";
+import Phrase_Registered from "../feautures/Audio/pages/Phrase_Registered.vue";
 import Users_Registered from "../feautures/Users/pages/Users_Registered.vue";
 const routes = [
   {

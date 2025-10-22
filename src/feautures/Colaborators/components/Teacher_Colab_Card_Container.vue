@@ -1,5 +1,32 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
+    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB]">
+      <FwbInput
+        list="languages"
+        v-model="language"
+        type="text"
+        :validation-status="languageError ? 'error' : undefined"
+        @blur="languageBlur"
+        label="Choose a language"
+        placeholder="Ej: Spanish, English"
+      >
+        <template #suffix>
+          <span class="pi pi-language"></span>
+        </template>
+        <template #validationMessage>
+          <span class="font-medium">{{ languageError }} </span>
+        </template>
+      </FwbInput>
+
+      <datalist id="languages">
+        <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
+          {{ lang }}
+        </option>
+      </datalist>
+
+      <FwbSelect v-model="selected" :options="status" label="Choose a status" />
+    </div>
+
     <Teacher_Colaborator_Card
       v-if="colaboratorRequests.length > 0"
       v-for="item in colaboratorRequests"
@@ -10,10 +37,9 @@
       :aprobe-by="item.reviewedId"
       :language="item.languages"
       :status="item.status || ''"
-      @idItem="handleIdItem"
-      @openModal="handleOpenModal"
-      @isApprove="handleAction"
+      :onAction="handleAction"
     />
+
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
 
     <div
@@ -36,60 +62,69 @@
       <NotFoundVue message="Sorry, we dont have collaborators avalible now" />
     </div>
 
-    <Teacher_Collab_Registerd_Modal
-      :isOpen="isModalOpen"
-      @close="isModalOpen = false"
-      :idRequest="IdItem"
+    <Colab_Request_View_Modal
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :idRequest="modalState.requestId"
       @completed="handleCompleted"
-      :typeAction="isAccepeted"
+      :typeAction="modalState.isAccepted"
+      :isRegistered="true"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import Teacher_Colaborator_Card from "./Teacher_Colaborator_Card.vue";
-import { Status } from "../interfaces/ColaboratorRequestInterface";
-import type { ColaboratorRequestFilters } from "../interfaces/ColaboratorRequestFiltersInterface";
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestsFilters } from "../services/ColaboratorServices";
 import type { Collab } from "../interfaces/Colaborator";
-import Teacher_Collab_Registerd_Modal from "./modals/Teacher_Collab_Registerd_Modal.vue";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
+import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
+import { FwbInput } from "flowbite-vue";
+import { FwbSelect } from "flowbite-vue";
+import { useField } from "vee-validate";
+import { countries } from "@core/CountriesArray";
+import { Capacitor } from "@capacitor/core";
 
-const props = defineProps({
-  language: {
-    type: String,
-  },
-  status: {
-    type: String,
-  },
+const MAX_INITIAL = 10;
+
+const allLanguages = computed(() => {
+  const languagesSet = new Set<string>();
+  countries.forEach((country) => {
+    country.languages.forEach((lang) => {
+      languagesSet.add(lang);
+    });
+  });
+  return Array.from(languagesSet).sort();
 });
 
-const filters = ref<ColaboratorRequestFilters>({
-  status: Status.ACCEPTED,
-  languages: "",
+const filteredLanguages = computed(() => {
+  if (!language.value) {
+    return allLanguages.value.slice(0, MAX_INITIAL);
+  }
+  return allLanguages.value.filter((lang) =>
+    lang.toLowerCase().includes(language.value.toLowerCase())
+  );
 });
 
-watch(
-  () => props.language,
-  (newLanguage) => {
-    filters.value.languages = newLanguage;
-    filters.value.page = 1;
-    refetch();
-  }
-);
+const selected = ref("");
 
-watch(
-  () => props.status,
-  (newStatus) => {
-    filters.value.status = newStatus;
-    filters.value.page = 1;
-    refetch();
-  }
-);
+const status = [
+  { value: "ACCEPTED", name: "Accepted" },
+  { value: "REJECTED", name: "Rejected" },
+];
+
+const isNative = Capacitor.isNativePlatform();
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
+
+const {
+  value: language,
+  errorMessage: languageError,
+  handleBlur: languageBlur,
+} = useField<string>("language");
 
 const showScrollTop = ref(false);
 
@@ -102,11 +137,16 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<Collab>, Error>({
-  queryKey: computed(() => ["Request_Audios", filters]),
+  queryKey: computed(() => [
+    "Registers_Collabs",
+    language.value,
+    selected.value,
+  ]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetColaboratorRequestsFilters({
-      ...filters.value,
+      languages: language.value,
+      status: selected.value,
       page,
       limit: 5,
     });
@@ -142,21 +182,23 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-const isModalOpen = ref(false);
-const handleOpenModal = (shouldOpen: boolean) => {
-  isModalOpen.value = shouldOpen;
-};
+const modalState = reactive({
+  isOpen: false,
+  isAccepted: false,
+  requestId: "",
+});
 
-const IdItem = ref("");
-const handleIdItem = (id: string) => {
-  IdItem.value = id;
+const handleAction = ({
+  id,
+  isAccepted,
+}: {
+  id: string;
+  isAccepted: boolean;
+}) => {
+  modalState.requestId = id;
+  modalState.isAccepted = isAccepted;
+  modalState.isOpen = true;
 };
-
-const isAccepeted = ref(false);
-const handleAction = (action: boolean) => {
-  isAccepeted.value = action;
-};
-
 const handleCompleted = () => {
   refetch();
 };

@@ -8,63 +8,66 @@
           <small>Category: {{ props.category }}</small>
         </span>
       </p>
-      <div class="w-full flex flex-col">
-        <Btn_Colab_Request
-          accept-icon="pi-cloud-upload"
-          accept-text="Review request"
-          reject-icon="pi-trash"
-          reject-text="Reject"
-          accept-path="/request/colaborator/view/moderator"
-          :id_item="props.id_item || ''"
-          @accept="onAccept"
-          @idItem="onItemId"
-          @openModal="onOpenModal"
-          @isAccepted="onIsAccepted"
-        />
-      </div>
+      <fwb-button-group class="flex justify-between gap-4">
+        <fwb-button
+          @click="handleAction(false)"
+          class="w-full flex justify-center gap-2 border-[#FF0000] rounded-lg!"
+          color="light"
+          ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
+        </fwb-button>
+        <fwb-button
+          @click="HandleViewRequest(props.id_item)"
+          class="w-full flex justify-center gap-2 rounded-lg!"
+          color="green"
+          ><i class="pi pi-cloud-upload"></i> <span>Review</span>
+        </fwb-button>
+      </fwb-button-group>
     </div>
   </FwbCard>
 </template>
 
 <script setup lang="ts">
-import Btn_Colab_Request from "@shared/Components/Btn_Colab_Request.vue";
-import { FwbCard } from "flowbite-vue"; //fbw_CARD tiene resrecciones con el w-full
+import { FwbCard, FwbButtonGroup, FwbButton } from "flowbite-vue";
+import type { PropType } from "vue";
+import { useRouter } from "vue-router";
 const props = defineProps({
   id_item: {
     type: String,
+    required: true,
   },
   user: {
     type: String,
+    required: true,
   },
   category: {
     type: String,
+    required: true,
   },
   language: {
     type: String,
+    required: true,
+  },
+  onAction: {
+    type: Function as PropType<
+      (payload: { id: string; isAccepted: boolean }) => void
+    >,
+    required: false,
   },
 });
 
-const emit = defineEmits<{
-  idItem: [itemId: string];
-  openModal: [isModalOpen: boolean];
-  isAccepted: [isAccepeted: boolean];
-  accept: [itemId: string];
-}>();
-
-const onAccept = (itemId: string) => {
-  emit("accept", itemId);
+const handleAction = (isAccepted: boolean) => {
+  props.onAction?.({
+    id: props.id_item!,
+    isAccepted,
+  });
 };
 
-const onItemId = (itemId: string) => {
-  emit("idItem", itemId);
-};
-
-const onOpenModal = (isModalOpen: boolean) => {
-  emit("openModal", isModalOpen);
-};
-
-const onIsAccepted = (isAccepeted: boolean) => {
-  emit("isAccepted", isAccepeted);
+const router = useRouter();
+const HandleViewRequest = (id: string) => {
+  router.push({
+    name: "Collaborator_Request_View",
+    params: { id: id },
+  });
 };
 </script>
 
