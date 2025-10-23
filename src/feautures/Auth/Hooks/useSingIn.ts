@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/vue-query";
 import type { LoginForm, singInResponse } from "../Interfaces";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
-import type { ApiError } from "@core/types/ApiError";
+import type { ApiError } from "../../../Core/types/ApiError";
 import { singIn } from "../Services/AuthServices";
 
 export const UseSingIn = () => {

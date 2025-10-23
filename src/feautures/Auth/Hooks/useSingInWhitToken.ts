@@ -1,15 +1,17 @@
 import { useMutation } from "@tanstack/vue-query";
+import type { singInResponse } from "../Interfaces";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
-import { requestRecoveryCode } from "../Services/AuthServices";
+import { loginWithToken } from "../Services/AuthServices";
 
-export const UseRequestCode = () => {
+export const UseSingInWithToken = () => {
   const mutation = useMutation({
-    mutationFn: (email: string) =>
-      toast.promise(requestRecoveryCode(email), {
+    mutationFn: () =>
+      toast.promise(loginWithToken(), {
         loading: "Please wait...",
-        success: (message: string) => h("span", `${message}`),
+        success: (response: singInResponse) =>
+          h("span", `Welcome back, ${response.user.fullName}!`),
         error: (error: ApiError) => h("span", `${error.message}`),
       }),
   });

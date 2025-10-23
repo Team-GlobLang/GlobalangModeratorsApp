@@ -2,7 +2,7 @@
   <div
     class="fixed bottom-0 left-0 z-50 w-full bg-white shadow-md border-t border-gray-200"
   >
-    <FwbButtonGroup class="flex justify-around w-full h-20">
+    <FwbButtonGroup class="flex justify-around w-full h-14">
       <FwbButton
         v-for="item in navItems"
         :key="item.routeName"
@@ -17,7 +17,7 @@
         <i
           :class="`${
             item.icon
-          } text-4xl! transition-transform duration-500 ease-in-out ${
+          } text-2xl! transition-transform duration-500 ease-in-out ${
             selectedSegment === item.segment ? 'rotate-6' : 'rotate-0'
           }`"
         ></i>

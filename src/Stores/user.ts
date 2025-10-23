@@ -24,5 +24,9 @@ export const userStore = reactive({
   logout() {
     this.user = null;
     localStorage.removeItem("user");
+    localStorage.removeItem("uuid");
+    localStorage.removeItem("refT");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("rememberMe");
   },
 });

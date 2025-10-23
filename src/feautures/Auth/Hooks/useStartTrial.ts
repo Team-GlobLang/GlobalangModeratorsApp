@@ -2,14 +2,14 @@ import { useMutation } from "@tanstack/vue-query";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
-import { requestRecoveryCode } from "../Services/AuthServices";
+import { startTrial } from "../Services/AuthServices";
 
-export const UseRequestCode = () => {
+export const useStartTrial = () => {
   const mutation = useMutation({
-    mutationFn: (email: string) =>
-      toast.promise(requestRecoveryCode(email), {
+    mutationFn: () =>
+      toast.promise(startTrial(), {
         loading: "Please wait...",
-        success: (message: string) => h("span", `${message}`),
+        success: () => h("span", `Free trial claimed`),
         error: (error: ApiError) => h("span", `${error.message}`),
       }),
   });
