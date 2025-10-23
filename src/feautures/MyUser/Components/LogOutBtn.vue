@@ -27,6 +27,6 @@ const router = useRouter();
 
 const logOut = () => {
   userStore.logout();
-  router.replace({ name: "start" });
+  router.replace({ name: "StartPage" });
 };
 </script>
