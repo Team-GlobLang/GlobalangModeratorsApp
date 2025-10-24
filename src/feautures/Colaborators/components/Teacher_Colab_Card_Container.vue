@@ -117,7 +117,7 @@ const status = [
   { value: "REJECTED", name: "Rejected" },
 ];
 
-const isNative = Capacitor.isNativePlatform();
+const isNative = !Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const {

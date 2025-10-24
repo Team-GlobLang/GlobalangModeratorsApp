@@ -127,7 +127,7 @@ const status = [
   { value: "0", name: "Rejected" },
 ];
 
-const isNative = Capacitor.isNativePlatform();
+const isNative = !Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const showScrollTop = ref(false);

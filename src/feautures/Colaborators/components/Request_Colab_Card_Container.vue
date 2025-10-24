@@ -144,7 +144,7 @@ const colaboratorsRequest = computed(
   () => data.value?.pages.flatMap((page) => page.data) ?? []
 );
 
-const isNative = Capacitor.isNativePlatform();
+const isNative = !Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const onScroll = async () => {

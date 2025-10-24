@@ -6,7 +6,7 @@ import { useRoute } from "vue-router";
 import { Toaster } from "vue3-hot-toast";
 const route = useRoute();
 const showBottomBar = computed(() => route.meta.showBottomBar !== false);
-const isNative = Capacitor.isNativePlatform();
+const isNative = !Capacitor.isNativePlatform();
 
 const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 </script>
