@@ -22,7 +22,7 @@ import RegisterModeradorMForm from "../../Auth/Components/Modals/RegisterModerad
 const breadCrumbItems = [
   {
     label: "Home",
-    route: "Home_Moderator",
+    route: "Home",
     isHome: true,
   },
   {

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-col items-center gap-3">
     <div class="w-full p-2">
-      <!-- <BreadCrumb :items="breadcrumbItems" /> -->
+      <BreadCrumb :items="breadcrumbItems" />
     </div>
     <div class="w-11/12 p-4 bg-white rounded-2xl shadow-md">
       <div class="flex justify-between items-center mb-6">
@@ -107,10 +107,17 @@ import type { QuizQuestion } from "../interfaces/QuestionQuizType";
 import type { Quiz } from "../interfaces/QuizType";
 import { computed } from "vue";
 import { FwbButton } from "flowbite-vue";
-//import BreadCrumb from "@layouts/BreadCrumb.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
 const route = useRoute();
 const quizId = route.params.id as string;
+
+const breadcrumbItems = computed(() => [
+  { label: "Home", route: "Home", isHome: true },
+  { label: "Quizzes", route: "Quizzes" },
+  { label: "Registered", route: "Quizzes_Registered" },
+  { label: "Review " },
+]);
 
 const { data: quizData, isPending: quizPending } = useQuery<Quiz>({
   queryKey: [`quiz-${quizId}`],

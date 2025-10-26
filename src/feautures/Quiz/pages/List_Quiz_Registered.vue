@@ -15,7 +15,7 @@ import Quiz_Registered_Card_Container from "../components/Quiz_Registered_Card_C
 const breadCrumbItems = [
   {
     label: "Home",
-    route: "Home_Moderator",
+    route: "Home",
     isHome: true,
   },
   {

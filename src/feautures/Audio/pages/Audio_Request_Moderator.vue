@@ -12,7 +12,7 @@ import BreadCrumb from "@layouts/BreadCrumb.vue";
 const breadCrumbItems = [
   {
     label: "Home",
-    route: "Home_Moderator",
+    route: "Home",
     isHome: true,
   },
   {

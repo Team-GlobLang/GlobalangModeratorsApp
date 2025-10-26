@@ -1,6 +1,6 @@
 <template>
   <div class="p-5 h-screen w-full flex flex-col">
-    <div class="flex">
+    <div class="flex flex-col gap-4">
       <div class="w-full">
         <BreadCrumb :items="breadcrumbItems" />
       </div>
@@ -114,6 +114,9 @@ const finishQuiz = () => {
 
 const breadcrumbItems = computed(() => [
   { label: "Home", route: "Home", isHome: true },
+  { label: "Quizzes", route: "Quizzes" },
+  { label: "Request", route: "Request_Quiz" },
+  { label: "Review " },
 ]);
 
 const formatTime = (seconds: number) => {
