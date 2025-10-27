@@ -13,6 +13,7 @@
         :fileUrl="audio.fileUrl"
         :status="audio.approved ?? false"
         :onAction="handleAction"
+        :country="audio.country"
       />
     </div>
 

@@ -6,11 +6,6 @@
       </div>
 
       <div class="w-11/12 mx-auto flex flex-col gap-3">
-        <div class="flex justify-end">
-          <FwbButton @click="visible = true" color="green">
-            Register a Moderator
-          </FwbButton>
-        </div>
         <FwbInput
           list="countries"
           v-model="country"
@@ -45,17 +40,19 @@
         />
       </div>
     </div>
-  <section class="w-full p-2 flex flex-col gap-2 items-center rounded-lg">
-    <div class="flex justify-end w-11/12">
-      <FwbButton @click="visible = true" color="green"
-        >Register a Moderator</FwbButton
-      >
-    </div>
+    <section class="w-full p-2 flex flex-col gap-2 items-center rounded-lg">
+      <User_Registered_Card_Container :country="country" :email="email" />
 
-    <User_Registered_Card_Container :country="country" :email="email"/>
-
-    <RegisterModeradorMForm v-model:visible="visible" />
-  </section>
+      <RegisterModeradorMForm v-model:visible="visible" />
+    </section>
+    <FwbButton
+      @click="visible = true"
+      color="green"
+      pill
+      class="fixed bottom-18 left-2 w-12 h-12 shadow-lg flex items-center justify-center transition text-xl"
+    >
+      <i class="pi pi-user-plus"></i>
+    </FwbButton>
   </div>
 </template>
 

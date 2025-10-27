@@ -96,6 +96,7 @@ const selected = ref("");
 const status = [
   { value: "ACCEPTED", name: "Accepted" },
   { value: "REJECTED", name: "Rejected" },
+  { value: "", name: "All" },
 ];
 
 const isNative = !Capacitor.isNativePlatform();

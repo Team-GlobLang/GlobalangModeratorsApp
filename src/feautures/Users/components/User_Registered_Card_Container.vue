@@ -1,14 +1,16 @@
 <template>
-  <div class="flex flex-col gap-4 items-center w-11/12">
+  <div class="flex flex-col gap-4 items-center w-full">
     <Users_Registered_Card
       v-if="Users.length > 0"
       v-for="item in Users"
       :key="item.id"
       :user="item.fullName"
       :age="calculateAge(item.birthDate)"
+      :role="item.role"
       :email="item.email"
       :suscripcion="item.membership || 'Free trial'"
-      end_date="27/11/2026"
+      :end_date="item.membershipExpiration"
+      :active="item.isActived"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />

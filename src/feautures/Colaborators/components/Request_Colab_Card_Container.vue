@@ -76,6 +76,7 @@ const {
       languages: props.language || undefined,
       page,
       limit: 6,
+      status: "PENDING"
     });
   },
   initialPageParam: 1,

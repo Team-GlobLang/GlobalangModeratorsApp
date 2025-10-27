@@ -8,4 +8,8 @@ export interface User {
   membership?: string;
   updatedAt: Date;
   role: string;
+  membershipExpiration: string;
+  membershipStartDate: string;
+  membershipRenewDate: string;
+  isActived: boolean;
 }

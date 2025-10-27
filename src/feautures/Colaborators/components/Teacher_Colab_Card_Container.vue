@@ -2,12 +2,11 @@
   <div class="flex flex-col gap-4 items-center w-11/12">
     <Teacher_Colaborator_Card
       v-if="colaboratorRequests.length > 0"
-      v-for="item in colaboratorRequests"
-      :key="item.id"
+      v-for="item in colaboratorRequests.filter(r => r.status !== 'PENDING')" :key="item.id"
       :id="item.id"
       :user="item.fullName"
       :category="item.category"
-      :aprobe-by="item.reviewedId"
+      :aprobe-by="item.reviewedName"
       :language="item.languages"
       :status="item.status || ''"
       :onAction="handleAction"

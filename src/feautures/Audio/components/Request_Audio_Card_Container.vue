@@ -10,6 +10,7 @@
       :phrase="request.text"
       :fileUrl="request.fileUrl"
       :onAction="handleAction"
+      :country="request.country"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />

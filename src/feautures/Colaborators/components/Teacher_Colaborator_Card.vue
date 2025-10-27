@@ -5,7 +5,7 @@
         <small class="text-lg font-bold">{{ props.user }}</small>
         <small class="text-base font-light">Language: {{ props.language }}</small>
         <small class="text-base font-light">Category: {{ props.category }}</small>
-        <small class="text-base font-light">Approve by: {{ props.aprobeBy }}</small>
+        <small class="text-base font-light">Reviewed by: {{ props.aprobeBy }}</small>
       </span>
       <FwbButton
         v-if="props.status != 'REJECTED'"
