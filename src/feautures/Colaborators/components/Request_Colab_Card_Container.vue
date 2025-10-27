@@ -1,29 +1,5 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
-    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB]">
-      <FwbInput
-        list="languages"
-        v-model="language"
-        type="text"
-        :validation-status="languageError ? 'error' : undefined"
-        @blur="languageBlur"
-        label="Choose a language"
-        placeholder="Ej: Spanish, English"
-      >
-        <template #suffix>
-          <span class="pi pi-language"></span>
-        </template>
-        <template #validationMessage>
-          <span class="font-medium">{{ languageError }} </span>
-        </template>
-      </FwbInput>
-
-      <datalist id="languages">
-        <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-          {{ lang }}
-        </option>
-      </datalist>
-    </div>
     <Request_Colaborator_Card
       v-if="colaboratorsRequest.length > 0"
       v-for="item in colaboratorsRequest"
@@ -79,37 +55,8 @@ import type { Collab } from "../interfaces/Colaborator";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
-import { countries } from "@core/CountriesArray";
-import { FwbInput } from "flowbite-vue";
-import { useField } from "vee-validate";
-import { Capacitor } from "@capacitor/core";
 
-const MAX_INITIAL = 10;
-
-const allLanguages = computed(() => {
-  const languagesSet = new Set<string>();
-  countries.forEach((country) => {
-    country.languages.forEach((lang) => {
-      languagesSet.add(lang);
-    });
-  });
-  return Array.from(languagesSet).sort();
-});
-
-const filteredLanguages = computed(() => {
-  if (!language.value) {
-    return allLanguages.value.slice(0, MAX_INITIAL);
-  }
-  return allLanguages.value.filter((lang) =>
-    lang.toLowerCase().includes(language.value.toLowerCase())
-  );
-});
-
-const {
-  value: language,
-  errorMessage: languageError,
-  handleBlur: languageBlur,
-} = useField<string>("language");
+const props = defineProps<{ language: string | null }>();
 
 const showScrollTop = ref(false);
 
@@ -122,11 +69,11 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<Collab>, Error>({
-  queryKey: computed(() => ["Request_Collab", language.value]),
+  queryKey: computed(() => ["Request_Collab", props.language]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetColaboratorRequestsFilters({
-      languages: language.value,
+      languages: props.language || undefined,
       page,
       limit: 6,
     });
@@ -144,8 +91,6 @@ const colaboratorsRequest = computed(
   () => data.value?.pages.flatMap((page) => page.data) ?? []
 );
 
-const isNative = !Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const onScroll = async () => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
