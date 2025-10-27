@@ -33,19 +33,19 @@ import { FwbCard } from "flowbite-vue";
 const props = defineProps({
   fullName: {
     type: String,
-    required: true,
+    
   },
   position: {
     type: Number,
-    required: true,
+    
   },
   totalPoints: {
     type: Number,
-    required: true,
+    
   },
   quizzesCompleted: {
     type: Number,
-    required: true,
+    
   },
 });
 </script>

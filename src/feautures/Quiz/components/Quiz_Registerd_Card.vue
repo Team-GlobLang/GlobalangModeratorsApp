@@ -50,11 +50,11 @@ const props = defineProps({
   },
   id: {
     type: String,
-    required: true,
+    
   },
   status: {
     type: Boolean,
-    required: true,
+    
   },
   onAction: {
     type: Function as PropType<

@@ -4,8 +4,12 @@
       <p>
         <small class="font-bold text-lg">{{ props.user }}</small>
         <span class="flex flex-col font-light text-sm gap-0.5">
-          <small class="font-light text-base">Language: {{ props.language }}</small>
-          <small class="font-light text-base">Category: {{ props.category }}</small>
+          <small class="font-light text-base"
+            >Language: {{ props.language }}</small
+          >
+          <small class="font-light text-base"
+            >Category: {{ props.category }}</small
+          >
         </span>
       </p>
       <fwb-button-group class="flex justify-between gap-4">
@@ -37,15 +41,12 @@ const props = defineProps({
   },
   user: {
     type: String,
-    required: true,
   },
   category: {
     type: String,
-    required: true,
   },
   language: {
     type: String,
-    required: true,
   },
   onAction: {
     type: Function as PropType<

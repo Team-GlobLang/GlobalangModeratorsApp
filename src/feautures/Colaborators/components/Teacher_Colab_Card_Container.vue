@@ -2,7 +2,8 @@
   <div class="flex flex-col gap-4 items-center w-11/12">
     <Teacher_Colaborator_Card
       v-if="colaboratorRequests.length > 0"
-      v-for="item in colaboratorRequests.filter(r => r.status !== 'PENDING')" :key="item.id"
+      v-for="item in colaboratorRequests" 
+      :key="item.id"
       :id="item.id"
       :user="item.fullName"
       :category="item.category"
@@ -57,7 +58,7 @@ import type { PaginatedResponse } from "@ComonResponse";
 import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
 
 const props = defineProps<{
-  language: string | null;
+  language: string | undefined;
   selected: string;
 }>();
 

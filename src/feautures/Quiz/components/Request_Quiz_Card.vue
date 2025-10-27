@@ -4,7 +4,9 @@
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
         <small class="font-light text-base">Title: {{ props.title }}</small>
-        <small class="font-light text-base">Number of questions: {{ props.questionsNUmber }}</small>
+        <small class="font-light text-base"
+          >Number of questions: {{ props.questionsNUmber }}</small
+        >
         <small class="font-light text-base">Country: {{ props.country }}</small>
       </span>
       <fwb-button-group class="flex justify-between gap-4">

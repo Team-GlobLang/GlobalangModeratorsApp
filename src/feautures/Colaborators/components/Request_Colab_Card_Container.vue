@@ -56,7 +56,7 @@ import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
 
-const props = defineProps<{ language: string | null }>();
+const props = defineProps<{ language: string | undefined}>();
 
 const showScrollTop = ref(false);
 

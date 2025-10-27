@@ -3,9 +3,11 @@
     class="relative w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
   >
     <span
-      class="absolute top-4 right-2 px-3 py-1 text-xs font-semibold rounded-full"
+      class="absolute top-2 right-2 px-3 py-1 text-xs font-semibold rounded-full uppercase"
       :class="
-        props.active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+        props.active
+          ? 'bg-green-100 text-green-700 border border-green-300'
+          : 'bg-red-100 text-red-700 border border-red-300'
       "
     >
       {{ props.active ? "Active" : "Inactive" }}
@@ -27,7 +29,7 @@
         </span>
       </p>
       <div class="flex w-full justify-between">
-        <FwbButton color="red" outline>Deactive account</FwbButton>
+        <FwbButton color="red" outline>Deactivate account</FwbButton>
         <FwbButton>Change Suscription</FwbButton>
       </div>
     </div>

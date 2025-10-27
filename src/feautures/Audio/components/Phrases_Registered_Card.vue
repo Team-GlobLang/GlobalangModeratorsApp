@@ -70,18 +70,18 @@ const props = defineProps({
   },
   itemId: {
     type: String,
-    required: true,
+    
   },
   fileUrl: {
     type: String,
   },
   status: {
     type: Boolean,
-    required: true,
+    
   },
   country: {
     type: String,
-    required: true,
+    
   },
   onAction: {
     type: Function as PropType<
