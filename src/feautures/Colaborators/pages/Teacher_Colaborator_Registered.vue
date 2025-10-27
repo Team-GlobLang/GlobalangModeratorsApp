@@ -1,6 +1,6 @@
 <template>
   <div>
-   <div class="sticky z-40 bg-[#F1F4FB] w-full pb-3" :class="stickyTopPading">
+    <div class="sticky z-40 bg-[#F1F4FB] w-full pb-3" :class="stickyTopPading">
       <div class="w-full p-2">
         <BreadCrumb :items="breadCrumbItems" />
       </div>
@@ -36,13 +36,11 @@
         />
       </div>
     </div>
-  <section
-    class="jw-full p-2 flex flex-col gap-2 justify-center items-center rounded-lg"
-  >
-    <Teacher_Colab_Card_Container
-    :language="language"
-    :selected="selected" />
-  </section>
+    <section
+      class="jw-full p-2 flex flex-col gap-2 justify-center items-center rounded-lg"
+    >
+      <Teacher_Colab_Card_Container :language="language" :selected="selected" />
+    </section>
   </div>
 </template>
 
@@ -99,7 +97,7 @@ const status = [
   { value: "", name: "All" },
 ];
 
-const isNative = !Capacitor.isNativePlatform();
+const isNative = Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const {
@@ -107,7 +105,6 @@ const {
   errorMessage: languageError,
   handleBlur: languageBlur,
 } = useField<string>("language");
-
 </script>
 
 <style scoped></style>
