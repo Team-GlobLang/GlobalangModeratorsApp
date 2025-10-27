@@ -2,10 +2,10 @@
   <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <span class="flex flex-col font-light text-sm">
-        <small class="text-md font-bold">{{ props.phrase }}</small>
-        <small>Meaning: {{ props.meaning }} </small>
-        <small>Created by: {{ props.name }} </small>
-        <small>Approve by: {{ props.name }} </small>
+        <small class="text-lg font-bold">{{ props.phrase }}</small>
+        <small class="text-base font-light">Meaning: {{ props.meaning }} </small>
+        <small class="text-base font-light">Created by: {{ props.name }} </small>
+        <small class="text-base font-light">Approve by: {{ props.name }} </small>
       </span>
 
       <div class="w-full flex text-sm gap-4">

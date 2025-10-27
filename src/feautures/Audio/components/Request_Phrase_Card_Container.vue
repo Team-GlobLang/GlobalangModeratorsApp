@@ -1,46 +1,5 @@
 <template>
   <div class="flex flex-col items-center w-11/12">
-    <div
-      :class="stickyTopPading"
-      class="w-full flex flex-col items-center sticky z-40 bg-[#F1F4FB] pb-3"
-    >
-      <div class="w-full">
-        <FwbInput
-          list="countries"
-          v-model="country"
-          type="text"
-          :validation-status="countryError ? 'error' : undefined"
-          label="Contry"
-          placeholder="Ej: Costa Rica"
-        >
-          <template #suffix>
-            <span class="pi pi-home"></span>
-          </template>
-          <template #validationMessage>
-            <span class="font-medium">{{ countryError }} </span>
-          </template>
-        </FwbInput>
-
-        <datalist id="countries">
-          <option
-            v-for="countryItem in filteredCountries"
-            :key="countryItem.code"
-            :value="countryItem.name"
-          >
-            {{ countryItem.name }}
-          </option>
-        </datalist>
-      </div>
-
-      <div class="w-full">
-        <FwbSelect
-          v-model="selected"
-          :options="status"
-          label="Choose a status"
-          placeholder=""
-        />
-      </div>
-    </div>
     <div class="flex flex-col w-full gap-4">
       <Phrases_Registered_Card
         v-if="audiosRegistered.length > 0"
@@ -101,35 +60,11 @@ import type { PaginatedResponse } from "@ComonResponse";
 import { GetAllAudiosByFilters } from "@shared/Service/AudioService";
 import type { Short } from "@shared/Interfaces/Short";
 import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
-import { FwbInput } from "flowbite-vue";
-import { FwbSelect } from "flowbite-vue";
-import { useField } from "vee-validate";
-import { countries } from "@core/CountriesArray";
-import { Capacitor } from "@capacitor/core";
 
-const MAX_INITIAL = 10;
-
-const filteredCountries = computed(() => {
-  if (!country.value) {
-    return countries.slice(0, MAX_INITIAL);
-  }
-  return countries.filter((c) =>
-    c.name.toLowerCase().includes(country.value.toLowerCase())
-  );
-});
-
-const { value: country, errorMessage: countryError } =
-  useField<{ country: string }["country"]>("country");
-
-const selected = ref("1");
-const status = [
-  { value: "1", name: "Approved" },
-  { value: "0", name: "Rejected" },
-];
-
-const isNative = !Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
-
+const props = defineProps<{
+  country: string | null;
+  selected: string;
+}>();
 const showScrollTop = ref(false);
 
 const {
@@ -143,14 +78,14 @@ const {
 } = useInfiniteQuery<PaginatedResponse<Short>, Error>({
   queryKey: computed(() => [
     "Registered_Audios",
-    country.value,
-    selected.value,
+    props.country,
+    props.selected,
   ]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetAllAudiosByFilters({
-      country: country.value || undefined,
-      approved: selected.value === "1" ? true : false,
+      country: props.country || undefined,
+      approved: props.selected === "1" ? true : false,
       page,
       limit: 5,
     });
