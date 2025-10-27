@@ -2,10 +2,10 @@
   <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <span class="flex flex-col font-light text-sm">
-        <small class="text-md font-bold">{{ props.user }}</small>
-        <small>Language: {{ props.language }}</small>
-        <small>Category: {{ props.category }}</small>
-        <small>Approve by: {{ props.aprobeBy }}</small>
+        <small class="text-lg font-bold">{{ props.user }}</small>
+        <small class="text-base font-light">Language: {{ props.language }}</small>
+        <small class="text-base font-light">Category: {{ props.category }}</small>
+        <small class="text-base font-light">Approve by: {{ props.aprobeBy }}</small>
       </span>
       <FwbButton
         v-if="props.status != 'REJECTED'"
