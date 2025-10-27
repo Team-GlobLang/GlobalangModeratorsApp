@@ -63,7 +63,7 @@ import type { Short } from "@shared/Interfaces/Short";
 import Audio_Request_Modal from "./modals/Audio_Request_Modal.vue";
 
 const props = defineProps<{
-  country: string | null;
+  country: string | undefined;
   selected: string;
 }>();
 const showScrollTop = ref(false);

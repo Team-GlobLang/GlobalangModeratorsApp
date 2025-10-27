@@ -58,7 +58,7 @@ import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import Review_Quiz_Modal from "./modals/Review_Quiz_Modal.vue";
 
-const props = defineProps<{ country: string }>();
+const props = defineProps<{ country: string | undefined }>();
 const showScrollTop = ref(false);
 
 const {

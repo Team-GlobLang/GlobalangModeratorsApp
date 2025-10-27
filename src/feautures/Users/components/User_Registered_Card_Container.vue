@@ -45,8 +45,8 @@ import type { PaginatedResponse } from "@ComonResponse";
 import NotFound from "@NotFound";
 
 const props = defineProps<{
-  country: string;
-  email: string;
+  country: string | undefined;
+  email: string | undefined;
 }>();
 const showScrollTop = ref(false);
 

@@ -57,7 +57,7 @@ import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 
 const props = defineProps<{
-  country: string | null;
+  country: string | undefined;
 }>();
 const showScrollTop = ref(false);
 

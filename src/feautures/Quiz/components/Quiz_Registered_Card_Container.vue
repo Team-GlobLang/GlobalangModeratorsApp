@@ -60,8 +60,8 @@ import GoToStart from "@components/microcomponents/GoToStart.vue";
 import Review_Quiz_Modal from "./modals/Review_Quiz_Modal.vue";
 
 const props = defineProps<{ 
-  country: string;
-  selected: string;
+  country: string | undefined;
+  selected: string | undefined;
 }>();
 const showScrollTop = ref(false);
 
