@@ -20,7 +20,7 @@
           </div>
         </section>
         <section
-          class="flex bg-white rounded-2xl shadow justify-between p-4 gap-4"
+          class="w-full flex flex-wrap justify-center md:justify-between gap-4 bg-white rounded-2xl shadow p-4"
         >
           <Stats
             v-for="(item, index) in stats"
