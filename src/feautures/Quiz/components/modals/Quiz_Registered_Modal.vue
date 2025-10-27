@@ -34,17 +34,17 @@ import type { QuizChangeStatus } from "../../interfaces/QuizType";
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
+    
   },
 
   typeAction: {
     type: Boolean,
-    required: true,
+    
   },
 
   idRequest: {
     type: String,
-    required: true,
+    
   },
 });
 

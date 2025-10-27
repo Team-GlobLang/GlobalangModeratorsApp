@@ -63,17 +63,17 @@ import Dialog from "primevue/dialog";
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
+    
   },
 
   typeAction: {
     type: Boolean,
-    required: true,
+    
   },
 
   idRequest: {
     type: String,
-    required: true,
+    
   },
   isRegistered: {
     type: Boolean,

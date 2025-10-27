@@ -35,7 +35,7 @@ const props = defineProps({
   },
   id_item: {
     type: String,
-    required: true,
+    
   },
   textColorApprove: {
     type: String,

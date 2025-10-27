@@ -3,10 +3,10 @@
     <div class="flex flex-col gap-2">
       <h2 class="text-lg font-bold">Creado por: {{ props.user }}</h2>
       <span class="flex flex-col font-light">
-        <small>Title: {{ props.title }}</small>
-        <small>Number of questions: {{ props.questionsNUmber }}</small>
-        <small>Country: {{ props.country }}</small>
-        <small>Approve by: {{ props.aprobeBy }}</small>
+        <small class="font-light text-base">Title: {{ props.title }}</small>
+        <small class="font-light text-base">Number of questions: {{ props.questionsNUmber }}</small>
+        <small class="font-light text-base">Country: {{ props.country }}</small>
+        <small class="font-light text-base">Approve by: {{ props.aprobeBy }}</small>
       </span>
       <fwb-button-group class="flex justify-between gap-4">
         <fwb-button
@@ -50,11 +50,11 @@ const props = defineProps({
   },
   id: {
     type: String,
-    required: true,
+    
   },
   status: {
     type: Boolean,
-    required: true,
+    
   },
   onAction: {
     type: Function as PropType<

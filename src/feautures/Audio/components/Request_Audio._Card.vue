@@ -2,41 +2,39 @@
   <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <span class="flex flex-col">
-        <small class="text-md font-bold">Created by: {{ props.name }}</small>
-        <small class="text-sm font-light">Phrase: {{ props.phrase }} </small>
-        <small class="text-sm font-light">Meaning: {{ props.meaning }} </small>
+        <small class="text-lg font-bold">Created by: {{ props.name }}</small>
+        <small class="text-base font-light">From: {{ props.country }} </small>
+        <small class="text-base font-light">Phrase: {{ props.phrase }} </small>
+        <small class="text-base font-light"
+          >Meaning: {{ props.meaning }}
+        </small>
       </span>
 
-      <FwbButton
-        :aria-pressed="localPlaying"
-        :title="localPlaying ? 'Pausar' : 'Reproducir'"
-        @click="toggle"
-        class=""
-      >
-        <p class="flex flex-row items-center justify-center gap-2 text-xs">
-          <span>Reproduce audio</span>
+      <FwbButtonGroup class="flex justify-between gap-2">
+        <FwbButton
+          @click="handleAction(false)"
+          class="rounded-lg!"
+          color="red"
+          outline
+          ><i class="pi pi-trash"></i> <span class="text-black">Reject</span>
+        </FwbButton>
+        <FwbButton @click="handleAction(true)" class="rounded-lg!" color="green"
+          ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
+        </FwbButton>
+        <FwbButton
+          :aria-pressed="localPlaying"
+          :title="localPlaying ? 'Pausar' : 'Reproducir'"
+          @click="toggle"
+          class="rounded-lg!"
+        >
           <i
             class="pi"
             :class="localPlaying ? 'pi-pause-circle' : 'pi-play-circle'"
             style="font-size: 1rem"
           ></i>
-        </p>
-      </FwbButton>
-
-      <fwb-button-group class="flex justify-between gap-4">
-        <fwb-button
-          @click="handleAction(false)"
-          class="w-full flex justify-center gap-2 border-[#FF0000] rounded-lg!"
-          color="light"
-          ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
-        </fwb-button>
-        <fwb-button
-          @click="handleAction(true)"
-          class="w-full flex justify-center gap-2 rounded-lg!"
-          color="green"
-          ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
-        </fwb-button>
-      </fwb-button-group>
+          <span>Play</span>
+        </FwbButton>
+      </FwbButtonGroup>
 
       <audio
         ref="audioRef"
@@ -72,6 +70,10 @@ const props = defineProps({
     requiered: true,
   },
   fileUrl: {
+    type: String,
+    requiered: true,
+  },
+  country: {
     type: String,
     requiered: true,
   },

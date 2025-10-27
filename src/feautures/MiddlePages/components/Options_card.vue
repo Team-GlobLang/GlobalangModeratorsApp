@@ -21,19 +21,19 @@ import { useRouter } from "vue-router";
 const props = defineProps({
   title: {
     type: String,
-    required: true,
+    
   },
   icon: {
     type: String,
-    required: true,
+    
   },
   description: {
     type: String,
-    required: true,
+    
   },
   routeName: {
     type: String,
-    required: true,
+    
   },
 });
 

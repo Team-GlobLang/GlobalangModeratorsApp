@@ -1,18 +1,18 @@
 <template>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">Full name:</span>
-    <span class="text-left">{{ props.name }}</span>
+    <span class="text-left text-lg font-bold">Full name:</span>
+    <span class="text-left text-base">{{ props.name }}</span>
   </div>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">Email:</span>
-    <span class="text-left">{{ props.email }}</span>
+    <span class="text-left text-lg font-bold">Email:</span>
+    <span class="text-left text-base">{{ props.email }}</span>
   </div>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">Languages spoken:</span>
-    <span class="text-left">{{ props.Languages }}</span>
+    <span class="text-left text-lg font-bold">Languages spoken:</span>
+    <span class="text-left text-base">{{ props.Languages }}</span>
   </div>
   <div class="grid grid-cols-2 w-full">
-    <span class="text-left">Details:</span>
+    <span class="text-left text-lg font-bold">Details:</span>
     <p class="text-left">
       {{ props.message }}
     </p>
