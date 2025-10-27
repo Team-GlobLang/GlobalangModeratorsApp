@@ -3,9 +3,9 @@
     <div class="p-4 flex flex-col gap-2">
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
-        <small>Title: {{ props.title }}</small>
-        <small>Number of questions: {{ props.questionsNUmber }}</small>
-        <small>Country: {{ props.country }}</small>
+        <small class="font-light text-base">Title: {{ props.title }}</small>
+        <small class="font-light text-base">Number of questions: {{ props.questionsNUmber }}</small>
+        <small class="font-light text-base">Country: {{ props.country }}</small>
       </span>
       <fwb-button-group class="flex justify-between gap-4">
         <fwb-button

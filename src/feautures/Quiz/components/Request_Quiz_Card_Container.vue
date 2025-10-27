@@ -1,32 +1,5 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
-    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB]">
-      <FwbInput
-        list="countries"
-        v-model="country"
-        type="text"
-        :validation-status="countryError ? 'error' : undefined"
-        label="Contry"
-        placeholder="Ej: Costa Rica"
-      >
-        <template #suffix>
-          <span class="pi pi-home"></span>
-        </template>
-        <template #validationMessage>
-          <span class="font-medium">{{ countryError }} </span>
-        </template>
-      </FwbInput>
-
-      <datalist id="countries">
-        <option
-          v-for="countryItem in filteredCountries"
-          :key="countryItem.code"
-          :value="countryItem.name"
-        >
-          {{ countryItem.name }}
-        </option>
-      </datalist>
-    </div>
     <Request_Quiz_Card
       v-if="quizList.length > 0"
       v-for="quizz in quizList"
@@ -84,27 +57,8 @@ import type { PaginatedResponse } from "@ComonResponse";
 import NotFoundVue from "@NotFound";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import Review_Quiz_Modal from "./modals/Review_Quiz_Modal.vue";
-import { countries } from "@core/CountriesArray";
-import { FwbInput } from "flowbite-vue";
-import { useField } from "vee-validate";
-import { Capacitor } from "@capacitor/core";
 
-const MAX_INITIAL = 10;
-
-const filteredCountries = computed(() => {
-  if (!country.value) {
-    return countries.slice(0, MAX_INITIAL);
-  }
-  return countries.filter((c) =>
-    c.name.toLowerCase().includes(country.value.toLowerCase())
-  );
-});
-
-const { value: country, errorMessage: countryError } =
-  useField<{ country: string }["country"]>("country");
-
-const isNative = !Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
+const props = defineProps<{ country: string }>();
 const showScrollTop = ref(false);
 
 const {
@@ -116,11 +70,11 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
-  queryKey: computed(() => ["Request_Audios", country.value]),
+  queryKey: computed(() => ["Request_Audios", props.country]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetQuizzesList({
-      country: country.value,
+      country: props.country,
       page,
       limit: 5,
     });
