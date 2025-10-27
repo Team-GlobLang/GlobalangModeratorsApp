@@ -3,20 +3,14 @@
     <template #header> </template>
     <template #body>
       <div class="w-full flex flex-col items-center gap-2">
-        <img
-          src="/Warning.png"
-          alt="WarningImage"
-          class="rounded-full w-1/2"
-        />
+        <img src="/Warning.png" alt="WarningImage" class="rounded-full w-1/2" />
         <span class="text-xl"> Are you sure you want to delete this quiz?</span>
         <span class="text-sm font-bold">This action is irreversible.</span>
       </div>
     </template>
     <template #footer>
       <div class="flex justify-between">
-        <FwbButton @click="closeModal" color="alternative">
-          Cancel
-        </FwbButton>
+        <FwbButton @click="closeModal" color="alternative"> Cancel </FwbButton>
         <FwbButtonn @click="handleAction" :color="typeAction ? 'green' : 'red'">
           {{ typeAction ? "Accept" : "Reject" }}
         </FwbButtonn>
@@ -34,17 +28,15 @@ import type { QuizChangeStatus } from "../../interfaces/QuizType";
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    
   },
 
   typeAction: {
     type: Boolean,
-    
   },
 
   idRequest: {
     type: String,
-    required:true
+    required: true,
   },
 });
 
@@ -60,13 +52,9 @@ const HandleRejected = async () => {
     id: Data.value.id,
     isApproved: Data.value.isApproved,
   };
-  console.log(colaboratorRequestChangeStatus.isApproved);
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
+  mutationChangeRequest.mutate(colaboratorRequestChangeStatus, {
+    onSuccess: () => emit("completed"),
+  });
 };
 
 watch(

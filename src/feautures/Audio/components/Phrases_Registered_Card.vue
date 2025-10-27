@@ -9,9 +9,9 @@
         <small class="text-base font-light">Approve by: {{ props.name }} </small>
       </span>
 
-      <div class="w-full flex gap-4">
-        <FwbButton
-          class="w-full border border-[#FF0000] rounded-md p-2 text-[#FF0000] bg-white"
+      <div class="w-full flex gap-4 justify-around">
+        <FwbButton color="red"
+        outline
           v-if="props.status"
           @click="handleAction(false)"
         >
@@ -25,7 +25,6 @@
           :aria-pressed="localPlaying"
           :title="localPlaying ? 'Pausar' : 'Reproducir'"
           @click="toggle"
-          class="w-full"
         >
           <p class="flex flex-row items-center justify-center gap-2">
             <span>Play audio</span>

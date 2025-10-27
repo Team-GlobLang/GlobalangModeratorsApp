@@ -10,22 +10,20 @@
         </small>
       </span>
 
-      <FwbButtonGroup class="flex justify-between gap-2">
+      <div class="flex justify-between gap-2">
         <FwbButton
           @click="handleAction(false)"
-          class="rounded-lg!"
           color="red"
           outline
           ><i class="pi pi-trash"></i> <span class="text-black">Reject</span>
         </FwbButton>
-        <FwbButton @click="handleAction(true)" class="rounded-lg!" color="green"
+        <FwbButton @click="handleAction(true)" color="green"
           ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
         </FwbButton>
         <FwbButton
           :aria-pressed="localPlaying"
           :title="localPlaying ? 'Pausar' : 'Reproducir'"
           @click="toggle"
-          class="rounded-lg!"
         >
           <i
             class="pi"
@@ -34,7 +32,7 @@
           ></i>
           <span>Play</span>
         </FwbButton>
-      </FwbButtonGroup>
+      </div>
 
       <audio
         ref="audioRef"
@@ -50,7 +48,7 @@
 
 <script setup lang="ts">
 import { ref, watchEffect, type PropType } from "vue";
-import { FwbCard, FwbButtonGroup, FwbButton } from "flowbite-vue";
+import { FwbCard, FwbButton } from "flowbite-vue";
 
 const props = defineProps({
   name: {
