@@ -29,7 +29,7 @@ const props = defineProps({
   },
   route: {
     type: String,
-    
+    required:true
   },
 });
 

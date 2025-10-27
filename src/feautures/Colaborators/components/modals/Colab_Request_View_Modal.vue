@@ -76,7 +76,7 @@ const props = defineProps({
 
   idRequest: {
     type: String,
-    
+    required:true
   },
   isRegistered: {
     type: Boolean,

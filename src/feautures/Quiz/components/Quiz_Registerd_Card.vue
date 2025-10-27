@@ -50,7 +50,7 @@ const props = defineProps({
   },
   id: {
     type: String,
-    
+    required:true
   },
   status: {
     type: Boolean,
