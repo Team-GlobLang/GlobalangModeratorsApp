@@ -35,6 +35,7 @@ const props = defineProps({
   },
   id_item: {
     type: String,
+    required:true
     
   },
 });
