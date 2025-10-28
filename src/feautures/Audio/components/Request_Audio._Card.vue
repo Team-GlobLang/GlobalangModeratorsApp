@@ -1,6 +1,13 @@
 <template>
-  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <FwbCard
+    class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
+  >
     <div class="flex flex-col gap-2">
+      <span
+        class="absolute top-2 right-2 px-3 py-1 text-xs font-semibold rounded-full uppercase bg-gray-100 text-gray-700 border border-gray-300"
+      >
+        Pending
+      </span>
       <span class="flex flex-col">
         <small class="text-lg font-bold">Created by: {{ props.name }}</small>
         <small class="text-base font-light">From: {{ props.country }} </small>
@@ -11,10 +18,7 @@
       </span>
 
       <div class="flex justify-between gap-2">
-        <FwbButton
-          @click="handleAction(false)"
-          color="red"
-          outline
+        <FwbButton @click="handleAction(false)" color="red" outline
           ><i class="pi pi-trash"></i> <span class="text-black">Reject</span>
         </FwbButton>
         <FwbButton @click="handleAction(true)" color="green"
