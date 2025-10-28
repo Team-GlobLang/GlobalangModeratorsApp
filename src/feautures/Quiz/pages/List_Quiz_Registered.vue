@@ -39,8 +39,7 @@
         />
       </div>
     </div>
-   <section
-    class="w-full p-2 flex flex-col gap-2 justify-center items-center rounded-lg"
+   <section  class="w-full flex justify-center"
     >
       <Quiz_Registered_Card_Container 
       :country="country" 

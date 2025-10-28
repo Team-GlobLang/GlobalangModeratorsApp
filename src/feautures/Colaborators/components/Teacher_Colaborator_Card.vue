@@ -1,5 +1,5 @@
 <template>
-  <FwbCard class="relative w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <div class="relative w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <span
       class="absolute top-2 right-2 px-3 py-1 text-xs font-semibold rounded-full uppercase"
       :class="badgeClass"
@@ -17,20 +17,20 @@
 
       <FwbButton
         v-if="props.status !== 'REJECTED'"
-        color="light"
-        class="border-[#FF0000] text-sm"
+        color="red"
+        outline
+        class="text-sm text-black"
         @click="handleAction(false)"
       >
         <i class="pi pi-trash text-[#FF0000]"></i>
         Retire as a {{ props.category }}
       </FwbButton>
     </div>
-  </FwbCard>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { FwbButton } from "flowbite-vue";
-import { FwbCard } from "flowbite-vue";
 import { computed, type PropType } from "vue";
 
 const props = defineProps({

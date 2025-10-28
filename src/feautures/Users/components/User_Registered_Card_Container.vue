@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4 items-center w-full">
+  <div class="flex flex-col gap-4 items-center w-11/12">
     <Users_Registered_Card
       v-if="Users.length > 0"
       v-for="item in Users"
