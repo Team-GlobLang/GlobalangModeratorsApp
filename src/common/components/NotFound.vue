@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col items-center justify-center gap-2">
     <img
       class="rounded-full"
-      src="../../../public/NotFoundImage.png"
+      src="/NotFoundImage.png"
       alt="NotFoundImage"
     />
     <p class="text-xl">
@@ -14,8 +14,7 @@
 <script setup lang="ts">
 const props = defineProps({
   message: {
-    type: String,
-    required: true,
+    type: String
   },
 });
 </script>

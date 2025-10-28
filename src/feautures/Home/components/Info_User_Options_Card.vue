@@ -17,19 +17,19 @@ import { FwbCard } from "flowbite-vue";
 const props = defineProps({
   icon: {
     type: String,
-    required: true,
+    
   },
   color: {
     type: String,
-    required: true,
+    
   },
   text: {
     type: String,
-    required: true,
+    
   },
   route: {
     type: String,
-    required: true,
+    required:true
   },
 });
 

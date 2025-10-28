@@ -15,7 +15,7 @@
     />
     <div class="flex flex-col">
       <span class="text-lg not-first:font-bold text-blue-700 mb-1"
-        >Welcome back,{{ fullName }}!</span
+        >Welcome back, {{ fullName }}!</span
       >
       <span class="text-md">System Moderator</span>
       <span class="text-sm">

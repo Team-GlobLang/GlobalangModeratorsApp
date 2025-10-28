@@ -63,12 +63,10 @@ import Dialog from "primevue/dialog";
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
   },
 
   typeAction: {
     type: Boolean,
-    required: true,
   },
 
   idRequest: {
@@ -111,8 +109,9 @@ const handleReviewShort = async () => {
   };
   const data = toRaw(NewData);
   try {
-    ReviewShorts.mutate(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    ReviewShorts.mutate(data, {
+      onSuccess: () => emit("completed"),
+    });
   } catch {
     console.log("Error al aceptar solicitud");
   }

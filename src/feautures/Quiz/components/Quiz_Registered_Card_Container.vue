@@ -1,34 +1,5 @@
 <template>
   <div class="flex flex-col gap-4 items-center w-11/12">
-    <div :class="stickyTopPading" class="w-full sticky z-40 bg-[#F1F4FB]">
-      <FwbInput
-        list="countries"
-        v-model="country"
-        type="text"
-        :validation-status="countryError ? 'error' : undefined"
-        label="Contry"
-        placeholder="Ej: Costa Rica"
-      >
-        <template #suffix>
-          <span class="pi pi-home"></span>
-        </template>
-        <template #validationMessage>
-          <span class="font-medium">{{ countryError }} </span>
-        </template>
-      </FwbInput>
-
-      <datalist id="countries">
-        <option
-          v-for="countryItem in filteredCountries"
-          :key="countryItem.code"
-          :value="countryItem.name"
-        >
-          {{ countryItem.name }}
-        </option>
-      </datalist>
-
-      <FwbSelect v-model="selected" :options="status" label="Choose a status" />
-    </div>
     <Quiz_Registerd_Card
       v-if="quizList.length > 0"
       v-for="quiz in quizList"
@@ -86,37 +57,12 @@ import Quiz_Registerd_Card from "./Quiz_Registerd_Card.vue";
 import NotFoundVue from "@NotFound";
 import type { PaginatedResponse } from "@ComonResponse";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
-import { countries } from "@core/CountriesArray";
-import { FwbInput } from "flowbite-vue";
-import { FwbSelect } from "flowbite-vue";
-import { useField } from "vee-validate";
-import { Capacitor } from "@capacitor/core";
 import Review_Quiz_Modal from "./modals/Review_Quiz_Modal.vue";
 
-const MAX_INITIAL = 10;
-
-const filteredCountries = computed(() => {
-  if (!country.value) {
-    return countries.slice(0, MAX_INITIAL);
-  }
-  return countries.filter((c) =>
-    c.name.toLowerCase().includes(country.value.toLowerCase())
-  );
-});
-
-const { value: country, errorMessage: countryError } =
-  useField<{ country: string }["country"]>("country");
-
-const selected = ref("1");
-
-const status = [
-  { value: "1", name: "Approved" },
-  { value: "0", name: "Rejected" },
-];
-
-const isNative = Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
-
+const props = defineProps<{ 
+  country: string | undefined;
+  selected: string | undefined;
+}>();
 const showScrollTop = ref(false);
 
 const {
@@ -128,12 +74,12 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
-  queryKey: computed(() => ["Registered_Quiz", country.value, selected.value]),
+  queryKey: computed(() => ["Registered_Quiz", props.country, props.selected]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetQuizzesList({
-      country: country.value,
-      isApproved: selected.value === "1" ? true : false,
+      country: props.country,
+      isApproved: props.selected === "1" ? true : false,
       page,
       limit: 5,
     });

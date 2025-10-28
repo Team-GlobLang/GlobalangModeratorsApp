@@ -72,17 +72,15 @@
 import { ref, watch } from "vue";
 import { UseApprovalQuiz } from "../../hooks/useApprovalQuiz";
 import type { QuizChangeStatus } from "../../interfaces/QuizType";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
   },
 
   typeAction: {
     type: Boolean,
-    required: true,
   },
 
   idRequest: {
@@ -107,21 +105,19 @@ const HandleTypeAction = async () => {
     id: Data.value.id,
     isApproved: Data.value.isApproved,
   };
-  console.log(colaboratorRequestChangeStatus.isApproved);
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
+  mutationChangeRequest.mutate(colaboratorRequestChangeStatus, {
+    onSuccess: () => emit("completed"),
+  });
 };
 
 const router = useRouter();
-
+const route = useRoute();
 const handleRedirect = () => {
-  router.push({
-    name: "Home",
-  });
+  if (route.path.includes("/quizzes/review")) {
+    router.push({ name: "Request_Quiz" });
+  } else {
+    return;
+  }
 };
 
 watch(
@@ -142,6 +138,7 @@ watch(
 
 const emit = defineEmits<{
   close: [];
+  completed: [];
 }>();
 
 const handleAction = () => {
