@@ -1,5 +1,5 @@
 <template>
-  <FwbCard
+  <div
     class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
   >
     <div class="flex flex-col gap-2">
@@ -61,11 +61,10 @@
         @ended="onEnded"
       ></audio>
     </div>
-  </FwbCard>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { FwbCard } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
 
 import { computed, ref, watchEffect, type PropType } from "vue";
