@@ -29,7 +29,18 @@
         </span>
       </p>
       <div class="flex w-full justify-between">
-        <FwbButton color="red" outline>Deactivate account</FwbButton>
+        <FwbButton
+          @click="handleAction(props.active)"
+          :class="
+            props.active
+              ? 'bg-red-100 text-red-700 border border-red-300'
+              : 'bg-green-100 text-green-700 border border-green-300'
+          "
+        >
+          {{
+            props.active ? "Deactivate account" : "Activate account"
+          }}</FwbButton
+        >
         <FwbButton>Change Suscription</FwbButton>
       </div>
     </div>
@@ -37,10 +48,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { FwbButton} from "flowbite-vue";
+import { computed, type PropType } from "vue";
+import { FwbButton } from "flowbite-vue";
 
 const props = defineProps({
+  id: String,
   user: String,
   email: String,
   age: Number,
@@ -48,6 +60,12 @@ const props = defineProps({
   end_date: String,
   role: String,
   active: Boolean,
+  onAction: {
+    type: Function as PropType<
+      (payload: { id: string; isActive: boolean }) => void
+    >,
+    required: false,
+  },
 });
 
 const formattedDate = computed(() => {
@@ -59,4 +77,11 @@ const formattedDate = computed(() => {
     year: "numeric",
   });
 });
+
+const handleAction = (isActive: boolean) => {
+  props.onAction?.({
+    id: props.id!,
+    isActive,
+  });
+};
 </script>

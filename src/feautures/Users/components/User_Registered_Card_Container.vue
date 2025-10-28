@@ -4,6 +4,7 @@
       v-if="Users.length > 0"
       v-for="item in Users"
       :key="item.id"
+      :id="item.id"
       :user="item.fullName"
       :age="calculateAge(item.birthDate)"
       :role="item.role"
@@ -11,6 +12,7 @@
       :suscripcion="item.membership || 'Free trial'"
       :end_date="item.membershipExpiration"
       :active="item.isActived"
+      :onAction="handleAction"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -31,18 +33,26 @@
     <div v-if="!isLoading && Users.length === 0" class="text-center w-1/2 m-4">
       <NotFound message="Sorry, we dont have users avalible now" />
     </div>
+
+    <ActiveAccountModal
+      :isOpen="modalState.isOpen"
+      @close="modalState.isOpen = false"
+      :isActive="modalState.isActive"
+      :idUser="modalState.userId"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import Users_Registered_Card from "./Users_Registered_Card.vue";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import { GetUsersFiltered } from "../services/UserServices";
 import type { User } from "../interfaces/User";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFound from "@NotFound";
+import ActiveAccountModal from "./modals/ActiveAccountModal.vue";
 
 const props = defineProps<{
   country: string | undefined;
@@ -108,6 +118,17 @@ const calculateAge = (birthdate: string | Date): number => {
   return age;
 };
 
+const modalState = reactive({
+  isOpen: false,
+  isActive: false,
+  userId: "",
+});
+
+const handleAction = ({ id, isActive }: { id: string; isActive: boolean }) => {
+  modalState.userId = id;
+  modalState.isActive = isActive;
+  modalState.isOpen = true;
+};
 onMounted(() => {
   window.addEventListener("scroll", onScroll);
 });
