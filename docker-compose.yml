@@ -2,8 +2,6 @@ services:
 
   globalang-main:
     image: ${DOCKER_USER}/main-globalang:latest
-    depends_on:
-      - nats-server
     environment:
       - VIRTUAL_HOST=${GBF_VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${GBF_LETSENCRYPT_HOST}
