@@ -68,7 +68,7 @@ import { countries } from "@core/CountriesArray";
 const breadCrumbItems = [
   {
     label: "Home",
-    route: "Home_Moderator",
+    route: "Home",
     isHome: true,
   },
   {

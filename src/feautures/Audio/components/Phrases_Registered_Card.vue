@@ -1,17 +1,32 @@
 <template>
-  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <FwbCard
+    class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
+  >
     <div class="flex flex-col gap-2">
+      <span
+        class="absolute top-2 right-2 px-3 py-1 text-xs font-semibold rounded-full uppercase"
+        :class="badgeClass"
+      >
+        {{ props.status ? "Accepted" : "Rejected" }}
+      </span>
       <span class="flex flex-col font-light text-sm">
         <small class="text-lg font-bold">{{ props.phrase }}</small>
         <small class="text-base font-light">From: {{ props.country }} </small>
-        <small class="text-base font-light">Meaning: {{ props.meaning }} </small>
-        <small class="text-base font-light">Created by: {{ props.name }} </small>
-        <small class="text-base font-light">Approve by: {{ props.name }} </small>
+        <small class="text-base font-light"
+          >Meaning: {{ props.meaning }}
+        </small>
+        <small class="text-base font-light"
+          >Created by: {{ props.name }}
+        </small>
+        <small class="text-base font-light"
+          >Approve by: {{ props.name }}
+        </small>
       </span>
 
       <div class="w-full flex gap-4 justify-around">
-        <FwbButton color="red"
-        outline
+        <FwbButton
+          color="red"
+          outline
           v-if="props.status"
           @click="handleAction(false)"
         >
@@ -53,7 +68,7 @@
 import { FwbCard } from "flowbite-vue";
 import { FwbButton } from "flowbite-vue";
 
-import { ref, watchEffect, type PropType } from "vue";
+import { computed, ref, watchEffect, type PropType } from "vue";
 const props = defineProps({
   name: {
     type: String,
@@ -69,18 +84,15 @@ const props = defineProps({
   },
   itemId: {
     type: String,
-    
   },
   fileUrl: {
     type: String,
   },
   status: {
     type: Boolean,
-    
   },
   country: {
     type: String,
-    
   },
   onAction: {
     type: Function as PropType<
@@ -133,6 +145,19 @@ const handleAction = (isAccepted: boolean) => {
     isAccepted,
   });
 };
+
+const badgeClass = computed(() => {
+  switch (props.status) {
+    case true:
+      return "bg-green-100 text-green-700 border border-green-300";
+    case false:
+      return "bg-red-100 text-red-700 border border-red-300";
+    case undefined:
+      return "bg-yellow-100 text-yellow-700 border border-yellow-300";
+    default:
+      return "bg-gray-100 text-gray-700 border border-gray-300";
+  }
+});
 </script>
 
 <style scoped></style>

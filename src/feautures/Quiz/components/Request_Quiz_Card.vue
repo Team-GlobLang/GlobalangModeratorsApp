@@ -1,6 +1,13 @@
 <template>
-  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <FwbCard
+    class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
+  >
     <div class="flex flex-col gap-2">
+      <span
+        class="absolute top-2 right-2 px-3 py-1 text-xs font-semibold rounded-full uppercase bg-gray-100 text-gray-700 border border-gray-300"
+      >
+        Pending
+      </span>
       <h3 class="text-lg font-bold">Created by: {{ props.user }}</h3>
       <span class="flex flex-col font-light">
         <small class="font-light text-base">Title: {{ props.title }}</small>

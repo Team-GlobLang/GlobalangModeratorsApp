@@ -28,7 +28,7 @@ const breadCrumbItems = [
     route: "Collaborators",
   },
   {
-    label: "Requests",
+    label: "Review",
     route: "Request_Collaborator",
   },
 ];
