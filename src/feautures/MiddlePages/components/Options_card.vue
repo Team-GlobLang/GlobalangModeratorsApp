@@ -1,47 +1,36 @@
 <template>
-  <FwbCard class="p-2">
+  <div class="w-full">
     <div
-      @click="goto(props.routeName)"
-      class="w-full rounded-lg p-4 bg-[#f6f6f6] shadow-gray-300 shadow-md flex items-center justify-between gap-10"
+      :class="`p-5 flex items-center gap-6 w-full ${props.color} rounded-xl p-4`"
     >
-      <div class="flex flex-col gap-2 text-xl items-center">
-        <i :class="`pi ${props.icon}`"></i>
-        <small class="font-bold">{{ props.title }}</small>
+      <i :class="` ${props.icon} text-5xl`"></i>
+      <div>
+        <h5 class="mb-2 text-xl font-bold tracking-black">
+          {{ props.title }}
+        </h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400">
+          {{ props.description }}
+        </p>
       </div>
-      <p class="text-lg text-start">{{ props.description }}</p>
     </div>
-  </FwbCard>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-
-// import { FwbCard } from "flowbite-vue";
-
 const props = defineProps({
   title: {
     type: String,
-    required: true,
-  },
-  icon: {
-    type: String,
-    required: true,
   },
   description: {
     type: String,
-    required: true,
   },
-  routeName: {
+  color: {
     type: String,
-    required: true,
+  },
+  icon: {
+    type: String,
   },
 });
-
-const router = useRouter();
-
-function goto(pathName: string) {
-  router.push({ name: pathName });
-}
 </script>
 
 <style scoped></style>

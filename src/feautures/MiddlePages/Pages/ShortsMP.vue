@@ -1,21 +1,39 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-6 h-[80dvh] px-4">
-    <router-link
-      :to="{ name: 'Request_Audio' }"
-      class="flex flex-col items-center justify-center w-64 h-32 bg-pink-100 rounded-xl hover:bg-pink-200 shadow-md transition transform hover:-translate-y-1"
-    >
-      <i class="fa-solid fa-headphones text-4xl mb-2"></i>
-      <span class="text-lg font-medium">Pending Shorts</span>
+  <BreadCrumb :items="breadCrumbItems" />
+  <div
+    class="flex flex-col w-full items-center justify-center gap-6 h-[80dvh] px-4"
+  >
+    <router-link :to="{ name: 'Request_Audio' }" class="w-full">
+      <Options_card
+        title="Pending phrases"
+        description="Review all shorts request"
+        icon="fa-solid fa-headphones"
+        color="bg-pink-100"
+      />
     </router-link>
-    <router-link
-      :to="{ name: 'Phrases_Registered' }"
-      class="flex flex-col items-center justify-center w-64 h-32 bg-purple-100 rounded-xl hover:bg-purple-200 shadow-md transition transform hover:-translate-y-1"
-    >
-      <i class="fa-solid fa-book-open text-4xl mb-2"></i>
-      <span class="text-lg font-medium">Registered Phrases</span>
+    <router-link :to="{ name: 'Phrases_Registered' }" class="w-full">
+      <Options_card
+        title="Phrases registered"
+        description="See all reviewed phrases"
+        icon="fa-solid fa-book-open"
+        color="bg-purple-100"
+      />
     </router-link>
   </div>
 </template>
 
+<script setup lang="ts">
+import Options_card from "../components/Options_card.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
 
-<script setup lang="ts"></script>
+const breadCrumbItems = [
+  {
+    label: "Home",
+    route: "Home",
+    isHome: true,
+  },
+  {
+    label: "Phrases",
+  },
+];
+</script>
