@@ -1,5 +1,5 @@
 <template>
-  <FwbCard class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
+  <div class="w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md">
     <div class="flex flex-col gap-2">
       <p>
         <small class="font-bold text-lg">{{ props.user }}</small>
@@ -15,8 +15,9 @@
       <fwb-button-group class="flex justify-between gap-4">
         <fwb-button
           @click="handleAction(false)"
-          class="w-full flex justify-center gap-2 border-[#FF0000] rounded-lg!"
-          color="light"
+          class="w-full flex justify-center gap-2 rounded-lg!"
+          color="red"
+          outline
           ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
         </fwb-button>
         <fwb-button
@@ -27,11 +28,11 @@
         </fwb-button>
       </fwb-button-group>
     </div>
-  </FwbCard>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { FwbCard, FwbButtonGroup, FwbButton } from "flowbite-vue";
+import { FwbButtonGroup, FwbButton } from "flowbite-vue";
 import type { PropType } from "vue";
 import { useRouter } from "vue-router";
 const props = defineProps({

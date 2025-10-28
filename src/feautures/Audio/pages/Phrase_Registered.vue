@@ -40,7 +40,7 @@
       </div>
     </div>
   <section
-    class="w-full p-2 flex flex-col gap-2 justify-center items-center rounded-lg"
+     class="w-full flex justify-center"
   >
     <Request_Phrase_Card_Container
      :country="country" 

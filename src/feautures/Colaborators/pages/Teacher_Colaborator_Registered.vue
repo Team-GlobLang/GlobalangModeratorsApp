@@ -37,7 +37,7 @@
       </div>
     </div>
     <section
-      class="jw-full p-2 flex flex-col gap-2 justify-center items-center rounded-lg"
+      class="w-full flex justify-center"
     >
       <Teacher_Colab_Card_Container :language="language" :selected="selected" />
     </section>

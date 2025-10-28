@@ -31,6 +31,9 @@ const ApprovalQuiz = async (Data: QuizChangeStatus) => {
     const response = await axiosInstance.put(`/Full-Quiz/${id}/approval`, {
       isApproved,
     });
+    if(response.data.success == false ){
+      throw new Error(response?.data?.error.message|| "Error desconocido");
+    }
     return response;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

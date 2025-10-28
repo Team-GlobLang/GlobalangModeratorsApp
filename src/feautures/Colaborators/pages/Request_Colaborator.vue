@@ -30,7 +30,7 @@
         </datalist>
       </div>
     </div>
-  <section class="w-full p-2 flex flex-col gap-2 items-center rounded-lg">
+  <section  class="w-full flex justify-center">
     <Request_Colab_Card_Container :language="language"/>
   </section>
   </div>

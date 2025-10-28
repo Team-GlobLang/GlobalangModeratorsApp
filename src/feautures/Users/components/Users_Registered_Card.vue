@@ -1,5 +1,5 @@
 <template>
-  <FwbCard
+  <div
     class="relative w-full rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
   >
     <span
@@ -33,12 +33,12 @@
         <FwbButton>Change Suscription</FwbButton>
       </div>
     </div>
-  </FwbCard>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { FwbButton, FwbCard } from "flowbite-vue";
+import { FwbButton} from "flowbite-vue";
 
 const props = defineProps({
   user: String,
