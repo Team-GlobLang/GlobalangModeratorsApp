@@ -1,5 +1,5 @@
 <template>
-  <FwbCard
+  <div
     class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
   >
     <div class="flex flex-col gap-2">
@@ -31,11 +31,11 @@
         </fwb-button>
       </fwb-button-group>
     </div>
-  </FwbCard>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { FwbCard, FwbButtonGroup, FwbButton } from "flowbite-vue";
+import { FwbButtonGroup, FwbButton } from "flowbite-vue";
 import type { PropType } from "vue";
 import { useRouter } from "vue-router";
 
