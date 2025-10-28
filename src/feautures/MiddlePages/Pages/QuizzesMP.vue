@@ -6,7 +6,7 @@
     <router-link :to="{ name: 'Request_Quiz' }" class="w-full">
       <Options_card
         title="Pending quizzes"
-        description="Review all quizzes request"
+        description="Review pending quizzes submitted by users. Approve or provide feedback to ensure quality and accuracy."
         icon="fa-solid fa-list"
         color="bg-blue-100"
       />
@@ -14,8 +14,8 @@
 
     <router-link :to="{ name: 'Quizzes_Registered' }" class="w-full">
       <Options_card
-        title="registered quizzes"
-        description="See all reviewed quizzes"
+        title="Registered quizzes"
+        description="Access and review all user-submitted quizzes. Deactivate inappropriate or outdated content to ensure quality standards."
         icon="fa-solid fa-file-lines"
         color="bg-green-100"
       />

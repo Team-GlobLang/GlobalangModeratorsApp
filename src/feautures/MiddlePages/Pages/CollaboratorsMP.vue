@@ -6,7 +6,7 @@
     <router-link :to="{ name: 'Request_Collaborator' }" class="w-full">
       <Options_card
         title="Request collaborators"
-        description="Review all pending collaborators"
+        description="Approve or reject incoming collaborator applications handpick top language experts in seconds."
         icon="fa-solid fa-chalkboard-user"
         color="bg-yellow-100"
       />
@@ -18,7 +18,7 @@
     >
       <Options_card
         title="Registered collaborators"
-        description="See all reviewed collaborators"
+        description="Review past applications, re-evaluate, or remove approved collaborators keep your expert team in top shape."
         icon="fa-solid fa-user-tie"
         color="bg-orange-100"
       />

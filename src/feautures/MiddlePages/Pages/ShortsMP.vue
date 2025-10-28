@@ -6,7 +6,7 @@
     <router-link :to="{ name: 'Request_Audio' }" class="w-full">
       <Options_card
         title="Pending phrases"
-        description="Review all shorts request"
+        description="Review pending audio submissions from users. Approve or reject them to ensure quality and accuracy."
         icon="fa-solid fa-headphones"
         color="bg-pink-100"
       />
@@ -14,7 +14,7 @@
     <router-link :to="{ name: 'Phrases_Registered' }" class="w-full">
       <Options_card
         title="Phrases registered"
-        description="See all reviewed phrases"
+        description="Access and replay validated user recordings to monitor mastery of colloquialisms and pronunciation excellence."
         icon="fa-solid fa-book-open"
         color="bg-purple-100"
       />
