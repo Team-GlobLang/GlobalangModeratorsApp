@@ -16,12 +16,6 @@
       <FwbButton @click="handleStart" class="w-full md:w-2/3 py-2 text-lg">
         Start
       </FwbButton>
-      <button
-        @click="router.push('/register')"
-        class="text-blue-600 text-sm text-center hover:underline w-full mt-2"
-      >
-        Don't have an account? Sign up
-      </button>
     </div>
   </div>
 </template>
@@ -34,7 +28,7 @@ import { useRouter } from "vue-router";
 import { UseSingInWithToken } from "../Hooks/useSingInWhitToken";
 
 const router = useRouter();
-const isNative = !Capacitor.isNativePlatform();
+const isNative = Capacitor.isNativePlatform();
 
 const containerHeight = computed(() =>
   isNative ? "min-h-[95dvh]" : "min-h-screen"

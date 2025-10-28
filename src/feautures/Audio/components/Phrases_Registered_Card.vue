@@ -23,7 +23,7 @@
         </small>
       </span>
 
-      <div class="w-full flex gap-4 justify-around">
+      <div class="w-full flex gap-4 justify-between">
         <FwbButton
           color="red"
           outline
@@ -42,7 +42,7 @@
           @click="toggle"
         >
           <p class="flex flex-row items-center justify-center gap-2">
-            <span>Play audio</span>
+            <span>Play</span>
             <i
               class="pi"
               :class="localPlaying ? 'pi-pause-circle' : 'pi-play-circle'"

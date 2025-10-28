@@ -7,16 +7,11 @@ import type { ApiError } from "@core/types/ApiError";
 const UseApprovalQuiz = () => {
   const mutation = useMutation({
     mutationFn: (data: QuizChangeStatus) =>
-      toast.promise(
-        ApprovalQuiz(data).then((response) => {
-          return response;
-        }),
-        {
-          loading: "Please wait...",
-          success: h("span", `The action was completed successfully.`),
-          error: (error: ApiError) => h("span", `${error.message}`),
-        }
-      ),
+      toast.promise(ApprovalQuiz(data), {
+        loading: "Please wait...",
+        success: h("span", `The action was completed successfully.`),
+        error: (error: ApiError) => h("span", `${error.message}`),
+      }),
   });
 
   return mutation;

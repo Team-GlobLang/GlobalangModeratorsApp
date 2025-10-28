@@ -30,7 +30,7 @@ import GenerateRecoveryCode from '../Components/RecoveryCode.vue';
 import { Capacitor } from '@capacitor/core';
 import { computed } from 'vue';
 
-const isNative = !Capacitor.isNativePlatform();
+const isNative = Capacitor.isNativePlatform();
 
 const containerHeight = computed(() =>
    isNative ? 'min-h-[95dvh]' : 'min-h-screen'
