@@ -34,7 +34,7 @@ import { useRouter } from "vue-router";
 import { UseSingInWithToken } from "../Hooks/useSingInWhitToken";
 
 const router = useRouter();
-const isNative = !Capacitor.isNativePlatform();
+const isNative = Capacitor.isNativePlatform();
 
 const containerHeight = computed(() =>
   isNative ? "min-h-[95dvh]" : "min-h-screen"
