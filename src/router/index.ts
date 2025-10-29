@@ -121,7 +121,6 @@ const routes = [
         path: "review/:id",
         name: "Review_Quiz",
         component: Review_Quiz,
-        props: true,
       },
       {
         path: "review-registered/:id",

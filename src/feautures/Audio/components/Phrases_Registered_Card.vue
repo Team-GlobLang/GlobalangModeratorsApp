@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
+  <div
+    class="w-full relative rounded-lg p-4 bg-white shadow-gray-300 shadow-md"
   >
     <div class="flex flex-col gap-2">
       <span
