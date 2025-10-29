@@ -41,7 +41,7 @@
             props.active ? "Deactivate account" : "Activate account"
           }}</FwbButton
         >
-        <FwbButton>Change Suscription</FwbButton>
+        <FwbButton @click="handleMembership()">Change Suscription</FwbButton>
       </div>
     </div>
   </div>
@@ -58,11 +58,25 @@ const props = defineProps({
   age: Number,
   suscripcion: String,
   end_date: String,
+  start_date: String,
+  renue_date: String,
   role: String,
   active: Boolean,
   onAction: {
     type: Function as PropType<
       (payload: { id: string; isActive: boolean }) => void
+    >,
+    required: false,
+  },
+  onChangeMembership: {
+    type: Function as PropType<
+      (payload: {
+        id: string;
+        membership: string | undefined;
+        startDate: string | undefined;
+        renuewedDate: string | undefined;
+        expirationDate: string | undefined;
+      }) => void
     >,
     required: false,
   },
@@ -82,6 +96,16 @@ const handleAction = (isActive: boolean) => {
   props.onAction?.({
     id: props.id!,
     isActive,
+  });
+};
+
+const handleMembership = () => {
+  props.onChangeMembership?.({
+    id: props.id!,
+    membership: props.suscripcion,
+    startDate: props.start_date,
+    renuewedDate: props.renue_date,
+    expirationDate: props.end_date,
   });
 };
 </script>

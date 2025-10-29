@@ -11,8 +11,11 @@
       :email="item.email"
       :suscripcion="item.membership || 'Free trial'"
       :end_date="item.membershipExpiration"
+      :start_date="item.membershipStartDate"
+      :renue_date="item.membershipRenewDate"
       :active="item.isActived"
       :onAction="handleAction"
+      :onChangeMembership="handleMembershipState"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -39,6 +42,17 @@
       @close="modalState.isOpen = false"
       :isActive="modalState.isActive"
       :idUser="modalState.userId"
+      @completed="handleCompleted"
+    />
+    <ChangeSuscriptionModal
+      :isOpen="modalMembershipState.isOpen"
+      @close="modalMembershipState.isOpen = false"
+      :userId="modalMembershipState.userId"
+      :userMembership="modalMembershipState.userMembership"
+      :membershipStartDay="modalMembershipState.startDate"
+      :membershipRenewedDay="modalMembershipState.renuewedDate"
+      :membershipExpirationDay="modalMembershipState.expirationDate"
+      @completed="handleCompleted"
     />
   </div>
 </template>
@@ -46,13 +60,14 @@
 <script setup lang="ts">
 import Users_Registered_Card from "./Users_Registered_Card.vue";
 import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
-import { useInfiniteQuery } from "@tanstack/vue-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/vue-query";
 import { GetUsersFiltered } from "../services/UserServices";
 import type { User } from "../interfaces/User";
 import GoToStart from "@components/microcomponents/GoToStart.vue";
 import type { PaginatedResponse } from "@ComonResponse";
 import NotFound from "@NotFound";
 import ActiveAccountModal from "./modals/ActiveAccountModal.vue";
+import ChangeSuscriptionModal from "./modals/ChangeSuscriptionModal.vue";
 
 const props = defineProps<{
   country: string | undefined;
@@ -66,7 +81,7 @@ const {
   hasNextPage,
   isFetchingNextPage,
   isPending,
-  //refetch,
+  refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<User>, Error>({
   queryKey: computed(() => ["Users_Registered", props.email, props.country]),
@@ -88,9 +103,10 @@ const {
   },
 });
 
-const Users = computed(
-  () => data.value?.pages.flatMap((page) => page.data) ?? []
-);
+const Users = computed(() => {
+  const users = data.value?.pages.flatMap((page) => page.data) ?? [];
+  return users;
+});
 
 const onScroll = async () => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -129,6 +145,44 @@ const handleAction = ({ id, isActive }: { id: string; isActive: boolean }) => {
   modalState.isActive = isActive;
   modalState.isOpen = true;
 };
+
+const modalMembershipState = reactive({
+  isOpen: false,
+  userMembership: "" as string | undefined,
+  userId: "",
+  startDate: "" as string | undefined,
+  renuewedDate: "" as string | undefined,
+  expirationDate: "" as string | undefined,
+});
+
+const handleMembershipState = ({
+  id,
+  membership,
+  startDate,
+  renuewedDate,
+  expirationDate,
+}: {
+  id: string;
+  membership: string | undefined;
+  startDate: string | undefined;
+  renuewedDate: string | undefined;
+  expirationDate: string | undefined;
+}) => {
+  modalMembershipState.userId = id;
+  modalMembershipState.userMembership = membership;
+  modalMembershipState.startDate = startDate;
+  modalMembershipState.renuewedDate = renuewedDate;
+  modalMembershipState.expirationDate = expirationDate;
+  modalMembershipState.isOpen = true;
+};
+const queryClient = useQueryClient();
+const handleCompleted = () => {
+  queryClient.invalidateQueries({
+    queryKey: ["Users_Registered", props.email, props.country],
+  });
+  refetch();
+};
+
 onMounted(() => {
   window.addEventListener("scroll", onScroll);
 });
