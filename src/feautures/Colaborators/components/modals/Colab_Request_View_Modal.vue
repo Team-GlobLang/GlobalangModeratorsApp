@@ -61,22 +61,20 @@ import { computed, ref, watch } from "vue";
 import { Status } from "../../interfaces/ColaboratorRequestInterface";
 import type { ColaboratorRequestChangeStatus } from "../../interfaces/ColaboratorRequestChangeStatusInterface";
 import { UseChangeRequestStatus } from "../../hooks/UseChangeRequestStatus";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    
   },
 
   typeAction: {
     type: Boolean,
-    
   },
 
   idRequest: {
     type: String,
-    required:true
+    required: true,
   },
   isRegistered: {
     type: Boolean,
@@ -100,24 +98,22 @@ const Data = ref<ColaboratorRequestChangeStatus>({
   status: props.typeAction ? `${Status.ACCEPTED}` : `${Status.REJECTED}`,
 });
 
+const router = useRouter();
+const route = useRoute();
 const HandleAction = async () => {
   const colaboratorRequestChangeStatus: ColaboratorRequestChangeStatus = {
     id: Data.value.id,
     status: Data.value.status,
   };
-  try {
-    await mutationChangeRequest.mutate(colaboratorRequestChangeStatus);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  } catch (err) {
-    console.log("Error al rechazar solicitud");
-  }
-};
-
-const router = useRouter();
-
-const HandleViewRequest = () => {
-  router.push({
-    name: "Request_colaborator",
+  mutationChangeRequest.mutate(colaboratorRequestChangeStatus, {
+    onSuccess: () => {
+      emit("completed");
+      if (route.path.includes("/registered/teachers")) {
+        return;
+      } else {
+        router.replace({ name: "Request_Collaborator" });
+      }
+    },
   });
 };
 
@@ -146,7 +142,6 @@ const handleAction = () => {
   HandleAction();
   emit("close");
   emit("completed");
-  HandleViewRequest();
 };
 
 const closeModal = () => {

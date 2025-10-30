@@ -1,70 +1,127 @@
 <template>
-  <div class="grid grid-cols-2 w-full">
-    <span class="text-left text-lg font-bold">Full name:</span>
-    <span class="text-left text-base">{{ props.name }}</span>
-  </div>
-  <div class="grid grid-cols-2 w-full">
-    <span class="text-left text-lg font-bold">Email:</span>
-    <span class="text-left text-base">{{ props.email }}</span>
-  </div>
-  <div class="grid grid-cols-2 w-full">
-    <span class="text-left text-lg font-bold">Languages spoken:</span>
-    <span class="text-left text-base">{{ props.Languages }}</span>
-  </div>
-  <div class="grid grid-cols-2 w-full">
-    <span class="text-left text-lg font-bold">Details:</span>
-    <p class="text-left">
-      {{ props.message }}
-    </p>
-  </div>
+  <div
+    class="w-11/12 mx-auto bg-white rounded-3xl shadow-xl p-8 space-y-8 border border-gray-200 transition animate-fade-in"
+  >
+    <div class="space-y-5">
+      <h3 class="text-xl font-bold text-gray-900 pb-2 border-b">
+        {{ props.name }} Info
+      </h3>
 
-  <div v-if="selectedFile" class="w-full mt-4">
-    <div class="relative border rounded-lg overflow-hidden shadow-md">
-      <iframe
-        :src="selectedFile"
-        class="w-full h-[600px]"
-        frameborder="0"
-      ></iframe>
-      <button
-        @click="selectedFile = undefined"
-        class="absolute top-2 left-2 bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700"
+      <div class="flex justify-between items-start">
+        <span
+          class="text-sm font-semibold text-gray-500 uppercase tracking-wide"
+          >Full name</span
+        >
+        <span class="text-gray-900 text-base font-medium text-right break-all">
+          {{ props.name }}
+        </span>
+      </div>
+
+      <div class="flex justify-between items-start">
+        <span
+          class="text-sm font-semibold text-gray-500 uppercase tracking-wide"
+          >Email</span
+        >
+        <span class="text-gray-900 text-base font-medium text-right break-all">
+          {{ props.email }}
+        </span>
+      </div>
+
+      <div class="flex justify-between items-start">
+        <span
+          class="text-sm font-semibold text-gray-500 uppercase tracking-wide"
+          >Languages</span
+        >
+        <span
+          class="text-gray-900 text-sm bg-blue-100 px-2 py-0.5 rounded-md font-medium"
+        >
+          {{ props.Languages }}
+        </span>
+      </div>
+
+      <div v-if="props.message" class="flex flex-col">
+        <span
+          class="text-sm font-semibold text-gray-500 uppercase tracking-wider"
+          >Details</span
+        >
+        <p
+          class="mt-2 text-gray-800 leading-relaxed bg-gray-50 p-4 rounded-xl whitespace-pre-line shadow-inner"
+        >
+          {{ props.message }}
+        </p>
+      </div>
+    </div>
+
+    <div
+      v-if="props.filesUrls && props.filesUrls.length > 0"
+      class="grid grid-cols-3 md:grid-cols-4 gap-6 mt-4"
+    >
+      <template v-if="props.category === 'COLABORATOR'">
+        <div class="mt-4">
+          <span
+            class="text-sm font-semibold text-gray-500 uppercase tracking-wide"
+          >
+            Pronunciation example
+          </span>
+          <audio
+            class="mt-2"
+            v-for="(url, index) in props.filesUrls"
+            :key="index"
+            controls
+            :src="url"
+          ></audio>
+        </div>
+      </template>
+      <template v-else>
+        <div
+          v-for="(url, index) in props.filesUrls"
+          :key="index"
+          @click="
+            openFile(url);
+            isModalOpen = true;
+          "
+          class="cursor-pointer group relative bg-gray-100 hover:bg-blue-600 hover:text-white transition p-4 rounded-2xl shadow-sm flex flex-col items-center gap-3"
+        >
+          <i class="pi pi-file text-4xl group-hover:text-white"></i>
+          <span class="text-xs font-medium text-center w-full truncate">
+            Document {{ index + 1 }}
+          </span>
+
+          <span
+            class="absolute top-2 right-2 text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition"
+          >
+            Preview
+          </span>
+        </div>
+        <ViewFileMd v-model="isModalOpen" :file="selectedFile" />
+      </template>
+    </div>
+    <div class="flex w-full justify-between gap-6 pt-4">
+      <FwbButton
+        @click="handleAction(false)"
+        color="light"
+        class="w-full flex items-center justify-center gap-2 rounded-xl border border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-700 transition font-medium py-3"
       >
-        Cerrar
-      </button>
+        <i class="pi pi-times"></i>
+        Reject
+      </FwbButton>
+
+      <FwbButton
+        @click="handleAction(true)"
+        color="green"
+        class="w-full flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-700 text-white transition font-medium py-3 shadow-md"
+      >
+        <i class="pi pi-check"></i>
+        Approve
+      </FwbButton>
     </div>
   </div>
-
-  <div
-    v-if="props.filesUrls && props.filesUrls.length > 0 && !selectedFile"
-    class="flex flex-wrap gap-2"
-  >
-    <i
-      v-for="(url, index) in props.filesUrls"
-      :key="index"
-      @click="() => openFile(url)"
-      class="pi pi-file hover:bg-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-      style="font-size: 2.5rem"
-    ></i>
-  </div>
-  <fwb-button-group class="flex w-full justify-between gap-4">
-    <fwb-button
-      @click="handleAction(false)"
-      class="w-full flex justify-center gap-2 border-[#FF0000] rounded-lg!"
-      color="light"
-      ><i class="pi pi-trash text-[#FF0000]"></i> <span>Reject</span>
-    </fwb-button>
-    <fwb-button
-      @click="handleAction(true)"
-      class="w-full flex justify-center gap-2 rounded-lg!"
-      color="green"
-      ><i class="pi pi-cloud-upload"></i> <span>Approve</span>
-    </fwb-button>
-  </fwb-button-group>
 </template>
 
 <script setup lang="ts">
 import { ref, type PropType } from "vue";
-import { FwbButtonGroup, FwbButton } from "flowbite-vue";
+import { FwbButton } from "flowbite-vue";
+import ViewFileMd from "./modals/ViewFileMd.vue";
 const props = defineProps({
   id_item: {
     type: String,
@@ -91,9 +148,8 @@ const props = defineProps({
     >,
     required: false,
   },
+  category: String,
 });
-
-const selectedFile = ref<string>();
 
 const handleAction = (isAccepted: boolean) => {
   props.onAction?.({
@@ -105,6 +161,9 @@ const handleAction = (isAccepted: boolean) => {
 const openFile = (url: string) => {
   selectedFile.value = url;
 };
+
+const selectedFile = ref<string | null>(null);
+const isModalOpen = ref(false);
 </script>
 
 <style scoped></style>

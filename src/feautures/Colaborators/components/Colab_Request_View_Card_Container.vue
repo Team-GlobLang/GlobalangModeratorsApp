@@ -9,6 +9,7 @@
     :id_item="props.id"
     :files-urls="colaborator.filesUrls"
     :onAction="handleAction"
+    :category="colaborator.category"
   />
 
   <div
@@ -23,13 +24,12 @@
     @close="modalState.isOpen = false"
     :typeAction="modalState.isAccepted"
     :idRequest="modalState.requestId"
-    @completed="handleCompleted"
   />
 </template>
 
 <script setup lang="ts">
 import Colaborator_Request_View_Card from "./Colaborator_Request_View_Card.vue";
-import { computed, onMounted, reactive } from "vue";
+import { computed, reactive } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { GetColaboratorRequestById } from "../services/ColaboratorServices";
 import Colab_Request_View_Modal from "./modals/Colab_Request_View_Modal.vue";
@@ -41,7 +41,7 @@ const props = defineProps({
   },
 });
 
-const { data, isLoading, refetch } = useQuery({
+const { data, isLoading } = useQuery({
   queryKey: ["Collab_Request_View", props.id],
   queryFn: () => GetColaboratorRequestById(props.id || ""),
 });
@@ -65,13 +65,7 @@ const handleAction = ({
   modalState.isAccepted = isAccepted;
   modalState.isOpen = true;
 };
-const handleCompleted = () => {
-  refetch();
-};
 
-onMounted(() => {
-  refetch();
-});
 </script>
 
 <style scoped></style>

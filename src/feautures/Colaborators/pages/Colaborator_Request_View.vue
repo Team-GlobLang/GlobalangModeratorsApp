@@ -1,7 +1,7 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
   <section
-    class="flex flex-col gap-6 justify-center items-center bg-[#F6F6F6] p-4 rounded-lg text-sm"
+    class="flex flex-col gap-6 justify-center items-center pt-4 rounded-lg text-sm"
   >
     <Colab_Request_View_Card_Container :id="props.id" />
   </section>
