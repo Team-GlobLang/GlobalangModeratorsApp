@@ -60,7 +60,7 @@ const breadCrumbItems = [
   },
 ];
 
-const MAX_INITIAL = 10;
+const MAX_INITIAL = 5;
 
 const allLanguages = computed(() => {
   const languagesSet = new Set<string>();
@@ -88,7 +88,21 @@ const {
 } = useField<string>("language");
 
 const isNative = Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
+const stickyTopPading = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
 </script>
 
-<style scoped></style>
+<style scoped>
+input[list="countries"] {
+  background-color: #f1f4fb !important;
+  position: relative;
+  z-index: 1;
+}
+
+input[list="countries"]:focus::after {
+  content: "";
+  position: fixed;
+  inset: 0; 
+  background-color: #f1f4fb;
+  z-index: -1;
+}
+</style>
