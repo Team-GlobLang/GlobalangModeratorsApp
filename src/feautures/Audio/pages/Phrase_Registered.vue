@@ -74,12 +74,12 @@ const breadCrumbItems = [
 ];
 
 const isNative = Capacitor.isNativePlatform();
-const stickyTopPadding = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
+const stickyTopPadding = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const { value: country, errorMessage: countryError } =
   useField<{ country: string }["country"]>("country");
 
-const MAX_INITIAL = 5;
+const MAX_INITIAL = 10;
 const filteredCountries = computed(() => {
   if (!country.value) return countries.slice(0, MAX_INITIAL);
   return countries.filter((c) =>
@@ -94,18 +94,4 @@ const status = [
 ];
 </script>
 
-<style scoped>
-input[list="countries"] {
-  background-color: #f1f4fb !important;
-  position: relative;
-  z-index: 1;
-}
-
-input[list="countries"]:focus::after {
-  content: "";
-  position: fixed;
-  inset: 0; 
-  background-color: #f1f4fb;
-  z-index: -1;
-}
-</style>
+<style scoped></style>
