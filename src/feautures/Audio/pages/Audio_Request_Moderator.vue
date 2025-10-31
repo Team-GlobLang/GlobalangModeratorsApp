@@ -6,13 +6,16 @@
       </div>
 
       <div class="w-11/12 mx-auto">
-        <FwbInput
-          list="countries"
+        <div ref="countryBoxRef" class ="relative w-full">
+         <FwbInput
           v-model="country"
           type="text"
           :validation-status="countryError ? 'error' : undefined"
           label="Country"
           placeholder="Ej: Costa Rica"
+           @focus="showList = true"
+           @input="showList = true"
+           @keydown.esc="showList = false"
         >
           <template #suffix>
             <span class="pi pi-home"></span>
@@ -21,16 +24,20 @@
             <span class="font-medium">{{ countryError }}</span>
           </template>
         </FwbInput>
-
-        <datalist id="countries">
-          <option
-            v-for="countryItem in filteredCountries"
-            :key="countryItem.code"
-            :value="countryItem.name"
+        <ul
+            v-if="showList && filteredCountries.length"
+            class="absolute top-full left-0 right-0 z-50 w-full bg-white shadow-md border rounded-md mt-1 max-h-48 overflow-y-auto"
           >
-            {{ countryItem.name }}
-          </option>
-        </datalist>
+            <li
+              v-for="c in filteredCountries"
+              :key="c.code"
+              class="px-3 py-2 cursor-pointer hover:bg-amber-100"
+              @mousedown.prevent="selectCountry(c.name)"
+            >
+              {{ c.name }}
+            </li>
+          </ul>
+       </div>
       </div>
     </div>
 
@@ -41,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { Capacitor } from "@capacitor/core";
 import { countries } from "@core/CountriesArray";
 import { useField } from "vee-validate";
@@ -69,30 +76,36 @@ const { value: country, errorMessage: countryError } =
 const isNative = Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
 
- const MAX_INITIAL = 5;
+ const showList = ref(false);
 
 const filteredCountries = computed(() => {
-   if (!country.value) { 
-    return countries.slice(0, MAX_INITIAL); 
-  } 
-  return countries.filter((c) => 
-  c.name.toLowerCase().includes(country.value.toLowerCase()) 
-); 
+  const search = country.value?.toLowerCase() ?? "";
+  const list = search
+    ? countries.filter((c) => c.name.toLowerCase().includes(search))
+    : countries;
+
+  return list;
+});
+
+function selectCountry(name:string) {
+  country.value = name;
+  showList.value = false;
+}
+
+watch(country, (val) => {
+  if (!val?.trim()) showList.value = false;
+});
+
+const countryBoxRef = ref<HTMLElement | null>(null);
+function handlePointerDown(e: PointerEvent) {
+  const root = countryBoxRef.value;
+  if (!root) return;
+  if (!root.contains(e.target as Node)) showList.value = false;
+}
+onMounted(() => {
+  window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("pointerdown", handlePointerDown);
 });
 </script>
-
-<style  scoped>
-input[list="countries"] {
-  background-color: #f1f4fb !important;
-  position: relative;
-  z-index: 1;
-}
-
-input[list="countries"]:focus::after {
-  content: "";
-  position: fixed;
-  inset: 0; 
-  background-color: #f1f4fb;
-  z-index: -1;
-}
-</style>

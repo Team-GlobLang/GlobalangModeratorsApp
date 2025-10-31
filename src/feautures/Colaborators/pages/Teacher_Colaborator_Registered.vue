@@ -6,28 +6,39 @@
       </div>
 
       <div class="w-11/12 mx-auto flex flex-col gap-3">
-        <FwbInput
-          list="languages"
-          v-model="language"
-          type="text"
-          :validation-status="languageError ? 'error' : undefined"
-          @blur="languageBlur"
-          label="Choose a language"
-          placeholder="Ej: Spanish, English"
-        >
-          <template #suffix>
-            <span class="pi pi-language"></span>
-          </template>
-          <template #validationMessage>
-            <span class="font-medium">{{ languageError }}</span>
-          </template>
-        </FwbInput>
+         <div ref="langBoxRef" class="relative w-full">
+          <FwbInput
+            v-model="language"
+            type="text"
+            :validation-status="languageError ? 'error' : undefined"
+            label="Choose a language"
+            placeholder="Ej: Spanish, English"
+            @focus="openLangList"
+            @input="openLangList"
+            @keydown.esc.prevent="closeLangList"
+          >
+            <template #suffix>
+              <span class="pi pi-language"></span>
+            </template>
+            <template #validationMessage>
+              <span class="font-medium">{{ languageError }}</span>
+            </template>
+          </FwbInput>
 
-        <datalist id="languages">
-          <option v-for="lang in filteredLanguages" :key="lang" :value="lang">
-            {{ lang }}
-          </option>
-        </datalist>
+          <ul
+            v-if="showLangList && filteredLanguages.length"
+            class="absolute top-full left-0 right-0 z-[60] w-full bg-white shadow-md border rounded-md mt-1 max-h-60 overflow-y-auto"
+          >
+            <li
+              v-for="lang in filteredLanguages"
+              :key="lang"
+              class="px-3 py-2 cursor-pointer hover:bg-amber-100"
+              @mousedown.prevent="selectLanguage(lang)"
+            >
+              {{ lang }}
+            </li>
+          </ul>
+        </div>
 
         <FwbSelect
           v-model="selected"
@@ -45,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Teacher_Colab_Card_Container from "../components/Teacher_Colab_Card_Container.vue";
 import BreadCrumb from "@layouts/BreadCrumb.vue";
 import { countries } from "@core/CountriesArray";
@@ -68,26 +79,51 @@ const breadCrumbItems = [
   },
 ];
 
+/// se cambiaron muchas cosas para que funcionara correctamente el filtro
 const MAX_INITIAL = 5;
 
 const allLanguages = computed(() => {
-  const languagesSet = new Set<string>();
-  countries.forEach((country) => {
-    country.languages.forEach((lang) => {
-      languagesSet.add(lang);
-    });
-  });
-  return Array.from(languagesSet).sort();
+  const set = new Set<string>();
+  countries.forEach((c) => c.languages.forEach((l) => set.add(l)));
+  return Array.from(set).sort();
 });
 
+
+const showLangList = ref(false);
+const { 
+  value: language, 
+  errorMessage: languageError 
+} = useField<string>("language");
+
 const filteredLanguages = computed(() => {
-  if (!language.value) {
-    return allLanguages.value.slice(0, MAX_INITIAL);
-  }
-  return allLanguages.value.filter((lang) =>
-    lang.toLowerCase().includes(language.value.toLowerCase())
-  );
+  const q = language.value?.toLowerCase() ?? "";
+  if (!q) return allLanguages.value.slice(0, MAX_INITIAL);
+  return allLanguages.value.filter((l) => l.toLowerCase().includes(q));
 });
+
+function openLangList() {
+  showLangList.value = !!language.value?.trim();
+}
+function closeLangList() {
+  showLangList.value = false;
+}
+function selectLanguage(lang: string) {
+  language.value = lang;
+  closeLangList();
+}
+
+watch(language, (v) => {
+  if (!v?.trim()) closeLangList();
+});
+
+const langBoxRef = ref<HTMLElement | null>(null);
+function onGlobalPointer(e: PointerEvent) {
+  const root = langBoxRef.value;
+  if (!root) return;
+  if (!root.contains(e.target as Node)) closeLangList();
+}
+onMounted(() => window.addEventListener("pointerdown", onGlobalPointer, { passive: true }));
+onBeforeUnmount(() => window.removeEventListener("pointerdown", onGlobalPointer));
 
 const selected = ref("");
 
@@ -99,26 +135,4 @@ const status = [
 
 const isNative = Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
-
-const {
-  value: language,
-  errorMessage: languageError,
-  handleBlur: languageBlur,
-} = useField<string>("language");
 </script>
-
-<style  scoped>
-input[list="countries"] {
-  background-color: #f1f4fb !important;
-  position: relative;
-  z-index: 1;
-}
-
-input[list="countries"]:focus::after {
-  content: "";
-  position: fixed;
-  inset: 0; 
-  background-color: #f1f4fb;
-  z-index: -1;
-}
-</style>
