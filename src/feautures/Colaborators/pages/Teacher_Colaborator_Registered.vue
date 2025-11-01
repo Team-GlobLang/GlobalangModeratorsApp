@@ -134,5 +134,5 @@ const status = [
 ];
 
 const isNative = Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 </script>

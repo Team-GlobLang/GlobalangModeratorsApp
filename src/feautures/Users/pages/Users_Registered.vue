@@ -108,7 +108,7 @@ const { value: country, errorMessage: countryError } =
   useField<{ country: string }["country"]>("country");
 
 const isNative = Capacitor.isNativePlatform();
-const stickyTopPading = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const {
   value: email,

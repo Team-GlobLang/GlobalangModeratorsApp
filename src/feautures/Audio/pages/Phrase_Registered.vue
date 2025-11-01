@@ -80,7 +80,7 @@ const breadCrumbItems = [
 ];
 
 const isNative = Capacitor.isNativePlatform();
-const stickyTopPadding = computed(() => (!isNative ? "top-[5dvh]" : "top-0"));
+const stickyTopPadding = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 
 const { value: country, errorMessage: countryError } =
   useField<{ country: string }["country"]>("country");
