@@ -59,8 +59,8 @@ const breadCrumbItems = [
     label: "Requests",
   },
 ];
-
-const MAX_INITIAL = 10;
+/// se cambiaron muchas cosas para que funcionara correctamente el filtro
+const MAX_INITIAL = 5;
 
 const allLanguages = computed(() => {
   const languagesSet = new Set<string>();
@@ -90,5 +90,3 @@ const {
 const isNative = Capacitor.isNativePlatform();
 const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 </script>
-
-<style scoped></style>
