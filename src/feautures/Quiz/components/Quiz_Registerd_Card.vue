@@ -9,13 +9,14 @@
       >
         {{ props.status ? "Accepted" : "Rejected" }}
       </span>
-      <h2 class="text-lg font-bold">Creado por: {{ props.user }}</h2>
+      <h2 class="text-lg font-bold">Created by: {{ props.user }}</h2>
       <span class="flex flex-col font-light">
         <small class="font-light text-base">Title: {{ props.title }}</small>
         <small class="font-light text-base"
           >Number of questions: {{ props.questionsNUmber }}</small
         >
         <small class="font-light text-base">Country: {{ props.country }}</small>
+        <small class="font-light text-base">written in: {{ props.writtenIn }}</small>
         <small class="font-light text-base"
           >Approve by: {{ props.aprobeBy }}</small
         >
@@ -58,6 +59,9 @@ const props = defineProps({
     type: String,
   },
   aprobeBy: {
+    type: String,
+  },
+  writtenIn: {
     type: String,
   },
   id: {

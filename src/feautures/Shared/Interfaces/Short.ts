@@ -11,4 +11,5 @@ export interface Short {
   reviewComment?: string | null;
   approved?: boolean | null;
   createdAt: Date;
+  writtenIn: string;
 }

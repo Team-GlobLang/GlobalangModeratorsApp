@@ -11,6 +11,7 @@
       :fileUrl="request.fileUrl"
       :onAction="handleAction"
       :country="request.country"
+      :writtenIn="request.writtenIn"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />

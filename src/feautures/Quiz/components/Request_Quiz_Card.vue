@@ -15,6 +15,7 @@
           >Number of questions: {{ props.questionsNUmber }}</small
         >
         <small class="font-light text-base">Country: {{ props.country }}</small>
+        <small class="font-light text-base">written in: {{ props.writtenIn }}</small>
       </span>
       <fwb-button-group class="flex justify-between gap-4">
         <fwb-button
@@ -50,6 +51,9 @@ const props = defineProps({
     type: Number,
   },
   country: {
+    type: String,
+  },
+  writtenIn: {
     type: String,
   },
   id: {
