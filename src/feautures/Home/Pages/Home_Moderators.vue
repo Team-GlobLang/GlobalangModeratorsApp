@@ -1,36 +1,24 @@
 <template>
-  <div class="w-full flex justify-center items-center">
-    <div class="flex flex-col md:flex-row gap-3 w-full max-w-5xl p-4 md:p-8">
-      <template v-if="isPending">
-        <section class="flex-1 space-y-3" v-for="i in 5">
-          <div
-            :key="i"
-            class="h-[16dvh] rounded-2xl shadow-2xl bg-gray-300 animate-pulse"
-          ></div>
-        </section>
-      </template>
+  <div class="p-4">
+    <template v-if="isPending">
+      <div v-for="i in 5" :key="i" class="h-[16dvh] my-4 rounded-2xl shadow-2xl bg-gray-300 animate-pulse" />
+    </template>
 
-      <template v-else>
-        <section class="flex-1">
-          <MyInfo />
-        </section>
-        <section class="flex flex-col gap-3">
-          <div v-for="(card, index) in cards" :key="index">
-            <RedirectionCard :is-pending="isPending" :card-data="card" />
-          </div>
-        </section>
-        <section
-          class="w-full flex flex-wrap justify-center md:justify-between gap-4 bg-white rounded-2xl shadow p-4"
-        >
-          <Stats
-            v-for="(item, index) in stats"
-            :key="index"
-            :data="item"
-            class="flex-1"
-          />
-        </section>
-      </template>
-    </div>
+    <template v-else>
+      <MyInfo />
+      
+      <RedirectionCard
+        v-for="(card, index) in cards"
+        :key="index"
+        :is-pending="isPending"
+        :card-data="card"
+        class="my-4 first:mt-0"
+      />
+
+      <div class="flex gap-4 flex-wrap bg-white rounded-2xl shadow p-4">
+        <Stats class="flex-1" v-for="(item, index) in stats" :key="index" :data="item" />
+      </div>
+    </template>
   </div>
 </template>
 

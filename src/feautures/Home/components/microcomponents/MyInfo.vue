@@ -2,7 +2,7 @@
   <div
     v-if="fullName"
     @click="goto('User_Info')"
-    class="w-full rounded-xl p-4 py-6 flex items-center gap-4 bg-white shadow transition-all md:max-w-md md:mx-auto xl:max-w-lg"
+    class="w-full rounded-xl p-4 py-6 flex items-center gap-4 bg-white shadow transition-all"
   >
     <img
       :src="

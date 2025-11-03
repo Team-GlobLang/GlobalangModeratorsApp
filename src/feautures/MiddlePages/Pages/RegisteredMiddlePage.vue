@@ -1,8 +1,12 @@
 <template>
   <BreadCrumb :items="breadCrumbItems" />
-  <section class="bg-white p-4 rounded-lg">
-    <Registered_Options_Container />
-  </section>
+  <div class="min-h-[80dvh] flex items-center">
+    <div class="container mx-auto px-4">
+      <section class="max-w-5xl mx-auto bg-white p-4 md:p-6 rounded-lg shadow">
+        <Registered_Options_Container />
+      </section>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
