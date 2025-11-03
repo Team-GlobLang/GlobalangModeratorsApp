@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">GLBMod</string>
+    <string name="title_activity_main">GLBMod</string>
+    <string name="package_name">com.globalang.moderators</string>
+    <string name="custom_url_scheme">com.globalang.moderators</string>
+</resources>

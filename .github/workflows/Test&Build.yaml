@@ -31,6 +31,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DH_USER }}/main-globalang:latest
+          tags: ${{ secrets.DH_USER }}/mod-globalang:latest
           build-args: |
             VITE_API_URL=${{ secrets.URL }}
