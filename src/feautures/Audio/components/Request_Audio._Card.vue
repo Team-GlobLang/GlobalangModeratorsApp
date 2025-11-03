@@ -11,6 +11,7 @@
       <span class="flex flex-col">
         <small class="text-lg font-bold">Created by: {{ props.name }}</small>
         <small class="text-base font-light">From: {{ props.country }} </small>
+        <small class="text-base font-light">written in: {{ props.writtenIn }} </small>
         <small class="text-base font-light">Phrase: {{ props.phrase }} </small>
         <small class="text-base font-light"
           >Meaning: {{ props.meaning }}
@@ -78,6 +79,9 @@ const props = defineProps({
   country: {
     type: String,
     requiered: true,
+  },
+  writtenIn: {
+    type: String,
   },
   onAction: {
     type: Function as PropType<

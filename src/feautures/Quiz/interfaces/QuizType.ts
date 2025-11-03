@@ -41,6 +41,7 @@ export interface QuizData extends Quiz {
   creator: string;
   isApproved: boolean | null;
   approvedBy: string;
+  writtenIn: string;
 }
 
 export interface QuizzesFilters extends PaginationDto {

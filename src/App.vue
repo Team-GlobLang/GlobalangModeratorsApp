@@ -8,7 +8,7 @@ const route = useRoute();
 const showBottomBar = computed(() => route.meta.showBottomBar !== false);
 const isNative = Capacitor.isNativePlatform();
 
-const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
+const containerPaddingTop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 </script>
 
 <template>
@@ -22,7 +22,14 @@ const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
   <div v-if="isNative" class="bg-[#193cb8] w-full h-[5dvh] fixed z-50"></div>
   <router-view v-slot="{ Component }">
     <Transition>
-      <div :class="[{ 'pb-14': showBottomBar }, containerPadingop]">
+      <div
+        :class="[containerPaddingTop]"
+        :style="
+          showBottomBar
+            ? `padding-bottom: calc(3.5rem + env(safe-area-inset-bottom))`
+            : ''
+        "
+      >
         <component :is="Component" />
       </div>
     </Transition>
@@ -45,5 +52,11 @@ const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 .page-leave-to {
   transform: rotateY(45deg) rotateX(-5deg);
   opacity: 0;
+}
+
+.safe-bottom {
+  background-color: var(--color-blue-700);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: constant(safe-area-inset-bottom);
 }
 </style>

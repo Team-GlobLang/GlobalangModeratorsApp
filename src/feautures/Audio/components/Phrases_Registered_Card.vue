@@ -12,6 +12,7 @@
       <span class="flex flex-col font-light text-sm">
         <small class="text-lg font-bold">{{ props.phrase }}</small>
         <small class="text-base font-light">From: {{ props.country }} </small>
+        <small class="text-base font-light">written in: {{ props.writtenIn }} </small>
         <small class="text-base font-light"
           >Meaning: {{ props.meaning }}
         </small>
@@ -91,6 +92,9 @@ const props = defineProps({
     type: Boolean,
   },
   country: {
+    type: String,
+  },
+  writtenIn: {
     type: String,
   },
   onAction: {

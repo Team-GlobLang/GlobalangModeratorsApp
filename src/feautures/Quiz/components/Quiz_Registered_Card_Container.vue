@@ -12,6 +12,7 @@
       :questions-n-umber="quiz.numberOfQuestions"
       :status="quiz.isApproved ?? false"
       :onAction="handleAction"
+      :written-in="quiz.writtenIn"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />

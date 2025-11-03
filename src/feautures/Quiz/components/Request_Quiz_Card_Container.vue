@@ -10,6 +10,7 @@
       :country="quizz.country"
       :questionsNUmber="quizz.numberOfQuestions"
       :onAction="handleAction"
+      :writtenIn="quizz.writtenIn"
     />
 
     <GoToStart v-show="showScrollTop" @click="scrollToTop" />
@@ -70,7 +71,7 @@ const {
   refetch,
   isLoading,
 } = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
-  queryKey: computed(() => ["Request_Audios", props.country]),
+  queryKey: computed(() => ["Request_quiz", props.country]),
   queryFn: async ({ pageParam = 1 }) => {
     const page = pageParam as number;
     return await GetQuizzesList({

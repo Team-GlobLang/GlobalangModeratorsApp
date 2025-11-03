@@ -14,6 +14,7 @@
         :status="audio.approved ?? false"
         :onAction="handleAction"
         :country="audio.country"
+        :writtenIn="audio.writtenIn"
       />
     </div>
 
